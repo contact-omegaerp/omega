@@ -1,0 +1,2780 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omega News CMS Tool</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sidebar-bg: #1a1a2e;
+      --sidebar-active: #16213e;
+      --accent: #00A651;
+      --accent-dark: #007a3d;
+      --bg: #f4f5f7;
+      --card-bg: #fff;
+      --text: #1a1a2e;
+      --text-muted: #6c757d;
+      --border: #e2e8f0;
+      --green: #00A651;
+      --red: #dc3545;
+      --orange: #fd7e14;
+      --blue: #1a5fd4;
+      --gray: #6c757d;
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; font-size: 14px; }
+
+    /* ── Sidebar ── */
+    #sidebar {
+      width: 240px; min-height: 100vh; background: var(--sidebar-bg); color: #fff;
+      display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; overflow-y: auto;
+    }
+    .sidebar-logo { padding: 20px 18px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .sidebar-logo h2 { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.3; }
+    .sidebar-logo p { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+    .sidebar-nav { flex: 1; padding: 12px 0; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 11px 18px; cursor: pointer;
+      color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 500;
+      border-left: 3px solid transparent; transition: all 0.18s;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .nav-item.active { background: rgba(0,166,81,0.15); color: #fff; border-left-color: var(--accent); }
+    .nav-item .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+    .nav-step-num {
+      margin-left: auto; background: rgba(255,255,255,0.12); border-radius: 50%;
+      width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700;
+    }
+    .nav-item.active .nav-step-num { background: var(--accent); }
+    .sidebar-footer { padding: 14px 18px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 11px; color: rgba(255,255,255,0.35); }
+
+    /* ── Main ── */
+    #main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* ── Workflow bar ── */
+    #workflow-bar {
+      background: #fff; border-bottom: 1px solid var(--border); padding: 10px 24px;
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap; position: sticky; top: 0; z-index: 50;
+    }
+    .wf-step {
+      display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600;
+      padding: 4px 10px; border-radius: 20px; background: #f0f4f0; color: var(--text-muted);
+      cursor: pointer; transition: all 0.15s;
+    }
+    .wf-step.done { background: rgba(0,166,81,0.1); color: var(--green); }
+    .wf-step.active { background: var(--green); color: #fff; }
+    .wf-step:not(:last-child)::after { content: '›'; margin-left: 8px; color: #ccc; font-size: 14px; }
+    .wf-step .wf-num { background: rgba(0,0,0,0.1); border-radius: 50%; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-size: 9px; }
+
+    /* ── Panels ── */
+    #content { padding: 24px; flex: 1; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .panel-title { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .panel-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 22px; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card-bg); border-radius: 10px; padding: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07); margin-bottom: 18px; border: 1px solid var(--border);
+    }
+    .card-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .card-title span { background: var(--accent); color: #fff; border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; }
+
+    /* ── Buttons ── */
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-secondary { background: #f0f4f0; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: #e8eee8; }
+    .btn-danger { background: var(--red); color: #fff; }
+    .btn-danger:hover { background: #b02a37; }
+    .btn-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+    .btn-outline:hover { background: rgba(0,166,81,0.08); }
+    .btn-sm { padding: 5px 10px; font-size: 12px; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+    /* ── Form ── */
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+    .form-control {
+      width: 100%; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 6px;
+      font-size: 13px; font-family: inherit; background: #fff; color: var(--text);
+      transition: border-color 0.15s; outline: none;
+    }
+    .form-control:focus { border-color: var(--accent); }
+    .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236c757d' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+    .form-range { width: 100%; accent-color: var(--accent); }
+    .input-group { display: flex; gap: 0; }
+    .input-group .form-control { border-radius: 6px 0 0 6px; }
+    .input-group .btn { border-radius: 0 6px 6px 0; }
+
+    /* ── Badges / Status ── */
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .badge-green { background: rgba(0,166,81,0.1); color: var(--green); }
+    .badge-gray { background: rgba(108,117,125,0.1); color: var(--gray); }
+    .badge-orange { background: rgba(253,126,20,0.1); color: var(--orange); }
+    .badge-red { background: rgba(220,53,69,0.1); color: var(--red); }
+    .badge-blue { background: rgba(26,95,212,0.1); color: var(--blue); }
+
+    /* ── Stats row ── */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; margin-bottom: 18px; }
+    .stat-card { background: #fff; border-radius: 10px; padding: 16px; border: 1px solid var(--border); text-align: center; }
+    .stat-num { font-size: 28px; font-weight: 800; color: var(--green); }
+    .stat-label { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+    /* ── Table ── */
+    .table-wrapper { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead { background: #f8f9fa; }
+    th { padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); white-space: nowrap; cursor: pointer; user-select: none; }
+    th:hover { background: #f0f4f0; }
+    td { padding: 9px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fbf8; }
+    .td-slug { font-family: monospace; font-size: 12px; color: var(--blue); }
+    .td-title { max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* ── Checklist ── */
+    .check-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 6px; background: #fff; }
+    .check-item input[type=checkbox] { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
+    .check-item .ci-slug { font-family: monospace; font-size: 12px; flex: 1; color: var(--blue); }
+    .check-item .ci-status { font-size: 11px; }
+    .check-item.exists { background: #f6fbf7; }
+
+    /* ── Progress ── */
+    .progress { height: 8px; background: #e8eee8; border-radius: 4px; overflow: hidden; margin: 8px 0; }
+    .progress-bar { height: 100%; background: var(--accent); transition: width 0.3s; border-radius: 4px; }
+
+    /* ── Image preview ── */
+    .img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; margin-top: 12px; }
+    .img-thumb { aspect-ratio: 1; border-radius: 6px; overflow: hidden; background: #f0f4f0; position: relative; }
+    .img-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .img-thumb .img-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.55); color: #fff; font-size: 9px; padding: 2px 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* ── Media scan ── */
+    .media-section { background: #f8fbf8; border-radius: 8px; padding: 14px; margin-bottom: 12px; border: 1px solid var(--border); }
+    .media-section h4 { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+
+    /* ── Log box ── */
+    .log-box {
+      background: #0f1a0f; color: #aff5b4; font-family: monospace; font-size: 12px;
+      border-radius: 8px; padding: 14px; max-height: 220px; overflow-y: auto;
+      border: 1px solid #1a3a1a; margin-top: 10px; line-height: 1.7;
+    }
+    .log-box .log-err { color: #ff6b6b; }
+    .log-box .log-warn { color: #ffd166; }
+    .log-box .log-ok { color: #06d6a0; }
+
+    /* ── Toast ── */
+    #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+    .toast {
+      background: #fff; border-radius: 8px; padding: 12px 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      font-size: 13px; display: flex; align-items: center; gap: 10px; min-width: 260px;
+      border-left: 4px solid var(--accent); animation: slideIn 0.25s ease; max-width: 360px;
+    }
+    .toast.toast-err { border-left-color: var(--red); }
+    .toast.toast-warn { border-left-color: var(--orange); }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    .toast-icon { font-size: 18px; }
+
+    /* ── Setup status ── */
+    .setup-status { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border); background: #f8fbf8; margin-bottom: 14px; }
+    .setup-dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; flex-shrink: 0; }
+    .setup-dot.ok { background: var(--green); box-shadow: 0 0 0 3px rgba(0,166,81,0.2); }
+    .setup-dot.err { background: var(--red); }
+
+    /* ── Diff preview ── */
+    .diff-box { font-family: monospace; font-size: 11px; background: #f8f9fa; border: 1px solid var(--border); border-radius: 8px; padding: 12px; max-height: 260px; overflow: auto; white-space: pre-wrap; word-break: break-all; margin-top: 10px; }
+    .diff-add { color: #2e7d32; background: rgba(0,166,81,0.07); }
+    .diff-rem { color: #c62828; background: rgba(220,53,69,0.07); }
+
+    /* ── Article preview ── */
+    .article-preview { background: #f6fbf7; border-radius: 8px; padding: 14px; border: 1px solid #c8e6c9; margin-bottom: 14px; }
+    .article-preview h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .article-preview .meta-row { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--text-muted); }
+    .article-preview .meta-row span { display: flex; align-items: center; gap: 4px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      #sidebar { width: 200px; }
+      #main { margin-left: 200px; }
+    }
+
+    /* ── Helpers ── */
+    .mt-1 { margin-top: 6px; }
+    .mt-2 { margin-top: 12px; }
+    .mt-3 { margin-top: 18px; }
+    .mt-4 { margin-top: 24px; }
+    .mb-1 { margin-bottom: 6px; }
+    .mb-2 { margin-bottom: 12px; }
+    .mb-3 { margin-bottom: 18px; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .flex-center { display: flex; align-items: center; gap: 10px; }
+    .text-muted { color: var(--text-muted); }
+    .text-green { color: var(--green); }
+    .text-red { color: var(--red); }
+    .fs-12 { font-size: 12px; }
+    .fw-600 { font-weight: 600; }
+    .hidden { display: none !important; }
+    .warn-box { background: rgba(253,126,20,0.08); border: 1px solid rgba(253,126,20,0.3); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #7d4c00; margin-bottom: 16px; }
+    .info-box { background: rgba(26,95,212,0.06); border: 1px solid rgba(26,95,212,0.2); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #1a3a7a; margin-bottom: 16px; }
+    .gen-list { max-height:420px;overflow-y:auto;border:1px solid var(--border);border-radius:8px; }
+    .gen-list-item { padding:8px 14px;border-bottom:1px solid #f4f5f7; }
+    .gen-list-item:last-child { border-bottom:none; }
+    .gen-list-item label { cursor:pointer;display:flex;align-items:center;gap:8px;width:100%;font-size:13px; }
+    .gen-list-item label:hover { background:#f8fbf8; }
+    .gen-item-title { flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+  </style>
+</head>
+<body>
+
+<!-- ============ SIDEBAR ============ -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <h2>&#9881; Omega News CMS</h2>
+    <p>Browser-based content tool</p>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-item active" data-panel="panel-setup" onclick="showPanel('panel-setup',this)">
+      <span class="nav-icon">&#9881;</span> Thiết lập
+      <span class="nav-step-num">1</span>
+    </div>
+    <div class="nav-item" data-panel="panel-data" onclick="showPanel('panel-data',this)">
+      <span class="nav-icon">&#128196;</span> Dữ liệu bài viết
+      <span class="nav-step-num">2</span>
+    </div>
+    <div class="nav-item" data-panel="panel-folders" onclick="showPanel('panel-folders',this)">
+      <span class="nav-icon">&#128193;</span> Tạo thư mục SLUG
+      <span class="nav-step-num">3</span>
+    </div>
+    <div class="nav-item" data-panel="panel-webp" onclick="showPanel('panel-webp',this)">
+      <span class="nav-icon">&#128247;</span> Chuyển đổi ảnh WebP
+      <span class="nav-step-num">4</span>
+    </div>
+    <div class="nav-item" data-panel="panel-generate" onclick="showPanel('panel-generate',this)">
+      <span class="nav-icon">&#128196;</span> Tạo bài viết HTML
+      <span class="nav-step-num">5</span>
+    </div>
+    <div class="nav-item" data-panel="panel-index" onclick="showPanel('panel-index',this)">
+      <span class="nav-icon">&#128218;</span> Cập nhật chỉ mục
+      <span class="nav-step-num">6</span>
+    </div>
+  </div>
+  <div class="sidebar-footer">omega-news-tool.html v1.0</div>
+</nav>
+
+<!-- ============ MAIN ============ -->
+<div id="main">
+
+  <!-- Workflow bar -->
+  <div id="workflow-bar">
+    <div class="wf-step" id="wf1" onclick="showPanel('panel-setup')"><span class="wf-num">1</span> Thiết lập</div>
+    <div class="wf-step" id="wf2" onclick="showPanel('panel-data')"><span class="wf-num">2</span> Dữ liệu</div>
+    <div class="wf-step" id="wf3" onclick="showPanel('panel-folders')"><span class="wf-num">3</span> Thư mục</div>
+    <div class="wf-step" id="wf4" onclick="showPanel('panel-webp')"><span class="wf-num">4</span> Media</div>
+    <div class="wf-step" id="wf5" onclick="showPanel('panel-generate')"><span class="wf-num">5</span> Tạo HTML</div>
+    <div class="wf-step" id="wf6" onclick="showPanel('panel-index')"><span class="wf-num">6</span> Chỉ mục</div>
+  </div>
+
+  <div id="content">
+
+    <!-- ======== PANEL 1: SETUP ======== -->
+    <div id="panel-setup" class="panel active">
+      <div class="panel-title">&#9881; Thiết lập</div>
+      <div class="panel-desc">Mở thư mục Omega và tải dữ liệu XLSX để bắt đầu.</div>
+
+      <div id="fs-warning" class="warn-box hidden">
+        &#9888; Trình duyệt này không hỗ trợ File System Access API. Một số tính năng sẽ bị giới hạn — bạn chỉ có thể tải XLSX lên và tải HTML xuống (không lưu trực tiếp).
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span>1</span> Chọn thư mục Omega</div>
+        <p class="text-muted fs-12 mb-2">Chọn thư mục <code>omega/</code> — thư mục cha của <code>tin-tuc/</code>.</p>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="pickOmegaDir()">&#128193; Mở thư mục Omega</button>
+          <button class="btn btn-secondary hidden" id="btn-reload-dir" onclick="pickOmegaDir()">&#8635; Chọn lại</button>
+        </div>
+        <div id="dir-status" class="setup-status mt-2" style="display:none;">
+          <div class="setup-dot" id="dir-dot"></div>
+          <div>
+            <div class="fw-600" id="dir-name">—</div>
+            <div class="fs-12 text-muted" id="dir-path">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="card-xlsx">
+        <div class="card-title"><span>2</span> Tải XLSX</div>
+        <p class="text-muted fs-12 mb-2">Tìm <code>tin-tuc/_tools/omega-news-cms.xlsx</code> trong thư mục đã chọn.</p>
+        <div class="btn-group">
+          <button class="btn btn-outline" id="btn-auto-load-xlsx" onclick="autoLoadXlsx()" disabled>&#128196; Tải tự động</button>
+          <button class="btn btn-secondary" id="btn-reload-xlsx" onclick="autoLoadXlsx()">&#8635; Tải lại XLSX</button>
+          <label class="btn btn-secondary" style="cursor:pointer;">
+            &#8679; Tải lên XLSX <input type="file" accept=".xlsx,.xls" style="display:none" onchange="loadXlsxFromFile(this)">
+          </label>
+        </div>
+        <div id="xlsx-status" class="setup-status mt-2" style="display:none;">
+          <div class="setup-dot" id="xlsx-dot"></div>
+          <div>
+            <div class="fw-600" id="xlsx-name">—</div>
+            <div class="fs-12 text-muted" id="xlsx-info">—</div>
+          </div>
+        </div>
+        <div id="xlsx-debug" class="info-box hidden mt-2" style="font-size:12px;"></div>
+      </div>
+
+      <div class="card" id="card-comment-config">
+        <div class="card-title"><span>3</span> GAS Bình luận (Comment Backend)</div>
+        <p class="text-muted fs-12 mb-2">Dán URL Web App sau khi deploy <code>comment.gs</code>. Để trống nếu chưa cấu hình (form vẫn hiện nhưng sẽ không hoạt động).</p>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="text" id="comment-gas-input" class="form-control" style="flex:1;font-size:12px;font-family:monospace;"
+            placeholder="https://script.google.com/macros/s/AKfy.../exec"
+            oninput="COMMENT_GAS_URL = this.value.trim(); saveCommentGasUrl();">
+          <button class="btn btn-secondary btn-sm" onclick="testCommentGas()">&#9654; Test</button>
+        </div>
+        <div id="comment-gas-status" class="fs-12 text-muted mt-1"></div>
+      </div>
+
+      <div id="card-summary" class="hidden">
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-num" id="stat-total">0</div>
+            <div class="stat-label">Tổng bài viết</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num text-green" id="stat-published">0</div>
+            <div class="stat-label">Đã xuất bản</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" style="color:var(--gray)" id="stat-draft">0</div>
+            <div class="stat-label">Bản nháp</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" style="color:var(--orange)" id="stat-featured">0</div>
+            <div class="stat-label">Nổi bật</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== PANEL 2: DATA TABLE ======== -->
+    <div id="panel-data" class="panel">
+      <div class="panel-title">&#128196; Dữ liệu bài viết</div>
+      <div class="panel-desc">Xem, lọc và tìm kiếm tất cả bài viết từ XLSX.</div>
+
+      <div class="card">
+        <div class="flex-center mb-2" style="flex-wrap:wrap;gap:8px;">
+          <input type="text" class="form-control" id="search-box" placeholder="&#128269; Tìm kiếm tiêu đề, slug..." oninput="renderTable()" style="max-width:260px;">
+          <select class="form-control form-select" id="filter-cat" onchange="renderTable()" style="max-width:180px;">
+            <option value="">Tất cả danh mục</option>
+            <option value="chuyen-doi-so">Chuyển đổi số</option>
+            <option value="erp-quan-tri">ERP – Quản trị</option>
+            <option value="ke-toan-tai-chinh">Kế toán – Tài chính</option>
+            <option value="su-kien">Sự kiện</option>
+            <option value="tuyen-dung">Tuyển dụng</option>
+          </select>
+          <select class="form-control form-select" id="filter-status" onchange="renderTable()" style="max-width:160px;">
+            <option value="">Tất cả trạng thái</option>
+            <option value="published">Đã xuất bản</option>
+            <option value="draft">Bản nháp</option>
+          </select>
+          <button class="btn btn-secondary btn-sm" onclick="checkHtmlFiles()">&#128269; Kiểm tra HTML</button>
+        </div>
+        <div class="table-wrapper">
+          <table id="data-table">
+            <thead>
+              <tr>
+                <th onclick="sortTable('ID')">ID &#8597;</th>
+                <th onclick="sortTable('Slug')">Slug &#8597;</th>
+                <th onclick="sortTable('Title')">Tiêu đề &#8597;</th>
+                <th onclick="sortTable('Category')">Danh mục &#8597;</th>
+                <th onclick="sortTable('PublishedDate')">Ngày đăng &#8597;</th>
+                <th onclick="sortTable('Status')">Trạng thái &#8597;</th>
+                <th onclick="sortTable('IsFeatured')">Nổi bật &#8597;</th>
+                <th>Đã tạo HTML</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:32px;">Chưa có dữ liệu — hãy tải XLSX trong phần Thiết lập</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="table-count" class="fs-12 text-muted mt-1"></div>
+      </div>
+    </div>
+
+    <!-- ======== PANEL 3: FOLDERS ======== -->
+    <div id="panel-folders" class="panel">
+      <div class="panel-title">&#128193; Tạo thư mục SLUG</div>
+      <div class="panel-desc">Tạo các thư mục con trong <code>tin-tuc/</code> theo slug bài viết.</div>
+
+      <div class="card">
+        <div class="form-group">
+          <label class="form-label">Thư mục đích (tương đối so với thư mục Omega)</label>
+          <input type="text" class="form-control" id="folder-target" value="tin-tuc/" style="max-width:300px;">
+        </div>
+        <div class="btn-group mb-2">
+          <button class="btn btn-secondary btn-sm" onclick="selectAllFolders(true)">&#9745; Chọn tất cả</button>
+          <button class="btn btn-secondary btn-sm" onclick="selectAllFolders(false)">&#9744; Bỏ chọn</button>
+          <button class="btn btn-secondary btn-sm" onclick="refreshFolderList()">&#8635; Làm mới</button>
+          <button class="btn btn-primary" onclick="createSelectedFolders()">&#128193; Tạo thư mục đã chọn</button>
+        </div>
+        <div id="folder-list">
+          <p class="text-muted fs-12">Chưa có dữ liệu bài viết.</p>
+        </div>
+        <div id="folder-log" class="log-box hidden" style="margin-top:12px;"></div>
+      </div>
+    </div>
+
+    <!-- ======== PANEL 4: WEBP ======== -->
+    <div id="panel-webp" class="panel">
+      <div class="panel-title">&#128247; Chuyển đổi ảnh WebP</div>
+      <div class="panel-desc">Chọn thư mục chứa ảnh và chuyển đổi sang định dạng WebP.</div>
+
+      <div class="card">
+        <div class="btn-group mb-3">
+          <button class="btn btn-primary" onclick="pickImageDir()">&#128193; Chọn thư mục ảnh</button>
+          <span id="img-dir-name" class="text-muted fs-12"></span>
+        </div>
+
+        <div class="row2">
+          <div class="form-group">
+            <label class="form-label">Chất lượng: <span id="quality-val">85</span>%</label>
+            <input type="range" class="form-range" id="webp-quality" min="1" max="100" value="85" oninput="document.getElementById('quality-val').textContent=this.value">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Chiều rộng tối đa (px, để trống = giữ nguyên)</label>
+            <input type="number" class="form-control" id="max-width" placeholder="Ví dụ: 1920">
+          </div>
+        </div>
+
+        <div id="img-file-list" class="hidden">
+          <div class="flex-center mb-2" style="flex-wrap:wrap;gap:8px;">
+            <span class="badge badge-green" id="img-count-src">0 ảnh nguồn</span>
+            <span class="badge badge-gray" id="img-count-webp">0 đã là WebP</span>
+          </div>
+          <div id="img-grid-preview" class="img-grid"></div>
+          <div class="btn-group mt-3">
+            <button class="btn btn-primary" id="btn-convert-all" onclick="convertAllImages()">&#9889; Chuyển đổi tất cả</button>
+            <button class="btn btn-secondary hidden" id="btn-download-zip" onclick="downloadWebpZip()">&#8659; Tải về ZIP</button>
+            <button class="btn btn-outline hidden" id="btn-save-webp" onclick="saveWebpToFolder()">&#128190; Lưu vào thư mục</button>
+          </div>
+        </div>
+
+        <div id="webp-progress" class="hidden mt-2">
+          <div class="flex-center mb-1">
+            <span class="fs-12 fw-600" id="webp-progress-label">Đang chuyển đổi...</span>
+            <span class="fs-12 text-muted" id="webp-progress-count"></span>
+          </div>
+          <div class="progress"><div class="progress-bar" id="webp-progress-bar" style="width:0%"></div></div>
+        </div>
+        <div id="webp-log" class="log-box hidden mt-2"></div>
+      </div>
+    </div>
+
+    <!-- ======== PANEL 5: GENERATE HTML ======== -->
+    <div id="panel-generate" class="panel">
+      <div class="panel-title">&#128196; Tạo bài viết HTML</div>
+      <div class="panel-desc">Chọn bài viết → Tạo HTML. Media quét tự động, chỉ mục cập nhật ngay sau khi tạo.</div>
+
+      <div class="card">
+        <div class="card-title"><span>1</span> Chọn bài viết cần tạo</div>
+        <div class="btn-group mb-2">
+          <button class="btn btn-secondary btn-sm" onclick="selectAllPublished()">&#10003; Chọn tất cả đã xuất bản</button>
+          <button class="btn btn-secondary btn-sm" onclick="deselectAllArticles()">&#215; Bỏ chọn tất cả</button>
+        </div>
+        <div id="gen-article-list" class="gen-list"></div>
+      </div>
+
+      <div class="card mt-2">
+        <div class="btn-group">
+          <button class="btn btn-primary" id="btn-gen-selected" onclick="generateSelected()">&#128190; Tạo HTML bài đã chọn</button>
+          <button class="btn btn-secondary" id="btn-gen-zip" onclick="generateSelectedZip()">&#128230; Tải ZIP</button>
+        </div>
+        <div class="fs-12 text-muted mt-1">ZIP: tạo tất cả thành file .zip để giải nén vào thư mục tin-tuc/</div>
+        <div id="gen-progress" class="hidden mt-2">
+          <div class="progress"><div class="progress-bar" id="gen-progress-bar" style="width:0%"></div></div>
+          <div class="fs-12 text-muted mt-1" id="gen-progress-label"></div>
+        </div>
+        <div id="gen-log" class="log-box hidden mt-2"></div>
+      </div>
+    </div>
+
+    <!-- ======== PANEL 6: INDEX ======== -->
+    <div id="panel-index" class="panel">
+      <div class="panel-title">&#128218; Cập nhật chỉ mục</div>
+      <div class="panel-desc">Tạo <code>_tools/news-data.json</code>, <code>_tools/authors.json</code>, cập nhật <code>tin-tuc.html</code> và tự động inject bài nổi bật vào <code>index.html</code>.</div>
+
+      <div class="card">
+        <div class="card-title"><span>A</span> Tạo news-data.json + authors.json</div>
+        <p class="fs-12 text-muted mb-2">Xuất bài viết đã xuất bản ra JSON và cập nhật dữ liệu tác giả — lưu vào <code>tin-tuc/_tools/</code>. Khi mở thư mục Omega, tự động inject 3 bài nổi bật (<code>is_featured=true</code>) vào section <code>#tin-tuc</code> của <code>index.html</code>.</p>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="generateNewsDataJson()">&#128190; Tạo &amp; Lưu JSON</button>
+          <button class="btn btn-secondary" onclick="previewNewsDataJson()">&#128065; Xem trước</button>
+        </div>
+        <pre id="json-preview" class="diff-box hidden mt-2" style="max-height:300px;"></pre>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-title"><span>B</span> Cập nhật tin-tuc.html</div>
+        <p class="fs-12 text-muted mb-2">Thêm markers <code>// [OMEGA-NEWS-STATIC-START]</code> và endpoint JSON tĩnh vào <code>fetchAllArticles</code>.</p>
+        <div class="btn-group mb-2">
+          <button class="btn btn-secondary" onclick="previewTinTucPatch()">&#128065; Xem trước thay đổi</button>
+          <button class="btn btn-primary" onclick="applyTinTucPatch()">&#9889; Áp dụng thay đổi</button>
+        </div>
+        <div id="diff-preview" class="hidden">
+          <div class="fs-12 fw-600 mb-1">Diff preview:</div>
+          <div class="diff-box" id="diff-content"></div>
+        </div>
+        <div id="index-log" class="log-box hidden mt-2"></div>
+      </div>
+    </div>
+
+  </div><!-- /#content -->
+</div><!-- /#main -->
+
+<!-- ============ TOAST CONTAINER ============ -->
+<div id="toast-container"></div>
+
+<script>
+// ============================================================
+// OMEGA NEWS CMS TOOL — Main Script
+// ============================================================
+
+// ── State ──────────────────────────────────────────────────
+var omegaDir = null;       // FileSystemDirectoryHandle
+var imgDir = null;         // For WebP conversion
+var articles = [];         // Parsed from XLSX
+var authorsMap = {};       // name -> {position, quickIntro, image}  (from Authors sheet)
+var htmlExistMap = {};     // slug -> true/false
+var COMMENT_GAS_URL = '';  // URL GAS comment backend (cấu hình trong panel Setup)
+var convertedWebpBlobs = [];  // [{name, blob}]
+var sortCol = 'ID';
+var sortAsc = true;
+
+var CAT_LABELS = {
+  'chuyen-doi-so':    'Chuyển đổi số',
+  'erp-quan-tri':     'ERP – Quản trị',
+  'ke-toan-tai-chinh':'Kế toán – Tài chính',
+  'su-kien':          'Sự kiện',
+  'tuyen-dung':       'Tuyển dụng'
+};
+
+var CAT_NORMALIZE = {
+  'chuyen-doi-so':'chuyen-doi-so','erp-quan-tri':'erp-quan-tri',
+  'ke-toan-tai-chinh':'ke-toan-tai-chinh','su-kien':'su-kien','tuyen-dung':'tuyen-dung',
+  'chuyển đổi số':'chuyen-doi-so','erp – quản trị':'erp-quan-tri',
+  'erp - quản trị':'erp-quan-tri','kế toán – tài chính':'ke-toan-tai-chinh',
+  'kế toán - tài chính':'ke-toan-tai-chinh','sự kiện':'su-kien','tuyển dụng':'tuyen-dung',
+  'chuyen_doi_so':'chuyen-doi-so','erp_quan_tri':'erp-quan-tri',
+  'ke_toan_tai_chinh':'ke-toan-tai-chinh','su_kien':'su-kien','tuyen_dung':'tuyen-dung'
+};
+function normCat(val) {
+  if (!val) return '';
+  var v = val.trim();
+  return CAT_NORMALIZE[v] || CAT_NORMALIZE[v.toLowerCase()] || v.toLowerCase().replace(/\s+/g, '-');
+}
+
+var FS_SUPPORTED = ('showDirectoryPicker' in window);
+
+// ── IndexedDB: persist directory handle across reloads ─────
+function idbOpen() {
+  return new Promise(function(resolve, reject) {
+    var req = indexedDB.open('omega-news-tool', 1);
+    req.onupgradeneeded = function(e) { e.target.result.createObjectStore('handles'); };
+    req.onsuccess = function(e) { resolve(e.target.result); };
+    req.onerror = function() { reject(); };
+  });
+}
+async function saveHandleToIDB(handle) {
+  try {
+    var db = await idbOpen();
+    var tx = db.transaction('handles', 'readwrite');
+    tx.objectStore('handles').put(handle, 'omegaDir');
+    await new Promise(function(res){ tx.oncomplete = res; tx.onerror = res; });
+    db.close();
+  } catch(e) {}
+}
+async function loadHandleFromIDB() {
+  try {
+    var db = await idbOpen();
+    return await new Promise(function(resolve) {
+      var tx = db.transaction('handles', 'readonly');
+      var r = tx.objectStore('handles').get('omegaDir');
+      r.onsuccess = function() { db.close(); resolve(r.result || null); };
+      r.onerror = function() { db.close(); resolve(null); };
+    });
+  } catch(e) { return null; }
+}
+async function tryRestoreDir() {
+  if (!FS_SUPPORTED) return;
+  var handle = await loadHandleFromIDB();
+  if (!handle) return;
+  try {
+    var perm = await handle.queryPermission({ mode: 'readwrite' });
+    if (perm !== 'granted') {
+      perm = await handle.requestPermission({ mode: 'readwrite' });
+    }
+    if (perm === 'granted') {
+      omegaDir = handle;
+      showDirStatus(handle.name, 'Đã khôi phục từ phiên trước ✓');
+      document.getElementById('btn-auto-load-xlsx').disabled = false;
+      document.getElementById('btn-reload-dir').classList.remove('hidden');
+      updateWorkflowBar();
+      await autoLoadXlsx();
+    }
+  } catch(e) {}
+}
+
+// ── Comment GAS URL – persist in localStorage ──────────────
+function saveCommentGasUrl() {
+  try { localStorage.setItem('omega_comment_gas_url', COMMENT_GAS_URL); } catch(e) {}
+}
+function loadCommentGasUrl() {
+  try {
+    var saved = localStorage.getItem('omega_comment_gas_url') || '';
+    if (saved) {
+      COMMENT_GAS_URL = saved;
+      var inp = document.getElementById('comment-gas-input');
+      if (inp) inp.value = saved;
+    }
+  } catch(e) {}
+}
+async function testCommentGas() {
+  var url = COMMENT_GAS_URL;
+  var el = document.getElementById('comment-gas-status');
+  if (!url) { if (el) el.textContent = 'Chưa nhập URL.'; return; }
+  if (el) el.textContent = 'Đang kiểm tra...';
+  try {
+    var r = await fetch(url + '?slug=__test__', { mode: 'cors' });
+    var j = await r.json();
+    if (j.ok !== undefined && el) el.innerHTML = '<span style="color:var(--green);">&#10003; Kết nối OK – GAS hoạt động.</span>';
+  } catch(e) {
+    if (el) el.innerHTML = '<span style="color:var(--red);">&#10007; Lỗi: ' + e.message + '. Kiểm tra deploy và quyền truy cập.</span>';
+  }
+}
+
+// ── Init ───────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  if (!FS_SUPPORTED) {
+    document.getElementById('fs-warning').classList.remove('hidden');
+  }
+  updateWorkflowBar();
+  tryRestoreDir();
+  loadCommentGasUrl();
+});
+
+// ── Navigation ─────────────────────────────────────────────
+function showPanel(id, navEl) {
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  var panel = document.getElementById(id);
+  if (panel) panel.classList.add('active');
+  if (navEl) {
+    navEl.classList.add('active');
+  } else {
+    var item = document.querySelector('[data-panel="'+id+'"]');
+    if (item) item.classList.add('active');
+  }
+  // Refresh panel content
+  if (id === 'panel-data') renderTable();
+  if (id === 'panel-folders') refreshFolderList();
+  if (id === 'panel-generate') refreshArticleSelect();
+}
+
+function updateWorkflowBar() {
+  var steps = ['wf1','wf2','wf3','wf4','wf5','wf6'];
+  var doneMap = {
+    'wf1': !!omegaDir,
+    'wf2': articles.length > 0,
+    'wf3': false,
+    'wf4': false,
+    'wf5': false,
+    'wf6': false
+  };
+  steps.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('done','active');
+    if (doneMap[id]) el.classList.add('done');
+  });
+}
+
+// ── Toast ──────────────────────────────────────────────────
+function toast(msg, type) {
+  var container = document.getElementById('toast-container');
+  var div = document.createElement('div');
+  div.className = 'toast' + (type === 'error' ? ' toast-err' : type === 'warn' ? ' toast-warn' : '');
+  var icon = type === 'error' ? '&#10060;' : type === 'warn' ? '&#9888;' : '&#10004;';
+  div.innerHTML = '<span class="toast-icon">'+icon+'</span><span>'+msg+'</span>';
+  container.appendChild(div);
+  setTimeout(function(){ if (div.parentNode) div.parentNode.removeChild(div); }, 4000);
+}
+
+// ── Log helper ─────────────────────────────────────────────
+function logAppend(boxId, msg, type) {
+  var box = document.getElementById(boxId);
+  if (!box) return;
+  box.classList.remove('hidden');
+  var cls = type === 'err' ? 'log-err' : type === 'warn' ? 'log-warn' : type === 'ok' ? 'log-ok' : '';
+  var line = document.createElement('div');
+  if (cls) line.className = cls;
+  line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
+  box.appendChild(line);
+  box.scrollTop = box.scrollHeight;
+}
+
+function clearLog(boxId) {
+  var box = document.getElementById(boxId);
+  if (box) { box.innerHTML = ''; box.classList.add('hidden'); }
+}
+
+// ── File System Helpers ────────────────────────────────────
+async function getNestedDir(root, pathParts, create) {
+  var cur = root;
+  for (var part of pathParts) {
+    if (!part) continue;
+    try {
+      cur = await cur.getDirectoryHandle(part, { create: !!create });
+    } catch(e) {
+      return null;
+    }
+  }
+  return cur;
+}
+
+async function fileExists(dirHandle, filename) {
+  try {
+    await dirHandle.getFileHandle(filename);
+    return true;
+  } catch(e) { return false; }
+}
+
+async function readFileText(dirHandle, filename) {
+  var fh = await dirHandle.getFileHandle(filename);
+  var f = await fh.getFile();
+  return await f.text();
+}
+
+async function writeFile(dirHandle, filename, content) {
+  var fh = await dirHandle.getFileHandle(filename, { create: true });
+  var writable = await fh.createWritable();
+  await writable.write(content);
+  await writable.close();
+}
+
+async function listFiles(dirHandle) {
+  var files = [];
+  for await (var entry of dirHandle.values()) {
+    if (entry.kind === 'file') files.push(entry.name);
+  }
+  return files;
+}
+
+// ── PANEL 1: SETUP ────────────────────────────────────────
+
+async function pickOmegaDir() {
+  if (!FS_SUPPORTED) {
+    toast('File System API không được hỗ trợ. Sử dụng tải lên XLSX thủ công.', 'warn');
+    return;
+  }
+  try {
+    omegaDir = await window.showDirectoryPicker({ mode: 'readwrite' });
+    showDirStatus(omegaDir.name, 'Đã mở thành công');
+    document.getElementById('btn-auto-load-xlsx').disabled = false;
+    document.getElementById('btn-reload-dir').classList.remove('hidden');
+    updateWorkflowBar();
+    toast('Đã mở thư mục: ' + omegaDir.name);
+    await saveHandleToIDB(omegaDir);
+    await autoLoadXlsx();
+  } catch(e) {
+    if (e.name !== 'AbortError') toast('Không thể mở thư mục: ' + e.message, 'error');
+  }
+}
+
+function showDirStatus(name, info) {
+  var el = document.getElementById('dir-status');
+  el.style.display = 'flex';
+  document.getElementById('dir-dot').className = 'setup-dot ok';
+  document.getElementById('dir-name').textContent = name;
+  document.getElementById('dir-path').textContent = info;
+}
+
+async function autoLoadXlsx() {
+  if (!omegaDir) { toast('Hãy mở thư mục Omega trước.', 'warn'); return; }
+  try {
+    var toolsDir = await getNestedDir(omegaDir, ['tin-tuc', '_tools'], false);
+    if (!toolsDir) {
+      showXlsxStatus('Không tìm thấy tin-tuc/_tools/', false);
+      return;
+    }
+    var fh = await toolsDir.getFileHandle('omega-news-cms.xlsx');
+    var file = await fh.getFile();
+    await parseXlsxFile(file);
+    showXlsxStatus('omega-news-cms.xlsx', true);
+  } catch(e) {
+    showXlsxStatus('Không tìm thấy omega-news-cms.xlsx — hãy tải lên thủ công', false);
+  }
+}
+
+function showXlsxStatus(name, ok) {
+  var el = document.getElementById('xlsx-status');
+  el.style.display = 'flex';
+  document.getElementById('xlsx-dot').className = 'setup-dot ' + (ok ? 'ok' : 'err');
+  document.getElementById('xlsx-name').textContent = name;
+  document.getElementById('xlsx-info').textContent = ok
+    ? (articles.length + ' bài viết được tải')
+    : 'Chưa tải được';
+}
+
+async function loadXlsxFromFile(input) {
+  if (!input.files || !input.files[0]) return;
+  try {
+    await parseXlsxFile(input.files[0]);
+    showXlsxStatus(input.files[0].name, true);
+    toast('Đã tải XLSX: ' + articles.length + ' bài viết.');
+  } catch(e) {
+    showXlsxStatus(input.files[0].name + ' — Lỗi đọc file', false);
+    toast('Lỗi đọc XLSX: ' + e.message, 'error');
+  }
+}
+
+async function parseXlsxFile(file) {
+  var buf = await file.arrayBuffer();
+  var wb = XLSX.read(buf, { type: 'array' });
+  var ws = wb.Sheets[wb.SheetNames[0]];
+  var raw = XLSX.utils.sheet_to_json(ws, { defval: '' });
+
+  if (!raw.length) { articles = []; updateSummary(); updateWorkflowBar(); return; }
+
+  // ── Flexible column resolver ──────────────────────────────
+  // Supports both new format (PascalCase) and old GAS format (snake_case/lowercase)
+  var FIELD_MAP = {
+    ID:           ['ID', 'id', 'Id', 'STT', 'stt'],
+    Slug:         ['Slug', 'slug', 'SLUG'],
+    Title:        ['Title', 'title', 'Tiêu đề', 'tieu_de', 'tieu de'],
+    Category:     ['Category', 'category', 'Danh mục', 'danh_muc', 'cat'],
+    PublishedDate:['PublishedDate', 'published_date', 'PublishDate', 'publish_date', 'Ngày đăng', 'ngay_dang', 'date'],
+    Author:       ['Author', 'author', 'Tác giả', 'tac_gia'],
+    ReadTime:     ['ReadTime', 'read_time', 'readtime', 'Thời gian đọc', 'read time'],
+    Excerpt:      ['Excerpt', 'excerpt', 'Tóm tắt', 'tom_tat', 'summary', 'description'],
+    Content:      ['Content', 'content', 'Nội dung', 'noi_dung', 'body'],
+    CoverImage:   ['CoverImage', 'cover_image', 'COVER_IMAGE', 'coverimage', 'Cover Image', 'Ảnh bìa', 'thumbnail'],
+    Tags:         ['Tags', 'tags', 'Tag', 'tag', 'Thẻ', 'the'],
+    SEOTitle:     ['SEOTitle', 'seo_title', 'seotitle', 'SEO Title', 'meta_title'],
+    SEODesc:      ['SEODesc', 'seo_desc', 'seo_description', 'SEO_DESCRIPTION', 'seodesc', 'SEO Description', 'SEO_DESC', 'meta_desc', 'meta_description'],
+    IsFeatured:   ['IsFeatured', 'is_featured', 'isfeatured', 'Featured', 'featured', 'Nổi bật', 'noi_bat'],
+    Status:       ['Status', 'status', 'Trạng thái', 'trang_thai', 'state'],
+    GeneratedAt:  ['GeneratedAt', 'generated_at', 'generatedAt']
+  };
+
+  // Build a lookup: actualColumnName -> fieldName
+  var sampleRow = raw[0];
+  var actualKeys = Object.keys(sampleRow);
+  var colResolve = {}; // fieldName -> actualColumnName
+  Object.keys(FIELD_MAP).forEach(function(field) {
+    var candidates = FIELD_MAP[field];
+    for (var i = 0; i < candidates.length; i++) {
+      if (actualKeys.indexOf(candidates[i]) !== -1) { colResolve[field] = candidates[i]; break; }
+    }
+    // Fallback: case-insensitive match
+    if (!colResolve[field]) {
+      var lc = candidates.map(function(c){ return c.toLowerCase(); });
+      for (var k = 0; k < actualKeys.length; k++) {
+        if (lc.indexOf(actualKeys[k].toLowerCase()) !== -1) { colResolve[field] = actualKeys[k]; break; }
+      }
+    }
+  });
+
+  // Show debug info in setup panel
+  var slugCol = colResolve['Slug'];
+  var missingCols = Object.keys(FIELD_MAP).filter(function(f){ return !colResolve[f]; });
+  showXlsxDebug(actualKeys, colResolve, missingCols);
+
+  function g(row, field) { return colResolve[field] ? String(row[colResolve[field]] || '') : ''; }
+
+  articles = raw.filter(function(r){ return slugCol && r[slugCol] && String(r[slugCol]).trim(); }).map(function(r, i) {
+    var status = g(r, 'Status').toLowerCase();
+    if (!status) status = 'draft';
+    return {
+      ID:           g(r, 'ID') || String(i + 1),
+      Slug:         g(r, 'Slug').trim(),
+      Title:        g(r, 'Title'),
+      Category:     g(r, 'Category'),
+      PublishedDate:g(r, 'PublishedDate'),
+      Author:       g(r, 'Author'),
+      ReadTime:     g(r, 'ReadTime'),
+      Excerpt:      g(r, 'Excerpt'),
+      Content:      g(r, 'Content'),
+      CoverImage:   g(r, 'CoverImage'),
+      Tags:         g(r, 'Tags'),
+      SEOTitle:     g(r, 'SEOTitle'),
+      SEODesc:      g(r, 'SEODesc'),
+      IsFeatured:   (function(v){ var u = (v||'').toString().toUpperCase(); return u==='TRUE'||u==='1'||u==='YES'; })(g(r,'IsFeatured')),
+      Status:       status,
+      GeneratedAt:  g(r, 'GeneratedAt')
+    };
+  });
+  updateSummary();
+  updateWorkflowBar();
+
+  // ── Đọc sheet Authors (nếu có) ───────────────────────────
+  var authorsSheet = wb.Sheets['Authors'] || wb.Sheets['authors'] || wb.Sheets['Tác giả'];
+  authorsMap = {};
+  if (authorsSheet) {
+    var authorsRaw = XLSX.utils.sheet_to_json(authorsSheet, { defval: '' });
+    authorsRaw.forEach(function(row) {
+      var name = String(row['Author'] || row['author'] || row['Tác giả'] || '').trim();
+      if (!name) return;
+      authorsMap[name] = {
+        position:   String(row['Position']   || row['position']   || row['Vị trí']    || '').trim(),
+        quickIntro: String(row['Quick Intro'] || row['quick_intro']|| row['QuickIntro']|| row['Giới thiệu'] || '').trim(),
+        image:      String(row['Image']       || row['image']      || row['Ảnh']       || '').trim()
+      };
+    });
+    var authorCount = Object.keys(authorsMap).length;
+    if (authorCount) toast('Đã tải ' + authorCount + ' tác giả từ sheet Authors.');
+  }
+}
+
+function showXlsxDebug(actualKeys, colResolve, missingCols) {
+  var el = document.getElementById('xlsx-debug');
+  if (!el) return;
+  var mappedHtml = Object.keys(colResolve).map(function(f) {
+    return '<span class="badge badge-green" title="' + esc(colResolve[f]) + '">' + esc(f) + '</span>';
+  }).join(' ');
+  var missingHtml = missingCols.length
+    ? missingCols.map(function(f){ return '<span class="badge badge-gray">' + esc(f) + '</span>'; }).join(' ')
+    : '<span class="badge badge-green">Đầy đủ</span>';
+  el.innerHTML = '<div class="fs-12 text-muted mb-1">Cột phát hiện trong file (' + actualKeys.length + '): '
+    + actualKeys.map(function(k){ return '<code>' + esc(k) + '</code>'; }).join(', ') + '</div>'
+    + '<div class="fs-12 mb-1"><strong>Đã map:</strong> ' + mappedHtml + '</div>'
+    + '<div class="fs-12"><strong>Chưa tìm thấy:</strong> ' + missingHtml + '</div>';
+  el.classList.remove('hidden');
+}
+
+function updateSummary() {
+  var published = articles.filter(function(a){ return a.Status === 'published'; }).length;
+  var draft = articles.filter(function(a){ return a.Status === 'draft'; }).length;
+  var featured = articles.filter(function(a){ return a.IsFeatured; }).length;
+  document.getElementById('stat-total').textContent = articles.length;
+  document.getElementById('stat-published').textContent = published;
+  document.getElementById('stat-draft').textContent = draft;
+  document.getElementById('stat-featured').textContent = featured;
+  document.getElementById('card-summary').classList.remove('hidden');
+  if (articles.length > 0) document.getElementById('xlsx-info').textContent = articles.length + ' bài viết';
+}
+
+// ── PANEL 2: DATA TABLE ────────────────────────────────────
+
+function sortTable(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = true; }
+  renderTable();
+}
+
+function renderTable() {
+  var tbody = document.getElementById('table-body');
+  if (!articles.length) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:32px;">Chưa có dữ liệu</td></tr>';
+    return;
+  }
+  var q = (document.getElementById('search-box').value || '').toLowerCase();
+  var cat = document.getElementById('filter-cat').value;
+  var status = document.getElementById('filter-status').value;
+
+  var filtered = articles.filter(function(a) {
+    if (q && !(a.Title.toLowerCase().includes(q) || a.Slug.toLowerCase().includes(q))) return false;
+    if (cat && a.Category !== cat) return false;
+    if (status && a.Status !== status) return false;
+    return true;
+  });
+
+  filtered.sort(function(a, b) {
+    var va = a[sortCol] || '', vb = b[sortCol] || '';
+    if (sortCol === 'ID') { va = parseInt(va)||0; vb = parseInt(vb)||0; return sortAsc ? va-vb : vb-va; }
+    return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+  });
+
+  var html = '';
+  filtered.forEach(function(a) {
+    var statusBadge = a.Status === 'published'
+      ? '<span class="badge badge-green">&#10003; Xuất bản</span>'
+      : '<span class="badge badge-gray">Nháp</span>';
+    var featBadge = a.IsFeatured ? '<span class="badge badge-orange">&#9733;</span>' : '—';
+    var htmlExists = htmlExistMap[a.Slug];
+    var htmlBadge = htmlExists === true
+      ? '<span class="badge badge-green">&#10003;</span>'
+      : htmlExists === false
+        ? '<span class="badge badge-red">&#10007;</span>'
+        : '<span class="badge badge-gray" style="cursor:pointer;" onclick="checkHtmlFiles()">?</span>';
+    html += '<tr>';
+    html += '<td>' + esc(a.ID) + '</td>';
+    html += '<td class="td-slug">' + esc(a.Slug) + '</td>';
+    html += '<td class="td-title" title="'+esc(a.Title)+'">' + esc(a.Title) + '</td>';
+    html += '<td>' + (CAT_LABELS[a.Category] ? '<span class="badge badge-blue">'+esc(CAT_LABELS[a.Category])+'</span>' : esc(a.Category)) + '</td>';
+    html += '<td>' + esc(a.PublishedDate) + '</td>';
+    html += '<td>' + statusBadge + '</td>';
+    html += '<td>' + featBadge + '</td>';
+    html += '<td>' + htmlBadge + '</td>';
+    html += '</tr>';
+  });
+  tbody.innerHTML = html;
+  document.getElementById('table-count').textContent = 'Hiển thị ' + filtered.length + ' / ' + articles.length + ' bài viết';
+}
+
+async function checkHtmlFiles() {
+  if (!omegaDir) { toast('Hãy mở thư mục Omega trước.', 'warn'); return; }
+  var tintucDir = await getNestedDir(omegaDir, ['tin-tuc'], false);
+  if (!tintucDir) { toast('Không tìm thấy thư mục tin-tuc/', 'error'); return; }
+  for (var a of articles) {
+    if (!a.Slug) continue;
+    htmlExistMap[a.Slug] = await fileExists(tintucDir, a.Slug + '.html');
+  }
+  renderTable();
+  toast('Đã kiểm tra ' + articles.length + ' file HTML.');
+}
+
+// ── PANEL 3: FOLDERS ──────────────────────────────────────
+
+async function refreshFolderList() {
+  var container = document.getElementById('folder-list');
+  if (!articles.length) {
+    container.innerHTML = '<p class="text-muted fs-12">Chưa có dữ liệu bài viết.</p>';
+    return;
+  }
+
+  var tintucDir = null;
+  var existingSlugs = new Set();
+  if (omegaDir) {
+    tintucDir = await getNestedDir(omegaDir, ['tin-tuc'], false);
+    if (tintucDir) {
+      for await (var entry of tintucDir.values()) {
+        if (entry.kind === 'directory') existingSlugs.add(entry.name);
+      }
+    }
+  }
+
+  var html = '';
+  articles.forEach(function(a) {
+    if (!a.Slug) return;
+    var exists = existingSlugs.has(a.Slug);
+    html += '<div class="check-item ' + (exists ? 'exists' : '') + '" id="ci-'+a.Slug+'">';
+    html += '<input type="checkbox" class="folder-cb" value="'+esc(a.Slug)+'" '+(exists?'':'checked')+'>';
+    html += '<span class="ci-slug">'+esc(a.Slug)+'</span>';
+    html += '<span class="badge ' + (a.Status==='published'?'badge-green':'badge-gray') + '">' + esc(a.Status) + '</span>';
+    if (exists) html += '<span class="ci-status text-green" title="Đã tồn tại">&#10003; Tồn tại</span>';
+    html += '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function selectAllFolders(val) {
+  document.querySelectorAll('.folder-cb').forEach(function(cb){ cb.checked = val; });
+}
+
+async function createSelectedFolders() {
+  if (!omegaDir) { toast('Hãy mở thư mục Omega trước.', 'warn'); return; }
+  var target = (document.getElementById('folder-target').value || 'tin-tuc/').replace(/\/$/, '');
+  var parts = target.split('/').filter(Boolean);
+  var parentDir = await getNestedDir(omegaDir, parts, true);
+  if (!parentDir) { toast('Không thể tạo/truy cập thư mục: ' + target, 'error'); return; }
+
+  var selected = Array.from(document.querySelectorAll('.folder-cb:checked')).map(function(cb){ return cb.value; });
+  if (!selected.length) { toast('Chưa chọn slug nào.', 'warn'); return; }
+
+  clearLog('folder-log');
+  var ok = 0, fail = 0;
+  for (var slug of selected) {
+    try {
+      await parentDir.getDirectoryHandle(slug, { create: true });
+      logAppend('folder-log', 'Tạo: ' + target + '/' + slug, 'ok');
+      ok++;
+    } catch(e) {
+      logAppend('folder-log', 'Lỗi ' + slug + ': ' + e.message, 'err');
+      fail++;
+    }
+  }
+  toast('Tạo xong: ' + ok + ' thành công' + (fail ? ', ' + fail + ' lỗi' : ''), fail ? 'warn' : undefined);
+  await refreshFolderList();
+}
+
+// ── PANEL 4: WEBP ─────────────────────────────────────────
+
+var imgFiles = [];
+var imgFileHandles = [];
+
+async function pickImageDir() {
+  if (!FS_SUPPORTED) { toast('File System API không được hỗ trợ.', 'warn'); return; }
+  try {
+    imgDir = await window.showDirectoryPicker({ mode: 'readwrite' });
+    document.getElementById('img-dir-name').textContent = imgDir.name;
+    await scanImageDir();
+  } catch(e) {
+    if (e.name !== 'AbortError') toast('Lỗi: ' + e.message, 'error');
+  }
+}
+
+async function scanImageDir() {
+  if (!imgDir) return;
+  // Revoke old object URLs to prevent memory leaks
+  imgFiles.forEach(function(img){ if (img.url) URL.revokeObjectURL(img.url); });
+  var srcExts = ['jpg','jpeg','png','gif','bmp','tiff'];
+  imgFiles = [];
+  imgFileHandles = [];
+  var webpCount = 0;
+
+  for await (var entry of imgDir.values()) {
+    if (entry.kind !== 'file') continue;
+    var ext = entry.name.split('.').pop().toLowerCase();
+    if (ext === 'webp') { webpCount++; continue; }
+    if (srcExts.includes(ext)) {
+      imgFileHandles.push(entry);
+      var f = await entry.getFile();
+      imgFiles.push({ name: entry.name, file: f, url: URL.createObjectURL(f) });
+    }
+  }
+
+  document.getElementById('img-count-src').textContent = imgFiles.length + ' ảnh nguồn';
+  document.getElementById('img-count-webp').textContent = webpCount + ' đã là WebP';
+  document.getElementById('img-file-list').classList.remove('hidden');
+
+  var gridHtml = '';
+  imgFiles.slice(0, 30).forEach(function(img) {
+    gridHtml += '<div class="img-thumb"><img src="'+img.url+'" loading="lazy"><div class="img-label">'+esc(img.name)+'</div></div>';
+  });
+  if (imgFiles.length > 30) gridHtml += '<div class="img-thumb" style="display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text-muted);">+' + (imgFiles.length-30) + '</div>';
+  document.getElementById('img-grid-preview').innerHTML = gridHtml;
+}
+
+async function convertAllImages() {
+  if (!imgFiles.length) { toast('Không có ảnh để chuyển đổi.', 'warn'); return; }
+  var quality = parseFloat(document.getElementById('webp-quality').value) / 100;
+  var maxW = parseInt(document.getElementById('max-width').value) || 0;
+  convertedWebpBlobs = [];
+
+  document.getElementById('webp-progress').classList.remove('hidden');
+  document.getElementById('btn-convert-all').disabled = true;
+  clearLog('webp-log');
+
+  for (var i = 0; i < imgFiles.length; i++) {
+    var img = imgFiles[i];
+    var pct = Math.round((i+1)/imgFiles.length*100);
+    document.getElementById('webp-progress-bar').style.width = pct + '%';
+    document.getElementById('webp-progress-label').textContent = 'Đang chuyển đổi ' + (i+1) + '/' + imgFiles.length + '...';
+    document.getElementById('webp-progress-count').textContent = img.name;
+
+    try {
+      var blob = await convertToWebp(img.file, quality, maxW);
+      var newName = img.name.replace(/\.[^.]+$/, '.webp');
+      convertedWebpBlobs.push({ name: newName, blob: blob });
+      logAppend('webp-log', img.name + ' → ' + newName + ' (' + (blob.size/1024).toFixed(1) + ' KB)', 'ok');
+    } catch(e) {
+      logAppend('webp-log', 'Lỗi ' + img.name + ': ' + e.message, 'err');
+    }
+  }
+
+  document.getElementById('btn-convert-all').disabled = false;
+  document.getElementById('webp-progress-label').textContent = 'Hoàn thành!';
+  document.getElementById('btn-download-zip').classList.remove('hidden');
+  if (FS_SUPPORTED && imgDir) document.getElementById('btn-save-webp').classList.remove('hidden');
+  toast('Chuyển đổi xong ' + convertedWebpBlobs.length + ' ảnh WebP.');
+}
+
+function convertToWebp(file, quality, maxW) {
+  return new Promise(function(resolve, reject) {
+    var objectUrl = URL.createObjectURL(file);
+    var img = new Image();
+    img.onload = function() {
+      URL.revokeObjectURL(objectUrl);
+      var w = img.width, h = img.height;
+      if (maxW && w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+      var canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      canvas.toBlob(function(blob) {
+        if (blob) resolve(blob);
+        else reject(new Error('toBlob failed'));
+      }, 'image/webp', quality);
+    };
+    img.onerror = function() { URL.revokeObjectURL(objectUrl); reject(new Error('Image load failed')); };
+    img.src = objectUrl;
+  });
+}
+
+async function downloadWebpZip() {
+  if (!convertedWebpBlobs.length) return;
+  var zip = new JSZip();
+  convertedWebpBlobs.forEach(function(item) { zip.file(item.name, item.blob); });
+  var zipBlob = await zip.generateAsync({ type: 'blob' });
+  saveAs(zipBlob, 'webp-converted.zip');
+  toast('Đã tải về ZIP.');
+}
+
+async function saveWebpToFolder() {
+  if (!imgDir || !convertedWebpBlobs.length) return;
+  clearLog('webp-log');
+  var saved = 0;
+
+  // Save all converted WebP files
+  for (var item of convertedWebpBlobs) {
+    try {
+      var fh = await imgDir.getFileHandle(item.name, { create: true });
+      var w = await fh.createWritable();
+      await w.write(item.blob);
+      await w.close();
+      saved++;
+      logAppend('webp-log', 'Lưu: ' + item.name + ' (' + (item.blob.size/1024).toFixed(1) + ' KB)', 'ok');
+    } catch(e) {
+      logAppend('webp-log', 'Lỗi lưu ' + item.name + ': ' + e.message, 'err');
+    }
+  }
+
+  // Move original non-webp files into raw/ subfolder
+  var origToMove = imgFiles.filter(function(f){ return f.name.split('.').pop().toLowerCase() !== 'webp'; });
+  if (origToMove.length) {
+    try {
+      var rawDir = await imgDir.getDirectoryHandle('raw', { create: true });
+      var moved = 0;
+      for (var orig of origToMove) {
+        try {
+          var origFh = await imgDir.getFileHandle(orig.name);
+          var origFile = await origFh.getFile();
+          var origBuf = await origFile.arrayBuffer();
+          var rawFh = await rawDir.getFileHandle(orig.name, { create: true });
+          var rawW = await rawFh.createWritable();
+          await rawW.write(origBuf);
+          await rawW.close();
+          await imgDir.removeEntry(orig.name);
+          moved++;
+          logAppend('webp-log', 'Di chuyển → raw/: ' + orig.name, 'ok');
+        } catch(e) {
+          logAppend('webp-log', 'Không di chuyển được ' + orig.name + ': ' + e.message, 'err');
+        }
+      }
+      toast('Đã lưu ' + saved + ' WebP. Di chuyển ' + moved + ' ảnh gốc vào raw/.');
+    } catch(e) {
+      toast('Lưu ' + saved + ' WebP OK. Lỗi tạo raw/: ' + e.message, 'warn');
+    }
+  } else {
+    toast('Đã lưu ' + saved + ' file WebP vào thư mục.');
+  }
+}
+
+// ── PANEL 5: GENERATE HTML ────────────────────────────────
+
+function refreshArticleSelect() {
+  var list = document.getElementById('gen-article-list');
+  if (!list) return;
+  list.innerHTML = '';
+  articles.forEach(function(a) {
+    var div = document.createElement('div');
+    div.className = 'gen-list-item';
+    var isPublished = a.Status === 'published';
+    var statusBadge = isPublished
+      ? '<span class="badge badge-green" style="font-size:10px;">Xuất bản</span>'
+      : '<span class="badge badge-gray" style="font-size:10px;">Nháp</span>';
+    var htmlBadge = htmlExistMap[a.Slug] ? '<span class="badge badge-blue" style="font-size:10px;">HTML &#10003;</span>' : '';
+    div.innerHTML = '<label>'
+      + '<input type="checkbox" class="gen-check" value="' + esc(a.Slug) + '" ' + (isPublished ? 'checked' : '') + ' style="accent-color:var(--accent);flex-shrink:0;">'
+      + '<span class="gen-item-title">[' + esc(a.ID) + '] ' + esc(a.Title) + '</span>'
+      + statusBadge + htmlBadge
+      + '</label>';
+    list.appendChild(div);
+  });
+}
+
+function selectAllPublished() {
+  document.querySelectorAll('.gen-check').forEach(function(cb) {
+    var a = articles.find(function(x){ return x.Slug === cb.value; });
+    cb.checked = !!(a && a.Status === 'published');
+  });
+}
+
+function deselectAllArticles() {
+  document.querySelectorAll('.gen-check').forEach(function(cb){ cb.checked = false; });
+}
+
+function getSelectedArticles() {
+  var selected = [];
+  document.querySelectorAll('.gen-check:checked').forEach(function(cb) {
+    var a = articles.find(function(x){ return x.Slug === cb.value; });
+    if (a) selected.push(a);
+  });
+  return selected;
+}
+
+async function resolveArticleMedia(a) {
+  var thumb = null, gallery = [], videos = [];
+  var slugDir = await getNestedDir(omegaDir, ['tin-tuc', a.Slug], false);
+  if (slugDir) {
+    var files = await listFiles(slugDir);
+    var imgExts = ['webp','png','jpg','jpeg','gif','bmp'];
+    var vidExts = ['mp4','webm','mov'];
+    var thumbP = ['thumbnail.webp','thumbnail.png','thumbnail.jpg','thumbnail.jpeg'];
+    for (var tp of thumbP) { if (files.includes(tp)) { thumb = tp; break; } }
+    gallery = files.filter(function(f){ return imgExts.includes(f.split('.').pop().toLowerCase()) && f !== thumb; });
+    videos = files.filter(function(f){ return vidExts.includes(f.split('.').pop().toLowerCase()); });
+  }
+  return { thumb: thumb, gallery: gallery, videos: videos };
+}
+
+async function generateSelected() {
+  if (!omegaDir) { toast('Hãy mở thư mục Omega trước.', 'warn'); return; }
+  var selected = getSelectedArticles();
+  if (!selected.length) { toast('Chưa chọn bài viết nào.', 'warn'); return; }
+
+  // Probe: verify tin-tuc/ is writable before starting
+  var probeDir = await getNestedDir(omegaDir, ['tin-tuc'], true);
+  if (!probeDir) {
+    toast('Không thể mở thư mục tin-tuc/. Chọn lại thư mục Omega.', 'error');
+    document.getElementById('btn-gen-selected').disabled = false;
+    document.getElementById('btn-gen-zip').disabled = false;
+    return;
+  }
+
+  clearLog('gen-log');
+  document.getElementById('gen-progress').classList.remove('hidden');
+  document.getElementById('btn-gen-selected').disabled = true;
+  document.getElementById('btn-gen-zip').disabled = true;
+  var ok = 0, fail = 0;
+
+  var knownSlugs = new Set(Object.keys(htmlExistMap).filter(function(s){ return htmlExistMap[s]; }));
+  selected.forEach(function(art){ knownSlugs.add(art.Slug); });
+
+  for (var i = 0; i < selected.length; i++) {
+    var a = selected[i];
+    document.getElementById('gen-progress-bar').style.width = Math.round((i+1)/selected.length*100) + '%';
+    document.getElementById('gen-progress-label').textContent = 'Đang tạo ' + (i+1) + '/' + selected.length + ': ' + a.Slug;
+
+    try {
+      var media = await resolveArticleMedia(a);
+      var html = buildArticleHtml(a, media.thumb, media.gallery, media.videos, articles, knownSlugs);
+      // Re-acquire tin-tuc/ handle each iteration — Chrome stale handle workaround
+      var tintucDir = await getNestedDir(omegaDir, ['tin-tuc'], true);
+      if (!tintucDir) throw new Error('Cannot re-acquire tin-tuc/ handle');
+      await writeFile(tintucDir, a.Slug + '.html', html);
+      htmlExistMap[a.Slug] = true;
+      logAppend('gen-log', 'OK: ' + a.Slug + '.html (' + (media.thumb?'thumb ':'') + media.gallery.length + ' img, ' + media.videos.length + ' vid)', 'ok');
+      ok++;
+    } catch(e) {
+      logAppend('gen-log', 'Lỗi ' + a.Slug + ': [' + e.constructor.name + '] ' + e.message, 'err');
+      fail++;
+    }
+  }
+
+  document.getElementById('gen-progress-label').textContent = 'Xong: ' + ok + ' thành công' + (fail?' / '+fail+' lỗi':'');
+  document.getElementById('btn-gen-selected').disabled = false;
+  document.getElementById('btn-gen-zip').disabled = false;
+  await generateNewsDataJson(true);
+  logAppend('gen-log', 'Đã cập nhật news-data.json.', 'ok');
+  refreshArticleSelect();
+  toast('Tạo HTML: ' + ok + '/' + selected.length + ' thành công.', fail ? 'warn' : undefined);
+}
+
+async function generateSelectedZip() {
+  var selected = getSelectedArticles();
+  if (!selected.length) { toast('Chưa chọn bài viết nào.', 'warn'); return; }
+  if (typeof JSZip === 'undefined') { toast('JSZip chưa tải. Kiểm tra kết nối mạng.', 'error'); return; }
+
+  clearLog('gen-log');
+  document.getElementById('gen-progress').classList.remove('hidden');
+  document.getElementById('btn-gen-selected').disabled = true;
+  document.getElementById('btn-gen-zip').disabled = true;
+  var ok = 0, fail = 0;
+
+  var knownSlugs = new Set(Object.keys(htmlExistMap).filter(function(s){ return htmlExistMap[s]; }));
+  selected.forEach(function(art){ knownSlugs.add(art.Slug); });
+
+  var zip = new JSZip();
+
+  for (var i = 0; i < selected.length; i++) {
+    var a = selected[i];
+    document.getElementById('gen-progress-bar').style.width = Math.round((i+1)/selected.length*100) + '%';
+    document.getElementById('gen-progress-label').textContent = 'Đang tạo ' + (i+1) + '/' + selected.length + ': ' + a.Slug;
+
+    try {
+      var media = omegaDir ? await resolveArticleMedia(a) : { thumb: null, gallery: [], videos: [] };
+      var html = buildArticleHtml(a, media.thumb, media.gallery, media.videos, articles, knownSlugs);
+      zip.file(a.Slug + '.html', html);
+      logAppend('gen-log', 'OK: ' + a.Slug + '.html', 'ok');
+      ok++;
+    } catch(e) {
+      logAppend('gen-log', 'Lỗi ' + a.Slug + ': ' + e.message, 'err');
+      fail++;
+    }
+  }
+
+  document.getElementById('gen-progress-label').textContent = 'Đang nén ZIP...';
+  var zipBlob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } });
+  saveAs(zipBlob, 'omega-articles-' + ok + '.zip');
+
+  document.getElementById('gen-progress-label').textContent = 'Xong: ' + ok + ' file trong ZIP' + (fail?' / '+fail+' lỗi':'');
+  document.getElementById('btn-gen-selected').disabled = false;
+  document.getElementById('btn-gen-zip').disabled = false;
+  logAppend('gen-log', 'ZIP đã tải về. Giải nén vào thư mục tin-tuc/.', 'ok');
+  toast('ZIP: ' + ok + ' file HTML.', fail ? 'warn' : undefined);
+}
+
+async function saveArticleHtml(slug, html) {
+  if (!omegaDir) {
+    // Fallback: download
+    var blob = new Blob([html], { type: 'text/html' });
+    saveAs(blob, slug + '.html');
+    return;
+  }
+  var tintucDir = await getNestedDir(omegaDir, ['tin-tuc'], true);
+  await writeFile(tintucDir, slug + '.html', html);
+  htmlExistMap[slug] = true;
+}
+
+// ── PANEL 6: INDEX ────────────────────────────────────────
+
+async function buildNewsDataJson() {
+  var published = articles.filter(function(a){ return a.Status === 'published'; });
+
+  // Scan tin-tuc/ to find which [slug].html files actually exist on disk
+  var existingSlugs = null;
+  if (omegaDir) {
+    try {
+      var tintucDir = await getNestedDir(omegaDir, ['tin-tuc'], false);
+      if (tintucDir) {
+        existingSlugs = new Set();
+        for await (var entry of tintucDir.values()) {
+          if (entry.kind === 'file' && entry.name.endsWith('.html')) {
+            existingSlugs.add(entry.name.slice(0, -5)); // remove .html
+          }
+        }
+      }
+    } catch(e) {}
+  }
+
+  var data = published
+    .filter(function(a) {
+      // Only include articles whose HTML file exists (if we could scan the directory)
+      return !existingSlugs || existingSlugs.has(a.Slug);
+    })
+    .map(function(a) {
+      // Prefer COVER_IMAGE from xlsx; fall back to thumbnail.webp in slug folder
+      var coverImage = a.CoverImage
+        ? (a.CoverImage.startsWith('http') ? a.CoverImage : 'tin-tuc/' + a.Slug + '/' + a.CoverImage)
+        : ('tin-tuc/' + a.Slug + '/thumbnail.webp');
+      return {
+        id: a.ID,
+        slug: a.Slug,
+        title: a.Title,
+        category: normCat(a.Category),
+        published_date: a.PublishedDate,
+        author: a.Author,
+        read_time: a.ReadTime,
+        excerpt: a.Excerpt,
+        tags: a.Tags,
+        seo_title: a.SEOTitle,
+        seo_desc: a.SEODesc,
+        is_featured: a.IsFeatured,
+        cover_image: coverImage
+      };
+    });
+  return JSON.stringify(data, null, 2);
+}
+
+async function generateNewsDataJson(silent) {
+  var json = await buildNewsDataJson();
+  var articles = JSON.parse(json);
+  if (omegaDir) {
+    try {
+      var toolsDir = await getNestedDir(omegaDir, ['tin-tuc', '_tools'], true);
+      await writeFile(toolsDir, 'news-data.json', json);
+      if (!silent) toast('Đã lưu _tools/news-data.json (' + articles.length + ' bài).');
+    } catch(e) {
+      if (!silent) toast('Lỗi lưu JSON: ' + e.message, 'error');
+    }
+    // Tự động cập nhật section tin tức trên index.html
+    await updateIndexHtml(articles, silent);
+  } else {
+    var blob = new Blob([json], { type: 'application/json' });
+    saveAs(blob, 'news-data.json');
+    if (!silent) toast('Đã tải về news-data.json.');
+  }
+  // Đồng thời cập nhật authors.json nếu có dữ liệu
+  if (Object.keys(authorsMap).length) await generateAuthorsJson(silent);
+}
+
+function buildAuthorsJson() {
+  var data = Object.keys(authorsMap).map(function(name) {
+    var info = authorsMap[name];
+    return { name: name, position: info.position, quick_intro: info.quickIntro, image: info.image };
+  });
+  return JSON.stringify(data, null, 2);
+}
+
+async function generateAuthorsJson(silent) {
+  if (!Object.keys(authorsMap).length) {
+    if (!silent) toast('Chưa có dữ liệu tác giả (cần sheet Authors trong XLSX).', 'warn');
+    return;
+  }
+  var json = buildAuthorsJson();
+  if (omegaDir) {
+    try {
+      var toolsDir = await getNestedDir(omegaDir, ['tin-tuc', '_tools'], true);
+      await writeFile(toolsDir, 'authors.json', json);
+      if (!silent) toast('Đã lưu _tools/authors.json (' + Object.keys(authorsMap).length + ' tác giả).');
+    } catch(e) {
+      if (!silent) toast('Lỗi lưu authors.json: ' + e.message, 'error');
+    }
+  } else {
+    var blob = new Blob([json], { type: 'application/json' });
+    saveAs(blob, 'authors.json');
+    if (!silent) toast('Đã tải về authors.json.');
+  }
+}
+
+// ── Index.html News Section ──────────────────────────────────
+function buildIndexNewsHtml(articles) {
+  var N = 3;
+  // Ưu tiên is_featured, sau đó lấy từ đầu mảng (đã theo thứ tự XLSX)
+  var featured = articles.filter(function(a) { return a.is_featured; });
+  var rest = articles.filter(function(a) { return !a.is_featured; });
+  var picks = featured.concat(rest).slice(0, N);
+
+  var catLabels = {
+    'chuyen-doi-so': 'Chuyển đổi số', 'erp-quan-tri': 'ERP – Quản trị',
+    'ke-toan-tai-chinh': 'Kế toán – Tài chính', 'su-kien': 'Sự kiện', 'tuyen-dung': 'Tuyển dụng'
+  };
+  var catClass = { 'ke-toan-tai-chinh': ' blue', 'su-kien': ' red', 'tuyen-dung': ' orange' };
+  var delays = ['0.1s', '0.2s', '0.3s'];
+
+  var cards = picks.map(function(a, i) {
+    var label = catLabels[a.category] || a.category;
+    var cls   = catClass[a.category] || '';
+    var exc   = (a.excerpt || '').slice(0, 120);
+    if (a.excerpt && a.excerpt.length > 120) exc += '...';
+    return [
+      '        <div class="col-md-4 wow fadeInUp" data-wow-delay="' + delays[i] + '">',
+      '          <div class="news-card">',
+      '            <div class="news-card-img">',
+      '              <img src="' + escHtml(a.cover_image) + '" alt="' + escHtml(a.title) + '" loading="lazy">',
+      '            </div>',
+      '            <div class="news-card-body">',
+      '              <span class="news-category' + cls + '">' + label + '</span>',
+      '              <h4><a href="tin-tuc/' + escHtml(a.slug) + '.html" style="color:var(--text-dark);">' + escHtml(a.title) + '</a></h4>',
+      '              <p class="excerpt" style="font-size:13px;color:#777;line-height:1.6;margin-bottom:10px;">' + escHtml(exc) + '</p>',
+      '              <div class="news-meta"><i class="fa-regular fa-calendar"></i> ' + escHtml(a.published_date) + '</div>',
+      '            </div>',
+      '          </div>',
+      '        </div>'
+    ].join('\n');
+  }).join('\n');
+
+  return '        <!-- [OMEGA-INDEX-NEWS-START] -->\n' + cards + '\n        <!-- [OMEGA-INDEX-NEWS-END] -->';
+}
+
+async function updateIndexHtml(articles, silent) {
+  if (!omegaDir) return;
+  var startM = '<!-- [OMEGA-INDEX-NEWS-START] -->';
+  var endM   = '<!-- [OMEGA-INDEX-NEWS-END] -->';
+  try {
+    var text = await readFileText(omegaDir, 'index.html');
+    var s = text.indexOf(startM);
+    var e = text.indexOf(endM);
+    if (s === -1 || e === -1) {
+      if (!silent) toast('index.html: Không tìm thấy markers OMEGA-INDEX-NEWS. Bỏ qua.', 'warn');
+      return;
+    }
+    var newText = text.slice(0, s) + buildIndexNewsHtml(articles) + text.slice(e + endM.length);
+    await writeFile(omegaDir, 'index.html', newText);
+    if (!silent) toast('Đã cập nhật index.html – ' + Math.min(articles.length, 3) + ' bài nổi bật.');
+  } catch(ex) {
+    if (!silent) toast('Lỗi cập nhật index.html: ' + ex.message, 'error');
+  }
+}
+
+async function previewNewsDataJson() {
+  var json = await buildNewsDataJson();
+  var el = document.getElementById('json-preview');
+  el.textContent = json;
+  el.classList.remove('hidden');
+}
+
+async function previewTinTucPatch() {
+  var patch = buildTinTucPatch();
+  var el = document.getElementById('diff-content');
+  el.innerHTML = '';
+  patch.lines.forEach(function(line) {
+    var div = document.createElement('div');
+    if (line.startsWith('+')) { div.className = 'diff-add'; }
+    else if (line.startsWith('-')) { div.className = 'diff-rem'; }
+    div.textContent = line;
+    el.appendChild(div);
+  });
+  // Show link patch
+  var extraLines = [
+    '+ // Đổi link bài viết: bai-viet.html?slug= → [slug].html',
+    '- href="tin-tuc/bai-viet.html?slug=\' + esc(a.slug) + \'"',
+    '+ href="tin-tuc/\' + esc(a.slug) + \'.html"',
+  ];
+  extraLines.forEach(function(line) {
+    var div = document.createElement('div');
+    div.className = line.startsWith('+') ? 'diff-add' : 'diff-rem';
+    div.textContent = line;
+    el.appendChild(div);
+  });
+  document.getElementById('diff-preview').classList.remove('hidden');
+}
+
+function buildTinTucPatch() {
+  var newCode = [
+    '  // [OMEGA-NEWS-STATIC-START]',
+    '  function fetchAllArticles() {',
+    '    var cached = getCached(\'news_static_v2\');',
+    '    if (cached) return Promise.resolve(cached);',
+    '    return fetch(\'tin-tuc/_tools/news-data.json\')',
+    '      .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })',
+    '      .then(function(d){',
+    '        setCache(\'news_static_v2\', d);',
+    '        return d;',
+    '      });',
+    '  }',
+    '  // [OMEGA-NEWS-STATIC-END]'
+  ].join('\n');
+  var lines = newCode.split('\n').map(function(l){ return '+ ' + l; });
+  return { newCode: newCode, lines: lines };
+}
+
+// Find the end index of a JS function starting at startIdx (brace-depth counting)
+function findFunctionBodyEnd(text, startIdx) {
+  var depth = 0, inStr = false, strCh = '', i = startIdx;
+  while (i < text.length) {
+    var c = text[i];
+    if (inStr) {
+      if (c === '\\') { i += 2; continue; }
+      if (c === strCh) inStr = false;
+    } else {
+      if (c === '"' || c === "'" || c === '`') { inStr = true; strCh = c; }
+      else if (c === '/' && text[i+1] === '/') { while (i < text.length && text[i] !== '\n') i++; continue; }
+      else if (c === '/' && text[i+1] === '*') { i += 2; while (i+1 < text.length && !(text[i] === '*' && text[i+1] === '/')) i++; i += 2; continue; }
+      else if (c === '{') depth++;
+      else if (c === '}') { depth--; if (depth === 0) return i; }
+    }
+    i++;
+  }
+  return -1;
+}
+
+async function applyTinTucPatch() {
+  clearLog('index-log');
+  if (!omegaDir) { toast('Hãy mở thư mục Omega trước.', 'warn'); return; }
+
+  try {
+    var text = await readFileText(omegaDir, 'tin-tuc.html');
+    var patch = buildTinTucPatch();
+
+    if (text.includes('// [OMEGA-NEWS-STATIC-START]')) {
+      // Replace between existing markers
+      var re = /\/\/ \[OMEGA-NEWS-STATIC-START\][\s\S]*?\/\/ \[OMEGA-NEWS-STATIC-END\]/;
+      text = text.replace(re, patch.newCode);
+      logAppend('index-log', 'Đã cập nhật markers hiện có.', 'ok');
+    } else {
+      // Find fetchAllArticles function using brace-depth counting
+      var fnMarker = 'function fetchAllArticles(';
+      var fnStart = text.indexOf(fnMarker);
+      if (fnStart !== -1) {
+        var braceStart = text.indexOf('{', fnStart);
+        if (braceStart !== -1) {
+          var braceEnd = findFunctionBodyEnd(text, braceStart);
+          if (braceEnd !== -1) {
+            // Find leading whitespace before 'function' keyword for clean replacement
+            var lineStart = text.lastIndexOf('\n', fnStart) + 1;
+            text = text.slice(0, lineStart) + patch.newCode + '\n' + text.slice(braceEnd + 1);
+            logAppend('index-log', 'Đã thay thế hàm fetchAllArticles bằng phiên bản tĩnh (brace-depth match).', 'ok');
+          } else {
+            logAppend('index-log', 'Không tìm được closing brace của fetchAllArticles.', 'warn');
+          }
+        }
+      } else {
+        // Fallback: insert before fetchJSONP
+        var insertBefore = 'function fetchJSONP(';
+        var idx = text.indexOf(insertBefore);
+        var insertAt = idx !== -1 ? idx : text.lastIndexOf('<\/script>');
+        text = text.slice(0, insertAt) + patch.newCode + '\n\n' + text.slice(insertAt);
+        logAppend('index-log', 'Không tìm thấy fetchAllArticles — đã chèn trước fetchJSONP.', 'warn');
+      }
+    }
+
+    // ── Patch article links: bai-viet.html?slug= → [slug].html ──
+    var LINK_MARKER = '// [OMEGA-NEWS-STATIC-LINKS-PATCHED]';
+    if (!text.includes(LINK_MARKER)) {
+      var patched = false;
+      // Patch in renderCards: href="tin-tuc/bai-viet.html?slug=' + esc(a.slug) + '"
+      var oldCardLink = "href=\"tin-tuc/bai-viet.html?slug=' + esc(a.slug) + '\"";
+      var newCardLink = "href=\"tin-tuc/' + esc(a.slug) + '.html\"";
+      if (text.includes(oldCardLink)) {
+        text = text.split(oldCardLink).join(newCardLink);
+        logAppend('index-log', 'Đã cập nhật link thẻ bài viết → [slug].html', 'ok');
+        patched = true;
+      }
+      // Patch in renderFeatured: href="tin-tuc/bai-viet.html?slug=' + esc(feat.slug) + '"
+      var oldFeatLink = "href=\"tin-tuc/bai-viet.html?slug=' + esc(feat.slug) + '\"";
+      var newFeatLink = "href=\"tin-tuc/' + esc(feat.slug) + '.html\"";
+      if (text.includes(oldFeatLink)) {
+        text = text.split(oldFeatLink).join(newFeatLink);
+        logAppend('index-log', 'Đã cập nhật link bài nổi bật → [slug].html', 'ok');
+        patched = true;
+      }
+      if (patched) {
+        // Insert marker near end of script block
+        var markerInsert = text.lastIndexOf('<\/script>');
+        if (markerInsert === -1) markerInsert = text.lastIndexOf('<\/script>');
+        if (markerInsert !== -1) {
+          text = text.slice(0, markerInsert) + '\n  ' + LINK_MARKER + '\n  ' + text.slice(markerInsert);
+        }
+      } else {
+        logAppend('index-log', 'Link bài viết: không tìm thấy mẫu cũ (có thể đã được cập nhật).', 'warn');
+      }
+    } else {
+      logAppend('index-log', 'Link bài viết: đã được cập nhật từ trước.', 'ok');
+    }
+
+    // ── Fix cat-btn data-cat mismatches ──────────────────────
+    var catFixes = [
+      ['data-cat="erp"', 'data-cat="erp-quan-tri"'],
+      ['data-cat="ke-toan"', 'data-cat="ke-toan-tai-chinh"']
+    ];
+    catFixes.forEach(function(pair) {
+      if (text.includes(pair[0])) {
+        text = text.split(pair[0]).join(pair[1]);
+        logAppend('index-log', 'Đã sửa cat-btn: ' + pair[0] + ' → ' + pair[1], 'ok');
+      }
+    });
+
+    await writeFile(omegaDir, 'tin-tuc.html', text);
+    logAppend('index-log', 'Đã lưu tin-tuc.html thành công.', 'ok');
+    toast('Đã cập nhật tin-tuc.html thành công.');
+  } catch(e) {
+    logAppend('index-log', 'Lỗi: ' + e.message, 'err');
+    toast('Lỗi cập nhật: ' + e.message, 'error');
+  }
+}
+
+// ── HTML Generator ────────────────────────────────────────
+
+function buildArticleHtml(a, thumb, gallery, videos, allArticles, knownSlugs) {
+  var catLabel = CAT_LABELS[a.Category] || a.Category;
+  var catClass = ({
+    'ke-toan-tai-chinh': 'blue',
+    'su-kien': 'red',
+    'tuyen-dung': 'orange'
+  })[a.Category] || '';
+
+  var seoTitle = (a.SEOTitle || a.Title) + ' – OMEGA ERP';
+  var seoDesc = a.SEODesc || a.Excerpt;
+  var canonicalUrl = 'https://omega.com.vn/tin-tuc/' + a.Slug + '.html';
+  var thumbPath = thumb ? (a.Slug + '/' + thumb) : '';
+  var ogImage = thumbPath ? ('https://omega.com.vn/tin-tuc/' + thumbPath) : '';
+
+  // Tags
+  var tagsHtml = '';
+  if (a.Tags) {
+    var tagArr = a.Tags.split(',').map(function(t){ return t.trim(); }).filter(Boolean);
+    if (tagArr.length) {
+      tagsHtml = '<div class="article-tags"><i class="fa-solid fa-tags" style="color:#00A651;margin-right:6px;"></i>'
+        + tagArr.map(function(t){ return '<span>' + esc(t) + '</span>'; }).join('')
+        + '</div>';
+    }
+  }
+
+  // Normalized category (for data-cat, nav active state)
+  var normCatVal = normCat(a.Category);
+
+  // Nav submenu — built dynamically so current category is marked active
+  // Links: ?cat=slug#slug  → activates filter tab AND scrolls browser to that tab button
+  var catNavHtml = Object.keys(CAT_LABELS).map(function(slug) {
+    var isActive = slug === normCatVal ? ' active' : '';
+    return '                    <li class="nav-item"><a class="nav-link' + isActive + '" href="../tin-tuc.html?cat=' + slug + '#' + slug + '">' + CAT_LABELS[slug] + '</a></li>';
+  }).join('\n');
+
+  // feat-badge: shown in article header when article is marked as featured
+  var featBadgeHtml = a.IsFeatured
+    ? '<span class="feat-badge-art"><i class="fa-solid fa-star" style="font-size:9px;margin-right:3px;vertical-align:middle;"></i>Nổi bật</span>'
+    : '';
+
+  // Author tooltip (embedded at generation time from authorsMap)
+  var authorTipHtml = (function() {
+    var info = authorsMap[a.Author];
+    if (!info) return '<span><i class="fa-solid fa-user"></i>' + escHtml(a.Author) + '</span>';
+    var imgBlock = info.image
+      ? '<img src="_tools/' + escHtml(info.image) + '" alt="' + escHtml(a.Author) + '">'
+      : '<div class="author-tip-avatar">' + escHtml((a.Author || '?').charAt(0).toUpperCase()) + '</div>';
+    var infoBlock = '<div class="author-tip-info">'
+      + '<strong>' + escHtml(a.Author) + '</strong>'
+      + (info.position   ? '<em>'  + escHtml(info.position)   + '</em>' : '')
+      + (info.quickIntro ? '<p>'   + escHtml(info.quickIntro) + '</p>'  : '')
+      + '</div>';
+    return '<span class="author-tip-wrap">'
+      + '<i class="fa-solid fa-user"></i>' + escHtml(a.Author)
+      + '<div class="author-tip">' + imgBlock + infoBlock + '</div>'
+      + '</span>';
+  })();
+
+  // Hero media slider (combines thumbnail + gallery + videos)
+  var heroSlides = [];
+  if (thumbPath) heroSlides.push({ type: 'img', src: thumbPath });
+  gallery.forEach(function(img) { heroSlides.push({ type: 'img', src: a.Slug + '/' + img }); });
+  videos.forEach(function(v) {
+    var mime = v.endsWith('.webm') ? 'video/webm' : v.endsWith('.mov') ? 'video/quicktime' : 'video/mp4';
+    heroSlides.push({ type: 'video', src: a.Slug + '/' + v, mime: mime });
+  });
+  var heroCount = heroSlides.length;
+  var heroHtml = '';
+  if (heroCount === 0) {
+    heroHtml = '<div class="hero-media-placeholder"><i class="fa-solid fa-newspaper"></i></div>';
+  } else if (heroCount === 1 && heroSlides[0].type === 'img') {
+    heroHtml = '<div class="hero-media-single"><img src="' + esc(heroSlides[0].src) + '" alt="' + esc(a.Title) + '"></div>';
+  } else {
+    var slidesHtml = heroSlides.map(function(slide, si) {
+      if (slide.type === 'img') {
+        return '<div class="swiper-slide"><img src="' + esc(slide.src) + '" alt="' + esc(a.Title) + '" loading="' + (si === 0 ? 'eager' : 'lazy') + '"></div>';
+      } else {
+        return '<div class="swiper-slide swiper-slide-video"><video controls preload="metadata" playsinline><source src="' + esc(slide.src) + '" type="' + slide.mime + '">Trình duyệt không hỗ trợ video.</video></div>';
+      }
+    }).join('');
+    heroHtml = '<div class="hero-slider swiper" id="heroSwiper">'
+      + '<div class="swiper-wrapper">' + slidesHtml + '</div>'
+      + '<div class="swiper-pagination"></div>'
+      + '<div class="swiper-button-next"></div>'
+      + '<div class="swiper-button-prev"></div>'
+      + '<div class="hero-counter" id="heroCounter">1 / ' + heroCount + '</div>'
+      + '</div>';
+  }
+
+  // Process content: sanitize → inject heading IDs → build TOC
+  var processedContent = sanitizeContent(a.Content || '');
+  processedContent = injectHeadingIds(processedContent);
+  var tocHtml = buildStaticToc(processedContent);
+
+  // Related articles — smart scoring: same category (+3), shared tag (+1 each)
+  // Only include articles that actually have generated HTML files (knownSlugs)
+  var aTags = a.Tags ? a.Tags.split(',').map(function(t){ return t.trim().toLowerCase(); }).filter(Boolean) : [];
+  var related = allArticles
+    .filter(function(x){
+      return x.Status === 'published' && x.Slug !== a.Slug
+        && (!knownSlugs || knownSlugs.has(x.Slug));
+    })
+    .map(function(x) {
+      var score = 0;
+      if (normCat(x.Category) === normCat(a.Category)) score += 3;
+      if (x.Tags && aTags.length) {
+        var xTags = x.Tags.split(',').map(function(t){ return t.trim().toLowerCase(); });
+        aTags.forEach(function(t){ if (xTags.indexOf(t) !== -1) score += 1; });
+      }
+      return { a: x, score: score };
+    })
+    .sort(function(x, y){ return y.score - x.score; })
+    .slice(0, 3)
+    .map(function(s){ return s.a; });
+  var relatedHtml = '';
+  if (related.length) {
+    relatedHtml = '<section class="related-section section-gap"><div class="container"><div class="section-title text-center mb-4 wow fadeInUp"><span class="section-label">Xem thêm</span><h2>Bài viết <span style="color:#00A651;">liên quan</span></h2></div><div class="row g-4">';
+    related.forEach(function(p, i) {
+      var delay = i * 0.07;
+      var rThumb = p.CoverImage
+        ? (p.CoverImage.startsWith('http') ? p.CoverImage : 'tin-tuc/' + p.Slug + '/' + p.CoverImage)
+        : ('tin-tuc/' + p.Slug + '/thumbnail.webp');
+      var rThumbSrc = rThumb.startsWith('http') ? rThumb : ('../' + rThumb);
+      relatedHtml += '<div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="'+delay+'s">'
+        + '<div class="related-card">'
+        + '<div class="related-card-img"><img src="' + esc(rThumbSrc) + '" alt="' + esc(p.Title) + '" loading="lazy" onerror="this.parentNode.style.background=\'linear-gradient(135deg,#e8f5e9,#c8e6c9)\'"></div>'
+        + '<div class="related-card-body"><h5><a href="' + esc(p.Slug) + '.html">' + esc(p.Title) + '</a></h5>'
+        + '<div class="related-card-meta"><i class="fa-regular fa-calendar" style="color:#00A651;margin-right:4px;"></i>' + esc(p.PublishedDate)
+        + ' &nbsp;|&nbsp; <i class="fa-regular fa-clock" style="color:#00A651;margin-right:4px;"></i>' + esc(p.ReadTime) + '</div>'
+        + '</div></div></div>';
+    });
+    relatedHtml += '</div></div></section>';
+  }
+
+  return `<!DOCTYPE html>
+<html lang="vi" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escHtml(seoTitle)}</title>
+  <meta name="description" content="${escHtml(seoDesc)}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="${escHtml(canonicalUrl)}">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:site_name" content="OMEGA ERP">
+  <meta property="og:title" content="${escHtml(seoTitle)}">
+  <meta property="og:description" content="${escHtml(seoDesc)}">
+  <meta property="og:url" content="${escHtml(canonicalUrl)}">
+  <meta property="og:image" content="${escHtml(ogImage)}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escHtml(seoTitle)}">
+  <meta name="twitter:description" content="${escHtml(seoDesc)}">
+  <meta name="twitter:image" content="${escHtml(ogImage)}">
+  <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/animate.css">
+  <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css">
+  <link rel="stylesheet" href="../assets/css/slicknav.min.css">
+  <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="../assets/css/omega.css">
+  <style>
+    .article-wrapper { max-width: 860px; margin: 0 auto; }
+    .article-header { margin-bottom: 32px; }
+    .article-category-badge { display:inline-block;padding:4px 16px;border-radius:50px;background:rgba(0,166,81,0.1);color:#00A651;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px; }
+    .article-category-badge.red { background:rgba(237,28,36,0.1);color:#ED1C24; }
+    .article-category-badge.blue { background:rgba(26,95,212,0.1);color:#1a5fd4; }
+    .article-category-badge.orange { background:rgba(230,81,0,0.1);color:#e65100; }
+    .feat-badge-art { display:inline-block;padding:3px 12px;background:linear-gradient(135deg,#00A651,#7ed957);color:#fff;border-radius:50px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-left:8px;vertical-align:middle; }
+    .article-title { font-size:clamp(22px,3.5vw,36px);font-weight:800;color:#0d1b2a;line-height:1.3;margin-bottom:16px; }
+    .article-meta { display:flex;flex-wrap:wrap;align-items:center;gap:16px;font-size:13px;color:#999;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid #f0f4f0; }
+    .article-meta > span,.article-meta .author-tip-wrap { display:inline-flex;align-items:center;gap:4px; }
+    .article-meta i { color:#00A651; }
+    .hero-media-single { width:100%;border-radius:16px;overflow:hidden;margin-bottom:36px;box-shadow:0 8px 32px rgba(0,0,0,0.12);background:#f8f9fa;text-align:center; }
+    .hero-media-single img { width:100%;height:auto;max-height:640px;object-fit:contain;display:block;margin:0 auto; }
+    .hero-media-placeholder { width:100%;min-height:260px;border-radius:16px;background:linear-gradient(135deg,#e8f5e9,#c8e6c9);margin-bottom:36px;display:flex;align-items:center;justify-content:center; }
+    .hero-media-placeholder i { font-size:60px;color:#a5d6a7; }
+    .hero-slider { width:100%;border-radius:16px;overflow:hidden;margin-bottom:36px;box-shadow:0 8px 32px rgba(0,0,0,0.12);background:#f8f9fa; }
+    .hero-slider .swiper-slide { display:flex;align-items:center;justify-content:center;background:#f8f9fa; }
+    .hero-slider .swiper-slide img { width:100%;height:auto;max-height:640px;object-fit:contain;display:block; }
+    .hero-slider .swiper-slide video { width:100%;height:auto;max-height:640px;object-fit:contain;display:block;background:#000; }
+    .hero-slider .swiper-button-next,.hero-slider .swiper-button-prev { color:#333;background:rgba(255,255,255,0.85);border-radius:50%;width:38px;height:38px;box-shadow:0 2px 8px rgba(0,0,0,0.15); }
+    .hero-slider .swiper-button-next::after,.hero-slider .swiper-button-prev::after { font-size:14px;font-weight:700; }
+    .hero-slider .swiper-pagination-bullet { background:#00A651;opacity:0.4; }
+    .hero-slider .swiper-pagination-bullet-active { opacity:1; }
+    .hero-counter { position:absolute;bottom:12px;right:14px;background:rgba(0,0,0,0.45);color:#fff;font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;z-index:10;pointer-events:none; }
+    @media (max-width:768px) { .hero-slider,.hero-media-single { border-radius:10px; } .hero-slider .swiper-slide img,.hero-slider .swiper-slide video,.hero-media-single img { max-height:420px; } }
+    .article-body { font-size:16px;line-height:1.85;color:#2d3748; }
+    .article-body h2 { font-size:clamp(18px,2.5vw,24px);font-weight:700;color:#0d1b2a;margin:36px 0 14px;padding-left:14px;border-left:4px solid #00A651; }
+    .article-body h3 { font-size:clamp(16px,2vw,20px);font-weight:700;color:#1a3a2a;margin:24px 0 10px; }
+    .article-body p { margin-bottom:18px; }
+    .article-body ul,.article-body ol { padding-left:24px;margin-bottom:18px; }
+    .article-body li { margin-bottom:6px; }
+    .article-body strong { color:#0d1b2a; }
+    .article-body a { color:#00A651;font-weight:600; }
+    .article-body a:hover { color:#007a3d; }
+    .article-body img { max-width:100%;border-radius:10px;margin:20px 0;box-shadow:0 4px 16px rgba(0,0,0,0.08); }
+    .article-body blockquote { border-left:4px solid #00A651;padding:12px 20px;margin:24px 0;background:#f6fbf7;border-radius:0 8px 8px 0;font-style:italic;color:#555; }
+    .article-body table { width:100%;border-collapse:collapse;margin:20px 0; }
+    .article-body th { background:#00A651;color:#fff;padding:10px 14px;text-align:left;font-size:14px; }
+    .article-body td { padding:8px 14px;border-bottom:1px solid #eee;font-size:14px; }
+    .article-body tr:nth-child(even) td { background:#f9fbf9; }
+    .article-tags { margin-top:32px;padding-top:20px;border-top:1px solid #eee; }
+    .article-tags span { display:inline-block;padding:3px 12px;background:#f0f4f0;border-radius:50px;font-size:12px;color:#555;margin:4px; }
+    .related-section { background:#f8fbf8; }
+    .related-card { background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,0.07);transition:transform 0.25s,box-shadow 0.25s;height:100%;display:flex;flex-direction:column; }
+    .related-card:hover { transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,166,81,0.12); }
+    .related-card-img { height:170px;overflow:hidden;background:linear-gradient(135deg,#e8f5e9,#c8e6c9); }
+    .related-card-img img { width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s; }
+    .related-card:hover .related-card-img img { transform:scale(1.05); }
+    .related-card-body { padding:16px;flex:1;display:flex;flex-direction:column; }
+    .related-card-body h5 { font-size:14px;font-weight:700;line-height:1.5;flex:1;margin-bottom:10px; }
+    .related-card-body h5 a { color:#0d1b2a;text-decoration:none; }
+    .related-card-body h5 a:hover { color:#00A651; }
+    .related-card-meta { font-size:12px;color:#aaa; }
+    /* Fix: body{overflow-x:hidden} in omega.css breaks position:sticky in Chrome — override with clip */
+    body { overflow-x: clip !important; }
+    @media (min-width:992px) { .col-lg-4:has(.article-sidebar) { position:sticky;top:100px;align-self:flex-start; } }
+    .toc-box { background:#fff;border-radius:12px;padding:20px;box-shadow:0 3px 14px rgba(0,0,0,0.07);margin-bottom:24px; }
+    .toc-box h5 { font-size:13px;font-weight:700;color:#00A651;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:14px; }
+    .toc-list { list-style:none;padding:0;margin:0; }
+    .toc-list li { margin-bottom:6px; }
+    .toc-list a { font-size:13px;color:#555;text-decoration:none;display:flex;gap:8px;align-items:flex-start;padding:4px 0;transition:color 0.2s; }
+    .toc-list a:hover,.toc-list a.active { color:#00A651; }
+    .toc-list a::before { content:'›';color:#00A651;font-weight:700;flex-shrink:0;margin-top:1px; }
+    .share-box { background:#fff;border-radius:12px;padding:20px;box-shadow:0 3px 14px rgba(0,0,0,0.07); }
+    .share-box h5 { font-size:13px;font-weight:700;color:#0d1b2a;margin-bottom:12px; }
+    .share-btn { display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;margin-bottom:8px;transition:opacity 0.2s;border:none;cursor:pointer;width:100%; }
+    .share-btn:hover { opacity:0.85; }
+    .share-btn.fb { background:#1877F2;color:#fff; }
+    .share-btn.zalo { background:#0068ff;color:#fff; }
+    .share-btn.copy { background:#f0f4f0;color:#555; }
+    /* ── Author tooltip ── */
+    .author-tip-wrap { position:relative;display:inline-flex;align-items:center;gap:5px;cursor:default; }
+    .author-tip {
+      display:none;position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
+      background:#fff;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,0.14);padding:14px;
+      width:300px;z-index:9999;pointer-events:none;
+      flex-direction:row;align-items:flex-start;gap:12px;
+      border:1px solid #e8eee8;
+      animation:tipFadeIn 0.15s ease;
+    }
+    @keyframes tipFadeIn { from{opacity:0;transform:translateX(-50%) translateY(4px);} to{opacity:1;transform:translateX(-50%) translateY(0);} }
+    .author-tip::after {
+      content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+      border:7px solid transparent;border-top-color:#fff;
+      filter:drop-shadow(0 2px 1px rgba(0,0,0,0.06));
+    }
+    .author-tip-wrap:hover .author-tip { display:flex; }
+    .author-tip img { width:68px;height:68px;border-radius:8px;object-fit:cover;flex-shrink:0; }
+    .author-tip-avatar { width:68px;height:68px;border-radius:8px;background:linear-gradient(135deg,#00A651,#7ed957);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:700;flex-shrink:0; }
+    .author-tip-info { flex:1;min-width:0; }
+    .author-tip-info strong { display:block;font-size:14px;font-weight:700;color:#0d1b2a;margin-bottom:2px;line-height:1.3; }
+    .author-tip-info em { display:block;font-size:12px;color:#00A651;font-style:normal;font-weight:600;margin-bottom:6px; }
+    .author-tip-info p { font-size:12px;color:#555;line-height:1.55;margin:0; }
+    /* Mobile: tooltip above may be clipped — just hide on touch screens */
+    @media (hover:none) { .author-tip { display:none!important; } }
+    /* ── Comment section ── */
+    .comment-section-title { font-size:17px;font-weight:700;color:#0d1b2a;margin-bottom:18px;display:flex;align-items:center;flex-wrap:wrap;gap:6px; }
+    .comment-loading { color:#aaa;font-size:14px;padding:20px 0;text-align:center; }
+    .comment-empty { color:#aaa;font-size:14px;padding:16px 0;text-align:center;font-style:italic; }
+    .comment-item { display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #eef4ef; }
+    .comment-item:last-child { border-bottom:none; }
+    .comment-avatar { width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#00A651,#7ed957);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;flex-shrink:0; }
+    .comment-body { flex:1;min-width:0; }
+    .comment-meta { display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap; }
+    .comment-name { font-weight:700;font-size:14px;color:#0d1b2a; }
+    .comment-date { font-size:12px;color:#bbb; }
+    .comment-text { font-size:14px;color:#444;line-height:1.75;white-space:pre-wrap;word-break:break-word; }
+    /* Stars in comment items */
+    .c-stars { display:inline-flex;gap:1px;font-size:12px;vertical-align:middle;line-height:1; }
+    .c-stars .sf { color:#FFC107; }
+    .c-stars .se { color:#ddd; }
+    /* Form */
+    .comment-form-wrap { background:#f8fbf8;border-radius:10px;padding:20px;margin-top:24px;border:1px solid #e8f5e9; }
+    .comment-form-title { font-size:15px;font-weight:700;color:#0d1b2a;margin-bottom:16px; }
+    .comment-form-row-3 { display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px; }
+    @media (max-width:767px) { .comment-form-row-3 { grid-template-columns:1fr 1fr; } }
+    @media (max-width:480px) { .comment-form-row-3 { grid-template-columns:1fr; } }
+    .comment-form-group { margin-bottom:12px; }
+    .comment-form-group label { display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px; }
+    .comment-input { width:100%;padding:8px 11px;border:1.5px solid #dde8dd;border-radius:7px;font-size:14px;font-family:inherit;transition:border 0.2s;outline:none;background:#fff; }
+    .comment-input:focus { border-color:#00A651; }
+    .comment-textarea { resize:vertical;min-height:90px; }
+    .comment-char-count { text-align:right;font-size:11px;color:#aaa;margin-top:3px; }
+    /* Star rating widget */
+    .star-rating-widget { display:flex;gap:3px;cursor:pointer;align-items:center; }
+    .star-w { font-size:26px;color:#ddd;transition:color 0.1s;line-height:1;user-select:none; }
+    .star-w.on,.star-w.hov { color:#FFC107; }
+    .star-w-hint { font-size:12px;color:#aaa;margin-left:6px; }
+    .comment-submit { display:inline-flex;align-items:center;gap:8px;padding:9px 22px;background:#00A651;color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.15s; }
+    .comment-submit:hover { background:#007a3d; }
+    .comment-submit:disabled { background:#aaa;cursor:not-allowed; }
+    .comment-msg { padding:9px 13px;border-radius:7px;font-size:13px;margin-bottom:12px; }
+    .comment-msg.success { background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7; }
+    .comment-msg.error   { background:#ffebee;color:#c62828;border:1px solid #ef9a9a; }
+    .comment-msg.hidden  { display:none; }
+  <\/style>
+</head>
+<body>
+
+  <!-- PRELOADER -->
+  <div class="preloader">
+    <div class="preloader-inner">
+      <img src="../assets/images/omega-radar-sonar.svg" alt="Omega" class="preloader-logo">
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="header-sticky">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid px-4">
+          <a class="navbar-brand" href="../index.html">
+            <img src="../assets/images/omega-5A-rect-trans-name.png" alt="Omega ERP Logo" class="logo-default">
+            <img src="../assets/images/omega-5A-rect-trans-name.png" alt="Omega ERP Logo" class="logo-sticky" style="display:none">
+          </a>
+          <div class="collapse navbar-collapse main-menu" id="navbarNav">
+            <div class="nav-menu-wrapper mx-auto">
+              <ul class="navbar-nav" id="menu">
+                <li class="nav-item submenu"><a class="nav-link" href="../ve-omega.html">Về Omega</a>
+                  <ul>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#dinh-vi">Định vị &amp; Năng lực</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#tam-nhin">Tầm nhìn &amp; Sứ mệnh</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#gia-tri">Giá trị cốt lõi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#doi-ngu">Đội ngũ nhân sự</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item submenu"><a class="nav-link" href="../giai-phap.html">Giải pháp</a>
+                  <ul>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-nhua.html">Ngành nhựa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-go-noi-that.html">Ngành gỗ – Nội thất</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-fb.html">Ngành F&amp;B</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-fmcg.html">Ngành FMCG</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-thuy-san.html">Ngành thủy – hải sản</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-y-te.html">Thiết bị y tế</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-thoi-trang.html">Ngành thời trang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-phan-phoi.html">Phân phối – Bán sỉ</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="../san-pham.html">Sản phẩm</a></li>
+                <li class="nav-item"><a class="nav-link" href="../dich-vu.html">Dịch vụ</a></li>
+                <li class="nav-item"><a class="nav-link" href="../khach-hang.html">Khách hàng</a></li>
+                <li class="nav-item submenu"><a class="nav-link active" href="../tin-tuc.html">Tin tức</a>
+                  <ul>
+                    ${catNavHtml}
+                  </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="../lien-he.html">Liên hệ</a></li>
+              </ul>
+            </div>
+            <div class="header-btn ms-3">
+              <a class="btn-default" href="../lien-he.html">Tư vấn miễn phí</a>
+            </div>
+          </div>
+          <div class="navbar-toggle" id="mobileToggle">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </nav>
+      <div class="responsive-menu container-fluid px-4"></div>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header" style="padding:56px 0;">
+    <div class="page-header-overlay"></div>
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="../index.html">Trang chủ</a></li>
+          <li class="breadcrumb-item"><a href="../tin-tuc.html">Tin tức</a></li>
+          <li class="breadcrumb-item active">${escHtml(catLabel)}</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ARTICLE CONTENT -->
+  <section class="section-gap" style="padding-top:48px;">
+    <div class="container">
+      <div class="row g-4 g-lg-5">
+
+        <!-- Main Content -->
+        <div class="col-lg-8">
+          <div class="article-wrapper">
+            <div class="article-header" data-cat="${escHtml(normCatVal)}">
+              <span class="article-category-badge ${escHtml(catClass)}">${escHtml(catLabel)}</span>${featBadgeHtml}
+              <h1 class="article-title">${escHtml(a.Title)}</h1>
+              <div class="article-meta">
+                <span><i class="fa-regular fa-calendar"></i>${escHtml(a.PublishedDate)}</span>
+                <span><i class="fa-regular fa-clock"></i>${escHtml(a.ReadTime)}</span>
+                ${authorTipHtml}
+              </div>
+            </div>
+            ${heroHtml}
+            <div class="article-body" id="article-body">
+              ${processedContent || '<p>' + escHtml(a.Excerpt) + '</p>'}
+            </div>
+            ${tagsHtml}
+            <div style="margin-top:32px;padding-top:20px;border-top:1px solid #eee;">
+              <a href="../tin-tuc.html" style="color:#00A651;font-weight:600;font-size:14px;">
+                <i class="fa-solid fa-arrow-left me-2"></i>Quay lại Tin tức
+              </a>
+            </div>
+
+            <!-- ─── Đánh giá & Bình luận ─── -->
+            <div style="margin-top:36px;padding-top:28px;border-top:2px solid #e8f5e9;">
+              <h3 class="comment-section-title">
+                <i class="fa-regular fa-comments" style="color:#00A651;"></i>
+                Bình luận<span id="comment-count" style="font-size:13px;font-weight:400;color:#555;margin-left:4px;"></span>
+              </h3>
+
+              <div id="comment-list">
+                <div class="comment-loading"><i class="fa-solid fa-circle-notch fa-spin"></i> Đang tải bình luận…</div>
+              </div>
+
+              <div class="comment-form-wrap">
+                <h4 class="comment-form-title"><i class="fa-solid fa-pen-to-square" style="color:#00A651;margin-right:7px;"></i>Để lại bình luận</h4>
+                <form id="comment-form" novalidate>
+                  <input type="text" name="website_omega" style="display:none!important;" tabindex="-1" autocomplete="off">
+                  <input type="hidden" name="token_bot" id="cf-token">
+                  <input type="hidden" name="form_start_time" id="cf-start">
+                  <input type="hidden" name="human_score" id="cf-score" value="0">
+                  <input type="hidden" name="rating" id="cf-rating" value="0">
+
+                  <div class="comment-form-row-3">
+                    <div class="comment-form-group">
+                      <label>Họ và tên <span style="color:#dc3545;">*</span></label>
+                      <input type="text" name="name" class="comment-input" placeholder="Nguyễn Văn A" required maxlength="100">
+                    </div>
+                    <div class="comment-form-group">
+                      <label>Email <span style="color:#dc3545;">*</span></label>
+                      <input type="email" name="email" class="comment-input" placeholder="email@example.com" required maxlength="150">
+                    </div>
+                    <div class="comment-form-group">
+                      <label>Số điện thoại</label>
+                      <input type="tel" name="phone" class="comment-input" placeholder="0909 xxx xxx" maxlength="20">
+                    </div>
+                  </div>
+
+                  <div class="comment-form-group">
+                    <label>Đánh giá bài viết</label>
+                    <div class="star-rating-widget" id="star-rating">
+                      <span class="star-w" data-v="1">★</span>
+                      <span class="star-w" data-v="2">★</span>
+                      <span class="star-w" data-v="3">★</span>
+                      <span class="star-w" data-v="4">★</span>
+                      <span class="star-w" data-v="5">★</span>
+                      <span class="star-w-hint" id="star-hint">Chưa chọn</span>
+                    </div>
+                  </div>
+
+                  <div class="comment-form-group">
+                    <label>Nội dung bình luận <span style="color:#dc3545;">*</span></label>
+                    <textarea name="content" class="comment-input comment-textarea" rows="4" placeholder="Chia sẻ suy nghĩ của bạn về bài viết này…" required minlength="10" maxlength="2000"></textarea>
+                    <div class="comment-char-count"><span id="cf-chars">0</span>/2000</div>
+                  </div>
+                  <div id="comment-msg" class="comment-msg hidden"></div>
+                  <button type="submit" class="comment-submit" id="cf-submit">
+                    <i class="fa-solid fa-paper-plane"></i> Gửi bình luận
+                  </button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <div class="article-sidebar" id="article-sidebar">
+            ${tocHtml}
+            <div class="share-box">
+              <h5>Chia sẻ bài viết</h5>
+              <a href="#" id="share-fb" class="share-btn fb" target="_blank">
+                <i class="fa-brands fa-facebook-f"></i> Facebook
+              </a>
+              <a href="#" id="share-zalo" class="share-btn zalo" target="_blank">
+                <i class="fa-solid fa-comment-dots"></i> Zalo
+              </a>
+              <button class="share-btn copy" id="share-copy" onclick="copyLink(this)">
+                <i class="fa-regular fa-copy"></i> <span id="copy-label">Sao chép link</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  ${relatedHtml}
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container position-relative" style="z-index:1;">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-7 wow fadeInLeft">
+          <div class="section-title mb-0">
+            <h2 style="color:#fff;font-size:clamp(22px,3vw,38px);">Sẵn sàng <strong>chuyển đổi số</strong><br>cùng Omega?</h2>
+            <p style="color:rgba(255,255,255,0.85);">Đăng ký tư vấn miễn phí ngay hôm nay. Đội ngũ chuyên gia OMEGA sẵn sàng phân tích nhu cầu và đề xuất giải pháp phù hợp nhất.</p>
+          </div>
+        </div>
+        <div class="col-lg-5 text-lg-end wow fadeInRight">
+          <a href="../lien-he.html" class="btn-white-omega me-3"><i class="fa-solid fa-paper-plane"></i> Tư vấn miễn phí</a>
+          <a href="tel:0908303609" class="btn-red-omega"><i class="fa-solid fa-phone"></i> Gọi ngay</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-4">
+            <div class="footer-brand">
+              <img src="../assets/images/omega-4B-rect-trans-full.png" alt="Omega ERP" onerror="this.src='../assets/images/omega-5A-rect-trans-name.png'">
+            </div>
+            <p class="footer-desc">Omega – Đồng hành cùng doanh nghiệp trên hành trình chuyển đổi số với các giải pháp ERP toàn diện, thực chất và hiệu quả.</p>
+            <div class="footer-social">
+              <a href="https://zalo.me/908303609" target="_blank"><i class="fa-solid fa-comment-dots"></i></a>
+              <a href="https://www.facebook.com/PhanMemQuanTriDoanhNghiepOMEGAERP/"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="https://www.youtube.com/@omegaerp9461"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+          </div>
+          <!-- Products -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Sản phẩm</h4>
+            <ul class="footer-links">
+              <li><a href="../san-pham/software-omega-erp.html">OMEGA.ERP</a></li>
+              <li><a href="../san-pham/software-omega-gl.html">OMEGA.GL – Kế toán</a></li>
+              <li><a href="../san-pham/software-omega-hr.html">OMEGA.HR – Nhân sự</a></li>
+              <li><a href="../san-pham/software-omega-mm.html">OMEGA.MM – Sản xuất</a></li>
+              <li><a href="../san-pham/software-omega-crm.html">OMEGA.CRM</a></li>
+              <li><a href="../san-pham/software-omega-smb.html">GAMA.SMB</a></li>
+            </ul>
+          </div>
+
+          <!-- Solutions -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Giải pháp</h4>
+            <ul class="footer-links">
+              <li><a href="../giai-phap/giai-phap-nganh-fb.html">Ngành F&amp;B</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-nhua.html">Ngành Nhựa</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-go-noi-that.html">Gỗ – Nội thất</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-fmcg.html">Ngành FMCG</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-thuy-san.html">Thủy – Hải sản</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-y-te.html">Thiết bị y tế</a></li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Dịch vụ</h4>
+            <ul class="footer-links">
+              <li><a href="../dich-vu.html#dich-vu-tong-quan">Tổng quan dịch vụ</a></li>
+              <li><a href="../dich-vu.html#tu-van">Tư vấn triển khai</a></li>
+              <li><a href="../dich-vu.html#dao-tao">Đào tạo &amp; Hỗ trợ</a></li>
+              <li><a href="../dich-vu.html#bao-tri">Bảo trì &amp; Nâng cấp</a></li>
+              <li><a href="../dich-vu.html#quy-trinh">Quy trình triển khai</a></li>
+              <li><a href="../dich-vu.html#faq">Hỏi đáp</a></li>
+            </ul>
+          </div>
+
+          <!-- Company -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Công ty</h4>
+            <ul class="footer-links">
+              <li><a href="../ve-omega.html">Về Omega</a></li>
+              <li><a href="../khach-hang.html">Khách hàng</a></li>
+              <li><a href="../khach-hang.html#case-study">Case Study</a></li>
+              <li><a href="../tin-tuc.html">Tin tức</a></li>
+              <li><a href="../tin-tuc.html#tuyen-dung">Tuyển dụng</a></li>
+              <li><a href="../lien-he.html">Liên hệ</a></li>
+            </ul>
+          </div>
+
+          <div class="col-12">
+            <div class="footer-contact-item"><h3 style="color:#00A651;">CÔNG TY TNHH CÔNG NGHỆ &amp; GIẢI PHÁP OMEGA</h3></div>
+            <div class="footer-contact-item"><i class="fa-solid fa-city"></i><span style="color:rgba(255,255,255,0.6);">Lầu 6 - Tòa nhà Hà Sơn, số 277A Nguyễn Văn Đậu, TP.HCM</span></div>
+            <div class="footer-contact-row">
+              <a href="tel:02835128448" class="fcr-item"><i class="fa-solid fa-phone"></i>028 3512 8448</a>
+              <span class="fcr-item"><i class="fa-solid fa-fax"></i>Fax: 028 3514 7280</span>
+              <a href="mailto:info@omega.com.vn" class="fcr-item"><i class="fa-solid fa-envelope"></i>info@omega.com.vn</a>
+              <a href="https://zalo.me/0908303609" class="fcr-item"><i class="fa-solid fa-mobile"></i>0908 303 609 (Mr. Nhân)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <p class="footer-copy footer-copy-legal">
+              <span class="footer-copy-lname">Công ty TNHH Công nghệ và Giải pháp Omega</span>
+              <span class="footer-copy-lyr">© 2009–<script>document.write(new Date().getFullYear())<\/script>. All rights reserved.</span>
+            </p>
+          <p class="footer-copy"><a href="../chinh-sach-bao-mat.html">Chính sách bảo mật</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="../assets/js/jquery-3.7.1.min.js"><\/script>
+  <script src="../assets/js/bootstrap.min.js"><\/script>
+  <script src="../assets/js/wow.min.js"><\/script>
+  <script src="../assets/js/jquery.slicknav.js"><\/script>
+  <script src="../assets/js/jquery.magnific-popup.min.js"><\/script>
+  <script src="../assets/js/omega.js"><\/script>
+  <script src="../assets/js/swiper-bundle.min.js"><\/script>
+  <script>
+  // Preloader
+  window.addEventListener('load', function() {
+    var pre = document.querySelector('.preloader');
+    if (pre) { pre.style.opacity='0'; setTimeout(function(){ pre.style.display='none'; }, 400); }
+  });
+
+  // Hero media slider
+  (function() {
+    var heroEl = document.getElementById('heroSwiper');
+    if (!heroEl || typeof Swiper === 'undefined') return;
+    var sw = new Swiper('#heroSwiper', {
+      loop: heroEl.querySelectorAll('.swiper-slide').length > 1,
+      autoHeight: true,
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      autoplay: { delay: 5000, disableOnInteraction: true, pauseOnMouseEnter: true },
+      on: {
+        slideChange: function() {
+          var c = document.getElementById('heroCounter');
+          if (c) c.textContent = (this.realIndex + 1) + ' / ' + heroEl.querySelectorAll('.swiper-slide').length;
+          // Pause videos on slide change
+          heroEl.querySelectorAll('video').forEach(function(v){ v.pause(); });
+        }
+      }
+    });
+    // Pause autoplay on video play
+    heroEl.querySelectorAll('video').forEach(function(v) {
+      v.addEventListener('play', function(){ sw.autoplay.stop(); });
+      v.addEventListener('pause', function(){ sw.autoplay.start(); });
+    });
+  })();
+
+  // Mobile menu
+  if (typeof $ !== 'undefined') {
+    $(document).ready(function() {
+      if ($.fn.slicknav) {
+        $('#menu').slicknav({ prependTo: '.responsive-menu', closedSymbol: '&#9658;', openedSymbol: '&#9660;' });
+      }
+      if (typeof WOW !== 'undefined') new WOW().init();
+      // Magnific Popup for gallery
+      if ($.fn.magnificPopup) {
+        $('.gallery-img-link').magnificPopup({ type: 'image', gallery: { enabled: true } });
+      }
+    });
+  }
+
+  // Share buttons
+  (function() {
+    var url = encodeURIComponent(window.location.href);
+    var title = encodeURIComponent(document.title);
+    var fb = document.getElementById('share-fb');
+    var zalo = document.getElementById('share-zalo');
+    if (fb) fb.href = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+    if (zalo) zalo.href = 'https://zalo.me/share?u=' + url + '&t=' + title;
+  })();
+
+  function copyLink(btn) {
+    navigator.clipboard.writeText(window.location.href).then(function() {
+      var lbl = document.getElementById('copy-label');
+      if (lbl) { lbl.textContent = 'Đã sao chép!'; setTimeout(function(){ lbl.textContent = 'Sao chép link'; }, 2000); }
+    });
+  }
+
+  // TOC scroll highlight
+  (function() {
+    var links = document.querySelectorAll('.toc-list a');
+    if (!links.length) return;
+    window.addEventListener('scroll', function() {
+      var scrollY = window.scrollY + 120;
+      links.forEach(function(link) {
+        var id = link.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        if (el) {
+          link.classList.toggle('active', el.offsetTop <= scrollY && el.offsetTop + el.offsetHeight > scrollY);
+        }
+      });
+    });
+  })();
+
+  // Back-to-top
+  (function() {
+    var btn = document.createElement('button');
+    btn.id = 'back-to-top';
+    btn.innerHTML = '&#8679;';
+    btn.style.cssText = 'position:fixed;bottom:24px;right:24px;width:40px;height:40px;border-radius:50%;background:#00A651;color:#fff;border:none;font-size:20px;cursor:pointer;display:none;z-index:999;box-shadow:0 2px 12px rgba(0,166,81,0.3);';
+    document.body.appendChild(btn);
+    window.addEventListener('scroll', function(){ btn.style.display = window.scrollY > 300 ? 'block' : 'none'; });
+    btn.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  })();
+
+  // ── Comment System ────────────────────────────────────────
+  (function() {
+    var COMMENT_URL = '${escHtml(COMMENT_GAS_URL)}';
+    var PAGE_SLUG   = '${escHtml(a.Slug)}';
+    var COOLDOWN_MS = 120000; // 2 phút giữa 2 lần gửi
+    var lastSubmit  = 0;
+    var humanScore  = 0;
+    var startTime   = Date.now();
+
+    // Anti-spam: đếm tương tác người dùng
+    ['mousemove','keydown','touchstart','scroll'].forEach(function(ev) {
+      document.addEventListener(ev, function() { if (humanScore < 10) humanScore++; document.getElementById('cf-score').value = humanScore; }, { once: false, passive: true });
+    });
+
+    // Token ngẫu nhiên
+    document.getElementById('cf-token').value = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    document.getElementById('cf-start').value = startTime;
+
+    // Đếm ký tự textarea
+    var textarea = document.querySelector('#comment-form textarea[name="content"]');
+    if (textarea) {
+      textarea.addEventListener('input', function() {
+        var el = document.getElementById('cf-chars');
+        if (el) el.textContent = textarea.value.length;
+      });
+    }
+
+    // ── Star rating widget ──────────────────────────────────
+    (function() {
+      var starEls = document.querySelectorAll('#star-rating .star-w');
+      var hintEl  = document.getElementById('star-hint');
+      var ratingEl = document.getElementById('cf-rating');
+      var labels  = ['', 'Rất tệ', 'Tệ', 'Bình thường', 'Tốt', 'Rất tốt'];
+      function setStars(val, cls, on) {
+        starEls.forEach(function(s, i) { if (on) { s.classList.toggle(cls, i < val); } else { s.classList.remove(cls); } });
+      }
+      starEls.forEach(function(star) {
+        star.addEventListener('mouseenter', function() {
+          var v = parseInt(this.dataset.v);
+          setStars(0, 'hov', false);
+          setStars(v, 'hov', true);
+          if (hintEl) hintEl.textContent = labels[v] || '';
+        });
+        star.addEventListener('click', function() {
+          var v = parseInt(this.dataset.v);
+          if (ratingEl) ratingEl.value = v;
+          setStars(0, 'on', false);
+          setStars(v, 'on', true);
+          if (hintEl) hintEl.textContent = labels[v] || '';
+        });
+      });
+      var widget = document.getElementById('star-rating');
+      if (widget) {
+        widget.addEventListener('mouseleave', function() {
+          setStars(0, 'hov', false);
+          var cur = parseInt((ratingEl && ratingEl.value) || 0);
+          if (hintEl) hintEl.textContent = cur > 0 ? labels[cur] : 'Chưa chọn';
+        });
+      }
+    })();
+
+    // ── Render danh sách bình luận ──────────────────────────
+    function escHtml(s) {
+      return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function renderComments(list) {
+      var box = document.getElementById('comment-list');
+      var cnt = document.getElementById('comment-count');
+      if (!box) return;
+
+      // Tính trung bình sao
+      var ratedList = list.filter(function(c) { return c.rating > 0; });
+      var avg = ratedList.length
+        ? ratedList.reduce(function(s, c) { return s + c.rating; }, 0) / ratedList.length
+        : 0;
+
+      if (cnt) {
+        var cntHtml = '';
+        if (list.length) {
+          cntHtml += '(' + list.length + ')';
+        }
+        if (avg > 0) {
+          cntHtml += '&nbsp;&nbsp;<span style="color:#FFC107;font-size:14px;">★</span>'
+                   + '<span style="font-weight:700;color:#444;">' + avg.toFixed(1) + '</span>'
+                   + '<span style="color:#aaa;font-size:12px;"> / ' + ratedList.length + ' đánh giá</span>';
+        }
+        cnt.innerHTML = cntHtml;
+      }
+
+      if (!list.length) {
+        box.innerHTML = '<div class="comment-empty">Chưa có bình luận nào. Hãy là người đầu tiên!</div>';
+        return;
+      }
+
+      box.innerHTML = list.map(function(c) {
+        var initial = (c.name || '?').charAt(0).toUpperCase();
+        var starsHtml = '';
+        if (c.rating > 0) {
+          starsHtml = '<span class="c-stars">';
+          for (var i = 1; i <= 5; i++) {
+            starsHtml += '<span class="' + (i <= c.rating ? 'sf' : 'se') + '">★</span>';
+          }
+          starsHtml += '</span>';
+        }
+        return '<div class="comment-item">'
+          + '<div class="comment-avatar">' + escHtml(initial) + '</div>'
+          + '<div class="comment-body">'
+          + '<div class="comment-meta">'
+          + '<span class="comment-name">' + escHtml(c.name) + '</span>'
+          + starsHtml
+          + '<span class="comment-date"><i class="fa-regular fa-clock" style="margin-right:3px;"></i>' + escHtml(c.date) + '</span>'
+          + '</div>'
+          + '<div class="comment-text">' + escHtml(c.content) + '</div>'
+          + '</div></div>';
+      }).join('');
+    }
+
+    // ── Tải bình luận từ GAS ────────────────────────────────
+    // GAS redirects: script.google.com → script.googleusercontent.com
+    // redirect:'follow' (default) handles this; mode:'cors' required to read JSON response
+    function loadComments() {
+      if (!COMMENT_URL) {
+        document.getElementById('comment-list').innerHTML = '<div class="comment-empty">Tính năng bình luận chưa được cấu hình.</div>';
+        return;
+      }
+      var listEl = document.getElementById('comment-list');
+      listEl.innerHTML = '<div class="comment-empty">Đang tải bình luận...</div>';
+      fetch(COMMENT_URL + '?slug=' + encodeURIComponent(PAGE_SLUG), { mode: 'cors', redirect: 'follow' })
+        .then(function(r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function(d) { renderComments(d.comments || []); })
+        .catch(function(err) {
+          listEl.innerHTML = '<div class="comment-empty">Không thể tải bình luận. Vui lòng thử lại sau.</div>';
+          console.warn('[comments] loadComments error:', err);
+        });
+    }
+
+    // ── Submit bình luận ────────────────────────────────────
+    var form = document.getElementById('comment-form');
+    if (form) {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var msgEl  = document.getElementById('comment-msg');
+        var btnEl  = document.getElementById('cf-submit');
+
+        function showMsg(text, type) {
+          if (!msgEl) return;
+          msgEl.className = 'comment-msg ' + type;
+          msgEl.textContent = text;
+        }
+
+        // Cooldown
+        if (Date.now() - lastSubmit < COOLDOWN_MS) {
+          showMsg('Vui lòng chờ ít phút trước khi gửi thêm bình luận.', 'error');
+          return;
+        }
+
+        if (!COMMENT_URL) {
+          showMsg('Tính năng bình luận chưa được cấu hình.', 'error');
+          return;
+        }
+
+        var name    = (form.querySelector('[name="name"]').value || '').trim();
+        var email   = (form.querySelector('[name="email"]').value || '').trim();
+        var phone   = (form.querySelector('[name="phone"]').value || '').trim();
+        var content = (form.querySelector('[name="content"]').value || '').trim();
+        var honeypot = form.querySelector('[name="website_omega"]').value;
+
+        if (!name)  { showMsg('Vui lòng nhập họ và tên.', 'error'); return; }
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showMsg('Email không hợp lệ.', 'error'); return; }
+        if (content.length < 10) { showMsg('Nội dung quá ngắn (tối thiểu 10 ký tự).', 'error'); return; }
+
+        btnEl.disabled = true;
+        btnEl.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang gửi…';
+
+        var payload = {
+          slug:            PAGE_SLUG,
+          name:            name,
+          email:           email,
+          phone:           phone,
+          content:         content,
+          rating:          parseInt(document.getElementById('cf-rating').value, 10) || 0,
+          website_omega:   honeypot,
+          token_bot:       document.getElementById('cf-token').value,
+          form_start_time: parseInt(document.getElementById('cf-start').value, 10),
+          human_score:     parseInt(document.getElementById('cf-score').value, 10)
+        };
+
+        try {
+          await fetch(COMMENT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          lastSubmit = Date.now();
+          showMsg('Cảm ơn bạn! Bình luận đã được gửi thành công.', 'success');
+          form.reset();
+          document.getElementById('cf-chars').textContent = '0';
+          // Reset stars
+          document.getElementById('cf-rating').value = '0';
+          document.querySelectorAll('#star-rating .star-w').forEach(function(s) { s.classList.remove('on'); });
+          var hEl = document.getElementById('star-hint');
+          if (hEl) hEl.textContent = 'Chưa chọn';
+          // Refresh danh sách sau 2 giây
+          setTimeout(loadComments, 2000);
+        } catch(err) {
+          showMsg('Có lỗi xảy ra, vui lòng thử lại sau.', 'error');
+        } finally {
+          btnEl.disabled = false;
+          btnEl.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Gửi bình luận';
+        }
+      });
+    }
+
+    // Tải bình luận khi trang sẵn sàng
+    loadComments();
+  })();
+  <\/script>
+
+<\/body>
+<\/html>`;
+}
+
+function sanitizeContent(content) {
+  // 1. Remove <figure>...</figure> blocks (images already in hero slider)
+  content = content.replace(/<figure[\s\S]*?<\/figure>/gi, '');
+  // 2. Remove unclosed/truncated <figure> (no closing tag)
+  content = content.replace(/<figure[^>]*>[\s\S]*?(?=<(?:h[1-6]|p|ul|ol)[ >]|$)/gi, '');
+  // 3. Remove all <img> tags (single or multiline, images are in slider)
+  content = content.replace(/<img[\s\S]*?\/?>/gi, '');
+  content = content.replace(/<img[^>]*$/gi, '');  // truncated at EOF
+  // 4. Remove <blockquote>...</blockquote> (WP "Xem thêm" link boxes)
+  content = content.replace(/<blockquote[\s\S]*?<\/blockquote>/gi, '');
+  // 5. Unwrap <div> tags (remove tags, keep inner content)
+  content = content.replace(/<div[^>]*>/gi, '');
+  content = content.replace(/<\/div>/gi, '');
+  // 6. Remove empty paragraphs
+  content = content.replace(/<p[^>]*>\s*(?:&nbsp;|\u00a0|\s)*<\/p>/gi, '');
+  // 7. Collapse excessive blank lines
+  content = content.replace(/\n{3,}/g, '\n\n');
+  return content.trim();
+}
+
+function injectHeadingIds(content) {
+  // Step 1: lift <span id="WP_ID"> from heading body into heading tag attr
+  content = content.replace(/<h([23])([^>]*)>([\s\S]*?)<\/h[23]>/gi, function(m, level, attrs, body) {
+    if (/\bid\s*=/i.test(attrs)) return m; // already has id on tag
+    var spanId = body.match(/<span[^>]+\bid\s*=\s*["']([^"']+)["']/i);
+    if (spanId) {
+      var cleanId = spanId[1].replace(/_/g, '-').toLowerCase();
+      return '<h' + level + ' id="' + cleanId + '"' + attrs + '>' + body + '<\/h' + level + '>';
+    }
+    return m;
+  });
+  // Step 2: add sequential ids to any headings still without id
+  var idx = 0;
+  return content.replace(/<h([23])(\s[^>]*)?>/gi, function(match, level, attrs) {
+    attrs = attrs || '';
+    if (/\bid\s*=/i.test(attrs)) { idx++; return match; }
+    return '<h' + level + ' id="h-' + (idx++) + '"' + attrs + '>';
+  });
+}
+
+function buildStaticToc(content) {
+  var headings = [];
+  var re = /<h([23])[^>]*\bid="([^"]*)"[^>]*>([\s\S]*?)<\/h[23]>/gi;
+  var match;
+  while ((match = re.exec(content)) !== null) {
+    var text = match[3].replace(/<[^>]+>/g, '').trim();
+    if (text) headings.push({ level: match[1], id: match[2], text: text });
+  }
+  if (headings.length < 2) return '';
+  var items = headings.map(function(h) {
+    return '<li' + (h.level === '3' ? ' style="padding-left:12px;"' : '') + '><a href="#' + h.id + '">' + esc(h.text) + '</a></li>';
+  }).join('');
+  return '<div class="toc-box" id="toc-box"><h5><i class="fa-solid fa-list-ul" style="margin-right:6px;"></i>Mục lục</h5><ul class="toc-list">' + items + '</ul></div>';
+}
+
+// ── Utilities ─────────────────────────────────────────────
+
+function esc(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function escHtml(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="vi" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OMEGA.MST – Ứng Dụng Thống Kê Sản Xuất Mobile | omega.com.vn</title>
+  <meta name="description" content="Giám sát và cập nhật tiến độ sản xuất real-time từ điện thoại – dashboard trực quan, cảnh báo trễ hạn, thống kê OEE và hiệu suất dây chuyền.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://omega.com.vn/san-pham/app-omega-mst.html">
+  <meta property="og:type" content="website"><meta property="og:locale" content="vi_VN"><meta property="og:site_name" content="OMEGA ERP">
+  <meta property="og:title" content="OMEGA.MST – Ứng Dụng Thống Kê Sản Xuất Mobile"><meta property="og:url" content="https://omega.com.vn/san-pham/app-omega-mst.html">
+  <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
+  <link rel="manifest" href="../assets/images/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/animate.css">
+  <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css">
+  <link rel="stylesheet" href="../assets/css/slicknav.min.css">
+  <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="../assets/css/omega.css">
+  <style>
+    .module-code-badge{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;padding:6px 18px;border-radius:50px;background:linear-gradient(135deg,#FF1A22,#ff6b6b);color:#fff;margin-bottom:16px;}
+    .feature-card{background:#fff;border:1px solid #fce6e6;border-radius:14px;padding:28px 24px;height:100%;transition:all 0.3s;}
+    .feature-card:hover{border-color:#FF1A22;box-shadow:0 8px 32px rgba(255,26,34,0.1);transform:translateY(-4px);}
+    .feature-icon{width:52px;height:52px;background:linear-gradient(135deg,#FF1A22,#ff6b6b);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+    .feature-icon i{color:#fff;font-size:22px;}
+    .feature-card h5{font-size:16px;font-weight:700;color:#1a1a1a;margin-bottom:8px;}
+    .feature-card p{font-size:14px;color:#666;line-height:1.6;margin:0;}
+    .benefit-box{background:linear-gradient(135deg,#fff5f5,#ffecec);border-left:4px solid #FF1A22;border-radius:0 12px 12px 0;padding:24px 28px;margin-bottom:20px;}
+    .benefit-box h5{font-size:16px;font-weight:700;color:#1a1a1a;margin-bottom:6px;}
+    .benefit-box p{font-size:14px;color:#555;margin:0;line-height:1.6;}
+    .section-label{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#FF1A22;background:rgba(255,26,34,0.08);border:1px solid rgba(255,26,34,0.2);padding:6px 16px;border-radius:50px;margin-bottom:14px;}
+    .section-title-lg{font-size:clamp(22px,3.5vw,38px);font-weight:800;color:#1a1a1a;margin-bottom:14px;line-height:1.25;}
+    .section-title-lg span{color:#FF1A22;}
+    .cta-section{background:linear-gradient(135deg,#FF1A22 0%,#ff6b6b 100%);padding:72px 0;}
+    .report-list{list-style:none;padding:0;margin:0;}
+    .report-list li{padding:10px 0;border-bottom:1px solid #fce6e6;font-size:14px;color:#444;display:flex;align-items:center;gap:10px;}
+    .report-list li i{color:#FF1A22;font-size:13px;}
+    .app-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;margin-right:8px;margin-top:12px;text-decoration:none;}
+    .badge-ios{background:#1a1a1a;color:#fff;}
+    .badge-android{background:#FF1A22;color:#fff;}
+    .badge-ios:hover,.badge-android:hover{opacity:0.85;text-decoration:none;}
+  </style>
+</head>
+<body>
+    <div class="preloader">
+    <div class="preloader-inner">
+      <img src="../assets/images/omega-radar-sonar.svg" alt="Omega" class="preloader-logo">
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="main-header">
+    <div class="header-sticky">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid px-4">
+          <!-- Logo -->
+          <a class="navbar-brand" href="../index.html">
+            <img src="../assets/images/omega-5A-rect-trans-name.png" alt="Omega ERP Logo" class="logo-default">
+            <img src="../assets/images/omega-5A-rect-trans-name.png" alt="Omega ERP Logo" class="logo-sticky" style="display:none">
+          </a>
+
+          <!-- Desktop Menu -->
+          <div class="collapse navbar-collapse main-menu" id="navbarNav">
+            <div class="nav-menu-wrapper mx-auto">
+              <ul class="navbar-nav" id="menu">
+                <li class="nav-item submenu"><a class="nav-link" href="../ve-omega.html">Về Omega</a>
+                  <ul>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#dinh-vi">Định vị &amp; Năng lực</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#tam-nhin">Tầm nhìn &amp; Sứ mệnh</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#gia-tri">Giá trị cốt lõi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#doi-ngu">Đội ngũ nhân sự</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item submenu"><a class="nav-link" href="../giai-phap.html">Giải pháp</a>
+                  <ul>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-nhua.html">Ngành nhựa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-go-noi-that.html">Ngành gỗ – Nội thất</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-fb.html">Ngành F&amp;B</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-fmcg.html">Ngành FMCG</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-thuy-san.html">Ngành thủy – hải sản</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-y-te.html">Thiết bị y tế</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-thoi-trang.html">Ngành thời trang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../giai-phap/giai-phap-nganh-phan-phoi.html">Phân phối – Bán sỉ</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item mega-item" id="nav-san-pham"><a class="nav-link active" href="../san-pham.html">Sản phẩm</a>
+
+                  <!-- ===== Desktop Mega-Menu Panel ===== -->
+                  <div class="mega-panel">
+
+                    <!-- LEFT: ERP Software -->
+                    <div class="mega-col-erp">
+                      <div class="mega-col-head">
+                        <i class="fa-solid fa-server"></i>
+                        <div>
+                          <span class="mega-col-title">Phần mềm OMEGA.ERP</span>
+                          <span class="mega-col-sub">15 phân hệ tích hợp toàn diện</span>
+                        </div>
+                      </div>
+                      <div class="mega-erp-groups">
+                        <div class="mega-group">
+                          <div class="mega-group-label">Nền tảng</div>
+                          <a href="software-omega-erp.html" class="mega-link"><span class="mega-code">OMEGA.ERP</span>Quản trị doanh nghiệp</a>
+                          <a href="software-omega-sm.html" class="mega-link"><span class="mega-code">OMEGA.SM</span>Quản trị hệ thống</a>
+                          <a href="software-omega-sd.html" class="mega-link"><span class="mega-code">OMEGA.SD</span>Thông tin dùng chung</a>
+                        </div>
+                        <div class="mega-group">
+                          <div class="mega-group-label">Tài chính – Kế toán</div>
+                          <a href="software-omega-gl.html" class="mega-link"><span class="mega-code">OMEGA.GL</span>Kế toán doanh nghiệp</a>
+                          <a href="software-omega-fa.html" class="mega-link"><span class="mega-code">OMEGA.FA</span>Kế toán tài sản cố định</a>
+                          <a href="software-omega-pc.html" class="mega-link"><span class="mega-code">OMEGA.PC</span>Giá thành sản phẩm</a>
+                          <a href="software-omega-mc.html" class="mega-link"><span class="mega-code">OMEGA.MC</span>Kế toán quản trị</a>
+                          <a href="software-omega-cl.html" class="mega-link"><span class="mega-code">OMEGA.CL</span>BC tài chính hợp nhất</a>
+                        </div>
+                        <div class="mega-group">
+                          <div class="mega-group-label">Kho &amp; Mua bán</div>
+                          <a href="software-omega-wm.html" class="mega-link"><span class="mega-code">OMEGA.WM</span>Quản lý tồn kho</a>
+                          <a href="software-omega-po.html" class="mega-link"><span class="mega-code">OMEGA.PO</span>Quản lý mua hàng</a>
+                          <a href="software-omega-so.html" class="mega-link"><span class="mega-code">OMEGA.SO</span>Quản lý bán hàng</a>
+                        </div>
+                        <div class="mega-group">
+                          <div class="mega-group-label">Nhân sự &amp; Sản xuất</div>
+                          <a href="software-omega-hr.html" class="mega-link"><span class="mega-code">OMEGA.HR</span>Quản lý nhân sự</a>
+                          <a href="software-omega-pr.html" class="mega-link"><span class="mega-code">OMEGA.PR</span>Quản lý tiền lương</a>
+                          <a href="software-omega-mm.html" class="mega-link"><span class="mega-code">OMEGA.MM</span>Quản lý sản xuất</a>
+                          <a href="software-omega-qc.html" class="mega-link"><span class="mega-code">OMEGA.QC</span>Quản lý chất lượng</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- RIGHT: Standalone + Mobile App -->
+                    <div class="mega-col-right">
+                      <div class="mega-col-head">
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                        <div><span class="mega-col-title">Sản phẩm độc lập</span></div>
+                      </div>
+                      <a href="software-omega-smb.html" class="mega-link-card">
+                        <div class="mega-link-card-code">GAMA.SMB</div>
+                        <div>
+                          <div class="mega-link-card-name">Kế toán chuyên nghiệp</div>
+                          <div class="mega-link-card-desc">Dành cho doanh nghiệp vừa &amp; nhỏ</div>
+                        </div>
+                      </a>
+                      <a href="software-omega-edu.html" class="mega-link-card">
+                        <div class="mega-link-card-code">OMEGA.EDU</div>
+                        <div>
+                          <div class="mega-link-card-name">Quản lý đào tạo</div>
+                          <div class="mega-link-card-desc">Phát triển nguồn nhân lực</div>
+                        </div>
+                      </a>
+                      <a href="software-omega-crm.html" class="mega-link-card">
+                        <div class="mega-link-card-code">OMEGA.CRM</div>
+                        <div>
+                          <div class="mega-link-card-name">Quản lý khách hàng</div>
+                          <div class="mega-link-card-desc">CRM cho đội ngũ kinh doanh</div>
+                        </div>
+                      </a>
+
+                      <div class="mega-divider"></div>
+
+                      <div class="mega-col-head">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                        <div>
+                          <span class="mega-col-title">Mobile App</span>
+                          <span class="mega-col-sub">iOS &amp; Android</span>
+                        </div>
+                      </div>
+                      <div class="mega-app-grid">
+                        <a href="app-omega-apv.html" class="mega-app-item"><div class="mega-app-code">OMEGA.APV</div><div class="mega-app-name">Duyệt chứng từ</div></a>
+                        <a href="app-omega-scr.html" class="mega-app-item"><div class="mega-app-code">OMEGA.SCR</div><div class="mega-app-name">Quét mã vạch kho</div></a>
+                        <a href="app-omega-stk.html" class="mega-app-item"><div class="mega-app-code">OMEGA.STK</div><div class="mega-app-name">Tra cứu tồn kho</div></a>
+                        <a href="app-omega-sor.html" class="mega-app-item"><div class="mega-app-code">OMEGA.SOR</div><div class="mega-app-name">Quản lý đặt hàng</div></a>
+                        <a href="app-omega-mst.html" class="mega-app-item"><div class="mega-app-code">OMEGA.MST</div><div class="mega-app-name">Thống kê SX</div></a>
+                        <a href="app-omega-hrm.html" class="mega-app-item"><div class="mega-app-code">OMEGA.HRM</div><div class="mega-app-name">Quản trị nhân lực</div></a>
+                      </div>
+                    </div>
+
+                  </div><!-- /mega-panel -->
+
+                  <!-- ===== Mobile-only flat list (SlickNav) ===== -->
+                  <ul class="mobile-only-menu">
+                    <li class="nav-item"><a class="nav-link" href="../san-pham.html"><i class="fa-solid fa-server"></i> Phần mềm OMEGA.ERP</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-erp.html">OMEGA.ERP – Quản trị doanh nghiệp</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-sm.html">OMEGA.SM – Quản trị hệ thống</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-sd.html">OMEGA.SD – Thông tin dùng chung</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-gl.html">OMEGA.GL – Kế toán doanh nghiệp</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-fa.html">OMEGA.FA – Kế toán tài sản cố định</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-wm.html">OMEGA.WM – Quản lý tồn kho</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-pc.html">OMEGA.PC – Giá thành sản phẩm</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-mc.html">OMEGA.MC – Kế toán quản trị</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-hr.html">OMEGA.HR – Quản lý nhân sự</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-pr.html">OMEGA.PR – Quản lý tiền lương</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-po.html">OMEGA.PO – Quản lý mua hàng</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-so.html">OMEGA.SO – Quản lý bán hàng</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-mm.html">OMEGA.MM – Quản lý sản xuất</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-qc.html">OMEGA.QC – Quản lý chất lượng</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="software-omega-cl.html">OMEGA.CL – BC tài chính hợp nhất</a></li>
+                    <li class="nav-item"><a class="nav-link" href="software-omega-smb.html">GAMA.SMB – Kế toán chuyên nghiệp</a></li>
+                    <li class="nav-item"><a class="nav-link" href="software-omega-edu.html">OMEGA.EDU – Quản lý đào tạo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="software-omega-crm.html">OMEGA.CRM – Quản lý khách hàng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../san-pham.html#mobile-app"><i class="fa-solid fa-mobile-screen"></i> Mobile App</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="app-omega-apv.html">OMEGA.APV – Duyệt chứng từ</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="app-omega-scr.html">OMEGA.SCR – Quét mã vạch kho</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="app-omega-stk.html">OMEGA.STK – Tra cứu tồn kho</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="app-omega-sor.html">OMEGA.SOR – Quản lý đặt hàng</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="app-omega-mst.html">OMEGA.MST – Thống kê sản xuất</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="app-omega-hrm.html">OMEGA.HRM – Quản trị nhân lực</a></li>
+                  </ul>
+
+                </li>
+                <li class="nav-item"><a class="nav-link" href="../dich-vu.html">Dịch vụ</a></li>
+                <li class="nav-item"><a class="nav-link" href="../khach-hang.html">Khách hàng</a></li>
+                <li class="nav-item submenu"><a class="nav-link" href="../tin-tuc.html">Tin tức</a>
+                  <ul>
+                    <li class="nav-item"><a class="nav-link" href="../tin-tuc.html#chuyen-doi-so">Chuyển đổi số</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../tin-tuc.html#erp">ERP – Quản trị</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../tin-tuc.html#ke-toan">Kế toán – Tài chính</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../tin-tuc.html#su-kien">Sự kiện</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../tin-tuc.html#tuyen-dung">Tuyển dụng</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="../lien-he.html">Liên hệ</a></li>
+              </ul>
+            </div>
+            <div class="header-btn ms-3">
+              <a class="btn-default" href="../lien-he.html">Tư vấn miễn phí</a>
+            </div>
+          </div>
+
+          <!-- Mobile Toggle -->
+          <div class="navbar-toggle" id="mobileToggle">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </nav>
+      <!-- Mobile Menu -->
+      <div class="responsive-menu container-fluid px-4"></div>
+    </div>
+  </header>
+  <!-- ============ /HEADER ============ -->
+
+  <section class="page-header">
+    <canvas class="page-canvas" data-canvas-type="circuit-flow"></canvas>
+    <div class="page-header-overlay"></div>
+    <div class="container">
+      <nav aria-label="breadcrumb"><ol class="breadcrumb mb-3"><li class="breadcrumb-item"><a href="../index.html">Trang chủ</a></li><li class="breadcrumb-item"><a href="../san-pham.html#mobile-app">Mobile App</a></li><li class="breadcrumb-item active">OMEGA.MST</li></ol></nav>
+      <div class="module-code-badge"><i class="fa-solid fa-gauge-high"></i> OMEGA.MST</div>
+      <h1 class="wow fadeInUp">Thống Kê Sản Xuất <span style="color:#ff9090;">Real-Time Dashboard</span></h1>
+      <p class="wow fadeInUp" data-wow-delay="0.15s" style="color:rgba(255,255,255,0.85);font-size:17px;max-width:640px;line-height:1.7;">Giám sát và cập nhật tiến độ sản xuất real-time từ điện thoại – dashboard trực quan, cảnh báo trễ hạn, thống kê OEE và hiệu suất dây chuyền.</p>
+      <div class="mt-4 wow fadeInUp" data-wow-delay="0.25s">
+        <a href="#" class="app-badge badge-ios"><i class="fa-brands fa-apple"></i> App Store</a>
+        <a href="#" class="app-badge badge-android"><i class="fa-brands fa-google-play"></i> Google Play</a>
+        <a href="../lien-he.html" class="btn-outline-omega-white ms-2" style="margin-top:12px;"><i class="fa-solid fa-paper-plane"></i> Liên hệ tư vấn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features section -->
+  <section class="section-gap" style="background:#f8fbf8;">
+    <div class="container">
+      <div class="text-center mb-5 wow fadeInUp">
+        <span class="section-label"><i class="fa-solid fa-mobile-screen"></i> Tính năng ứng dụng</span>
+        <h2 class="section-title-lg">Sản xuất <span>dưới tầm kiểm soát</span></h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.05s">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-gauge-high"></i></div>
+            <h5>Dashboard tiến độ sản xuất</h5>
+            <p>Tổng quan real-time các lệnh sản xuất đang chạy, % hoàn thành, số lượng đã sản xuất và dự kiến hoàn thành.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+            <h5>Cập nhật kết quả thực tế</h5>
+            <p>Nhân viên sản xuất nhập sản lượng hoàn thành, số phế phẩm, thời gian ngừng máy ngay tại dây chuyền từ điện thoại.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.15s">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-industry"></i></div>
+            <h5>Thống kê theo máy/công đoạn</h5>
+            <p>Xem năng suất và OEE của từng máy, từng công đoạn sản xuất – phát hiện nút thắt cổ chai tức thì.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-bell"></i></div>
+            <h5>Cảnh báo trễ hạn</h5>
+            <p>Nhận thông báo ngay khi lệnh sản xuất có nguy cơ trễ kế hoạch – kịp thời điều chỉnh nhân lực và ca làm việc.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.25s">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-chart-bar"></i></div>
+            <h5>So sánh kế hoạch vs thực tế</h5>
+            <p>Biểu đồ so sánh sản lượng kế hoạch và thực tế theo ngày/tuần – nhận biết xu hướng và đưa ra quyết định nhanh.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-file-lines"></i></div>
+            <h5>Báo cáo ca làm việc</h5>
+            <p>Tổng kết sản lượng, phế phẩm, sự cố máy móc theo từng ca – trình lên cấp trên ngay cuối ca mà không cần làm báo cáo thủ công.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits section -->
+  <section class="section-gap">
+    <div class="container">
+      <div class="row gy-5">
+        <div class="col-lg-6 wow fadeInLeft">
+          <span class="section-label"><i class="fa-solid fa-chart-bar"></i> Báo cáo & Thống kê</span>
+          <h2 class="section-title-lg mb-4">Sản xuất <span>minh bạch, tức thì</span></h2>
+          <ul class="report-list">
+            <li><i class="fa-solid fa-circle-check"></i> Tiến độ lệnh SX đang chạy</li>
+            <li><i class="fa-solid fa-circle-check"></i> Sản lượng thực tế vs kế hoạch hôm nay</li>
+            <li><i class="fa-solid fa-circle-check"></i> OEE từng máy/dây chuyền</li>
+            <li><i class="fa-solid fa-circle-check"></i> Tỷ lệ phế phẩm theo công đoạn</li>
+            <li><i class="fa-solid fa-circle-check"></i> Sự cố máy móc trong ngày</li>
+            <li><i class="fa-solid fa-circle-check"></i> Thống kê sản lượng theo ca làm việc</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 wow fadeInRight">
+          <div class="benefit-box">
+            <h5><i class="fa-solid fa-eye me-2" style="color:#FF1A22;"></i>Lãnh đạo theo dõi sản xuất từ xa</h5>
+            <p>Giám đốc xem tiến độ sản xuất real-time từ bất cứ đâu – không cần xuống xưởng mới biết tình hình.</p>
+          </div>
+          <div class="benefit-box">
+            <h5><i class="fa-solid fa-bolt me-2" style="color:#FF1A22;"></i>Cập nhật ngay tại dây chuyền</h5>
+            <p>Công nhân báo cáo kết quả ngay tại máy – dữ liệu tươi, chính xác; không mất thêm bước tổng hợp cuối ca.</p>
+          </div>
+          <div class="benefit-box">
+            <h5><i class="fa-solid fa-plug me-2" style="color:#FF1A22;"></i>Tích hợp OMEGA.MM</h5>
+            <p>Dữ liệu cập nhật qua MST tự động cập nhật tiến độ lệnh sản xuất trong OMEGA.MM – ERP luôn có số liệu mới nhất.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container position-relative" style="z-index:1;">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-7 wow fadeInLeft"><h2 style="color:#fff;font-size:clamp(24px,3.5vw,40px);font-weight:800;">Sản xuất minh bạch với OMEGA.MST</h2><p style="color:rgba(255,255,255,0.85);">Không còn "hỏi mới biết" – giám sát sản xuất real-time từ điện thoại.</p></div>
+        <div class="col-lg-5 text-lg-end wow fadeInRight"><a href="../lien-he.html" class="btn-white-omega me-3"><i class="fa-solid fa-paper-plane"></i> Tư vấn miễn phí</a><a href="tel:0908303609" class="btn-red-omega" style="background:#1a1a1a;"><i class="fa-solid fa-phone"></i> Gọi ngay</a></div>
+      </div>
+    </div>
+  </section>
+
+    <footer class="main-footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <!-- Brand -->
+          <div class="col-lg-4">
+            <div class="footer-brand">
+              <img src="../assets/images/omega-4B-rect-trans-full.png" alt="Omega ERP" onerror="this.src='../assets/images/omega-5A-rect-trans-name.png'">
+            </div>
+            <p class="footer-desc">Omega – Đồng hành cùng doanh nghiệp trên hành trình chuyển đổi số với các giải pháp ERP toàn diện, thực chất và hiệu quả.</p>
+            <div class="footer-social">
+              <a href="https://zalo.me/908303609" target="_blank" aria-label="Zalo Omega"><i class="fa-solid fa-comment-dots"></i></a>
+              <a href="https://www.facebook.com/PhanMemQuanTriDoanhNghiepOMEGAERP/" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="https://www.youtube.com/@omegaerp9461" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+              <a href="https://linkedin.com/company/omegaerp" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Products -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Sản phẩm</h4>
+            <ul class="footer-links">
+              <li><a href="../san-pham/software-omega-erp.html">OMEGA.ERP</a></li>
+              <li><a href="../san-pham/software-omega-gl.html">OMEGA.GL – Kế toán</a></li>
+              <li><a href="../san-pham/software-omega-hr.html">OMEGA.HR – Nhân sự</a></li>
+              <li><a href="../san-pham/software-omega-mm.html">OMEGA.MM – Sản xuất</a></li>
+              <li><a href="../san-pham/software-omega-crm.html">OMEGA.CRM</a></li>
+              <li><a href="../san-pham/software-omega-smb.html">GAMA.SMB</a></li>
+            </ul>
+          </div>
+
+          <!-- Solutions -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Giải pháp</h4>
+            <ul class="footer-links">
+              <li><a href="../giai-phap/giai-phap-nganh-fb.html">Ngành F&amp;B</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-nhua.html">Ngành Nhựa</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-go-noi-that.html">Gỗ – Nội thất</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-fmcg.html">Ngành FMCG</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-thuy-san.html">Thủy – Hải sản</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-y-te.html">Thiết bị y tế</a></li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Dịch vụ</h4>
+            <ul class="footer-links">
+              <li><a href="../dich-vu.html#dich-vu-tong-quan">Tổng quan dịch vụ</a></li>
+              <li><a href="../dich-vu.html#tu-van">Tư vấn triển khai</a></li>
+              <li><a href="../dich-vu.html#dao-tao">Đào tạo &amp; Hỗ trợ</a></li>
+              <li><a href="../dich-vu.html#bao-tri">Bảo trì &amp; Nâng cấp</a></li>
+              <li><a href="../dich-vu.html#quy-trinh">Quy trình triển khai</a></li>
+              <li><a href="../dich-vu.html#faq">Hỏi đáp</a></li>
+            </ul>
+          </div>
+
+          <!-- Company -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Công ty</h4>
+            <ul class="footer-links">
+              <li><a href="../ve-omega.html">Về Omega</a></li>
+              <li><a href="../khach-hang.html">Khách hàng</a></li>
+              <li><a href="../khach-hang.html#case-study">Case Study</a></li>
+              <li><a href="../tin-tuc.html">Tin tức</a></li>
+              <li><a href="../tin-tuc.html#tuyen-dung">Tuyển dụng</a></li>
+              <li><a href="../lien-he.html">Liên hệ</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div class="col-12">
+            <h4 class="footer-heading">Liên hệ</h4>
+            <div class="footer-contact-item"><h3 style="color: #00A651;">CÔNG TY TNHH CÔNG NGHỆ &amp; GIẢI PHÁP OMEGA</h3></div>
+            <div class="footer-contact-item"><h5 style="color: rgba(255,255,255,0.6); font-style: italic;">Omega Solutions &amp; Technologies Co., Ltd.</h5></div>
+            <div class="footer-contact-item">
+              <i class="fa-solid fa-city"></i>
+              <span style="color:rgba(255,255,255,0.6);"><u>Trụ sở chính</u>: <a href="https://maps.app.goo.gl/gasARGjfY3sZy1vQ8" target="_blank" style="color: inherit;">Lầu 6 - Tòa nhà Hà Sơn, số 277A Nguyễn Văn Đậu, Phường Bình Lợi Trung, TP. HCM</a>. Liên hệ: <a href="https://zalo.me/0708994462">0708 994 462 (Ms. Thục Nghi)</a></span>
+            </div>
+            <div class="footer-contact-item">
+              <i class="fa-solid fa-building me-2"></i>
+              <span style="color:rgba(255,255,255,0.6);"><u>Văn phòng Miền Bắc</u>: <a href="https://maps.app.goo.gl/Ehcb8NsZNC64B8w37" target="_blank" style="color: inherit;">Phòng 507 – B8, số 8A Hoàng Ngọc Phách, Phường Đống Đa, Hà Nội</a>. Liên hệ: <a href="https://zalo.me/0972735899">0972 735 899 (Mr. Tuấn Anh)</a></span>
+            </div>
+            <div class="footer-contact-row">
+              <a href="tel:02835128448" class="fcr-item"><i class="fa-solid fa-phone"></i>028 3512 8448</a>
+              <span class="fcr-item"><i class="fa-solid fa-fax"></i>Fax: 028 3514 7280</span>
+              <a href="mailto:info@omega.com.vn" class="fcr-item"><i class="fa-solid fa-envelope"></i>info@omega.com.vn</a>
+              <a href="https://zalo.me/0908303609" class="fcr-item"><i class="fa-solid fa-mobile"></i>0908 303 609 (Mr. Nhân)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <p class="footer-copy footer-copy-legal">
+              <span class="footer-copy-lname">Công ty TNHH Công nghệ và Giải pháp Omega</span>
+              <span class="footer-copy-lyr">© 2009–<script>document.write(new Date().getFullYear())</script>. All rights reserved.</span>
+            </p>
+          <p class="footer-copy"><a href="../chinh-sach-bao-mat.html">Chính sách bảo mật</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <a href="#" id="back-to-top" style="position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FF1A22,#ff6b6b);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;z-index:999;opacity:0;transition:opacity 0.3s;" aria-label="Lên đầu trang"><i class="fa-solid fa-chevron-up"></i></a>
+  <style>#back-to-top.show{opacity:1;}</style>
+    <script src="../assets/js/jquery-3.7.1.min.js"></script>
+  <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="../assets/js/swiper-bundle.min.js"></script>
+  <script src="../assets/js/wow.min.js"></script>
+  <script src="../assets/js/jquery.waypoints.min.js"></script>
+  <script src="../assets/js/jquery.counterup.min.js"></script>
+  <script src="../assets/js/jquery.magnific-popup.min.js"></script>
+  <script src="../assets/js/jquery.slicknav.js"></script>
+  <script src="../assets/js/omega.js"></script>
+</body>
+</html>

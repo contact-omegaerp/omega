@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="vi" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta -->
+  <title>Giải pháp ERP cho ngành Thiết bị Y tế | Omega</title>
+  <meta name="description" content="Hệ thống ERP cho ngành thiết bị y tế của Omega: quản lý số lô, serial, hạn dùng, truy xuất nguồn gốc, tồn kho đa vị trí và tuân thủ pháp lý y tế đầy đủ.">
+  <meta name="keywords" content="ERP thiết bị y tế, phần mềm quản lý thiết bị y tế, hệ thống ERP y tế, quản lý số lô serial y tế, ERP phân phối thiết bị y tế, Omega ERP y tế">
+  <meta name="author" content="Công ty TNHH Công nghệ và Giải pháp Omega">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://omega.com.vn/giai-phap-nganh-y-te.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:site_name" content="OMEGA ERP">
+  <meta property="og:title" content="Giải pháp ERP cho ngành Thiết bị Y tế | Omega">
+  <meta property="og:description" content="ERP chuyên ngành thiết bị y tế: quản lý số lô/serial/hạn dùng, truy xuất nguồn gốc, tồn kho đa vị trí, tuân thủ pháp lý và kiểm toán y tế.">
+  <meta property="og:url" content="https://omega.com.vn/giai-phap-nganh-y-te.html">
+  <meta property="og:image" content="https://omega.com.vn/images/omega-5A-rect-trans-name.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Giải pháp ERP cho ngành Thiết bị Y tế | Omega">
+  <meta name="twitter:description" content="ERP chuyên ngành thiết bị y tế: quản lý số lô/serial/hạn dùng, truy xuất nguồn gốc, tồn kho đa vị trí, tuân thủ pháp lý và kiểm toán y tế.">
+  <meta name="twitter:image" content="https://omega.com.vn/images/omega-5A-rect-trans-name.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
+  <link rel="manifest" href="../assets/images/site.webmanifest">
+
+  <!-- Preconnect fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/animate.css">
+  <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css">
+  <link rel="stylesheet" href="../assets/css/slicknav.min.css">
+  <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="../assets/css/omega.css">
+
+  <style>
+    /* ---- Section Label ---- */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #00A651;
+      background: rgba(0,166,81,0.08);
+      border: 1px solid rgba(0,166,81,0.2);
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 14px;
+    }
+    .section-title-lg {
+      font-size: clamp(22px, 3.5vw, 38px);
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+    .section-title-lg span { color: #00A651; }
+
+    /* ---- Overview ---- */
+    .overview-lead {
+      font-size: 16.5px;
+      color: #444;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .overview-stat-box { display: none !important; }
+    .stat-box-item {
+      text-align: center;
+    }
+    .stat-box-num {
+      font-size: 38px;
+      font-weight: 900;
+      color: #ED1C24;
+      line-height: 1;
+    }
+    .stat-box-label {
+      font-size: 13px;
+      color: #666;
+      margin-top: 4px;
+    }
+    .overview-visual {
+      background: linear-gradient(135deg, #0a2e6e, #0a1628);
+      border-radius: 20px;
+      padding: 40px 32px;
+      color: #fff;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .overview-visual::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(0,166,81,0.12);
+    }
+    .overview-visual::after {
+      content: '';
+      position: absolute;
+      bottom: -30px;
+      left: -30px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: rgba(126,217,87,0.08);
+    }
+    .overview-visual-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #01a652, #7ed957);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: #fff;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 28px rgba(0,166,81,0.4);
+    }
+    .overview-visual h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .overview-check-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .overview-check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.88);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      line-height: 1.55;
+    }
+    .overview-check-list li:last-child { border-bottom: none; }
+    .overview-check-list li i {
+      color: #7ed957;
+      font-size: 13px;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    /* ---- Challenge Cards ---- */
+    .challenge-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 28px 24px;
+      height: 100%;
+      transition: all 0.3s ease;
+    }
+    .challenge-card:hover {
+      background: rgba(0,166,81,0.1);
+      border-color: rgba(0,166,81,0.3);
+      transform: translateY(-4px);
+    }
+    .challenge-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #01a652, #7ed957);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .challenge-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .challenge-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ---- Feature Cards ---- */
+    .feature-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px 24px;
+      height: 100%;
+      border: 1px solid #e6efe6;
+      transition: all 0.32s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #01a652, #7ed957);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.32s ease;
+    }
+    .feature-card:hover {
+      box-shadow: 0 12px 40px rgba(0,166,81,0.13);
+      transform: translateY(-5px);
+      border-color: #c8e8d2;
+    }
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #01a652, #7ed957);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 18px rgba(0,166,81,0.25);
+    }
+    .feature-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.65;
+      margin: 0;
+    }
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+    }
+    .feature-list li {
+      font-size: 13.5px;
+      color: #444;
+      padding: 5px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+    .feature-list li i {
+      color: #00A651;
+      font-size: 11px;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    /* ---- Criteria Cards (tiêu chí lựa chọn ERP) ---- */
+    .criteria-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px 24px;
+      height: 100%;
+      border: 1px solid #e6efe6;
+      transition: all 0.3s;
+    }
+    .criteria-card:hover {
+      box-shadow: 0 10px 32px rgba(0,166,81,0.12);
+      border-color: #b8dfc4;
+      transform: translateY(-4px);
+    }
+    .criteria-num {
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #01a652, #7ed957);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .criteria-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+    .criteria-card p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ---- Module Pills ---- */
+    .module-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 2px solid #e6efe6;
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      transition: all 0.25s;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .module-pill:hover {
+      border-color: #00A651;
+      color: #00A651;
+      background: rgba(0,166,81,0.05);
+      transform: translateX(4px);
+    }
+    .module-pill i {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #01a652, #7ed957);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .module-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: #ED1C24;
+      background: rgba(237,28,36,0.08);
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    /* ---- Benefit numbered ---- */
+    .benefit-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .benefit-item:last-child { border-bottom: none; }
+    .benefit-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #01a652, #7ed957);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .benefit-content h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .benefit-content p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ---- CTA Section ---- */
+    .cta-section {
+      background: linear-gradient(135deg, #01a652 0%, #7ed957 100%);
+      padding: 72px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 767px) {
+      .overview-stat-box { display: none; gap: 20px; }
+      .stat-box-num { font-size: 28px; }
+    }
+
+    /* ---- Omega Media Gallery ---- */
+    .omg-section { background:transparent; padding:0 0 48px; overflow:hidden; }
+    .omg-outer { position:relative; width:100%; }
+    .omg-loader { display:flex; align-items:center; justify-content:center; height:260px; color:rgba(255,255,255,0.4); font-size:28px; }
+    .omg-swiper { width:100%; }
+    .omg-swiper .swiper-slide { display:flex; align-items:center; justify-content:center; background:transparent; }
+    .omg-swiper .swiper-slide img { width:100%; height:auto; display:block; }
+    .omg-swiper .swiper-slide video { width:100%; height:auto; display:block; }
+    .omg-swiper .swiper-button-next,.omg-swiper .swiper-button-prev { color:#fff; background:rgba(0,0,0,0.45); border-radius:50%; width:44px; height:44px; backdrop-filter:blur(6px); transition:background .2s; }
+    .omg-swiper .swiper-button-next:hover,.omg-swiper .swiper-button-prev:hover { background:rgba(0,166,81,0.7); }
+    .omg-swiper .swiper-button-next::after,.omg-swiper .swiper-button-prev::after { font-size:15px; font-weight:900; }
+    .omg-swiper .swiper-pagination { bottom:48px; }
+    .omg-swiper .swiper-pagination-bullet { background:#fff; opacity:0.45; width:8px; height:8px; }
+    .omg-swiper .swiper-pagination-bullet-active { opacity:1; background:#00A651; width:24px; border-radius:4px; transition:width .3s; }
+    .omg-counter { position:absolute; bottom:14px; right:16px; background:rgba(0,0,0,0.5); color:#fff; font-size:11px; font-weight:700; padding:3px 11px; border-radius:20px; z-index:10; pointer-events:none; letter-spacing:.4px; backdrop-filter:blur(4px); }
+    .omg-caption { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 100%); color:rgba(255,255,255,.85); font-size:12px; padding:36px 20px 10px; z-index:5; pointer-events:none; text-align:center; letter-spacing:.3px; }
+  </style>
+</head>
+<body>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader">
+    <div class="preloader-inner">
+      <img src="../assets/images/omega-radar-sonar.svg" alt="Omega" class="preloader-logo">
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="main-header">
+    <div class="header-sticky">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid px-4">
+          <!-- Logo -->
+          <a class="navbar-brand" href="../index.html">
+            <img src="../assets/images/omega-5A-rect-trans-name.png" alt="Omega ERP Logo" class="logo-default">
+            <img src="../assets/images/omega-5A-rect-trans-name.png" alt="Omega ERP Logo" class="logo-sticky" style="display:none">
+          </a>
+
+          <!-- Desktop Menu -->
+          <div class="collapse navbar-collapse main-menu" id="navbarNav">
+            <div class="nav-menu-wrapper mx-auto">
+              <ul class="navbar-nav" id="menu">
+                <li class="nav-item submenu"><a class="nav-link" href="../ve-omega.html">Về Omega</a>
+                  <ul>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#dinh-vi">Định vị & Năng lực</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#tam-nhin">Tầm nhìn & Sứ mệnh</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#gia-tri">Giá trị cốt lõi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../ve-omega.html#doi-ngu">Đội ngũ nhân sự</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item submenu"><a class="nav-link active" href="../giai-phap.html">Giải pháp</a>
+                  <ul>
+                    <li class="nav-item"><a class="nav-link" href="giai-phap-nganh-nhua.html">Ngành nhựa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="giai-phap-nganh-go-noi-that.html">Ngành gỗ – Nội thất</a></li>
+                    <li class="nav-item"><a class="nav-link" href="giai-phap-nganh-fb.html">Ngành F&amp;B</a></li>
+                    <li class="nav-item"><a class="nav-link" href="giai-phap-nganh-fmcg.html">Ngành FMCG</a></li>
+                    <li class="nav-item"><a class="nav-link" href="giai-phap-nganh-thuy-san.html">Ngành thủy – hải sản</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="giai-phap-nganh-y-te.html">Thiết bị y tế</a></li>
+                    <li class="nav-item"><a class="nav-link" href="giai-phap-nganh-thoi-trang.html">Ngành thời trang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="giai-phap-nganh-phan-phoi.html">Phân phối – Bán sỉ</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item mega-item" id="nav-san-pham"><a class="nav-link" href="../san-pham.html">Sản phẩm</a>
+
+                                                                                          <!-- ===== Desktop Mega-Menu Panel ===== -->
+                  <div class="mega-panel">
+
+                    <!-- LEFT: ERP Software -->
+                    <div class="mega-col-erp">
+                      <div class="mega-col-head">
+                        <i class="fa-solid fa-server"></i>
+                        <div>
+                          <span class="mega-col-title">Phần mềm OMEGA.ERP</span>
+                          <span class="mega-col-sub">15 phân hệ tích hợp toàn diện</span>
+                        </div>
+                      </div>
+                      <div class="mega-erp-groups">
+                        <div class="mega-group">
+                          <div class="mega-group-label">Nền tảng</div>
+                          <a href="../san-pham/software-omega-erp.html" class="mega-link"><span class="mega-code">OMEGA.ERP</span>Quản trị doanh nghiệp</a>
+                          <a href="../san-pham/software-omega-sm.html" class="mega-link"><span class="mega-code">OMEGA.SM</span>Quản trị hệ thống</a>
+                          <a href="../san-pham/software-omega-sd.html" class="mega-link"><span class="mega-code">OMEGA.SD</span>Thông tin dùng chung</a>
+                        </div>
+                        <div class="mega-group">
+                          <div class="mega-group-label">Tài chính – Kế toán</div>
+                          <a href="../san-pham/software-omega-gl.html" class="mega-link"><span class="mega-code">OMEGA.GL</span>Kế toán doanh nghiệp</a>
+                          <a href="../san-pham/software-omega-fa.html" class="mega-link"><span class="mega-code">OMEGA.FA</span>Kế toán tài sản cố định</a>
+                          <a href="../san-pham/software-omega-pc.html" class="mega-link"><span class="mega-code">OMEGA.PC</span>Giá thành sản phẩm</a>
+                          <a href="../san-pham/software-omega-mc.html" class="mega-link"><span class="mega-code">OMEGA.MC</span>Kế toán quản trị</a>
+                          <a href="../san-pham/software-omega-cl.html" class="mega-link"><span class="mega-code">OMEGA.CL</span>BC tài chính hợp nhất</a>
+                        </div>
+                        <div class="mega-group">
+                          <div class="mega-group-label">Kho &amp; Mua bán</div>
+                          <a href="../san-pham/software-omega-wm.html" class="mega-link"><span class="mega-code">OMEGA.WM</span>Quản lý tồn kho</a>
+                          <a href="../san-pham/software-omega-po.html" class="mega-link"><span class="mega-code">OMEGA.PO</span>Quản lý mua hàng</a>
+                          <a href="../san-pham/software-omega-so.html" class="mega-link"><span class="mega-code">OMEGA.SO</span>Quản lý bán hàng</a>
+                        </div>
+                        <div class="mega-group">
+                          <div class="mega-group-label">Nhân sự &amp; Sản xuất</div>
+                          <a href="../san-pham/software-omega-hr.html" class="mega-link"><span class="mega-code">OMEGA.HR</span>Quản lý nhân sự</a>
+                          <a href="../san-pham/software-omega-pr.html" class="mega-link"><span class="mega-code">OMEGA.PR</span>Quản lý tiền lương</a>
+                          <a href="../san-pham/software-omega-mm.html" class="mega-link"><span class="mega-code">OMEGA.MM</span>Quản lý sản xuất</a>
+                          <a href="../san-pham/software-omega-qc.html" class="mega-link"><span class="mega-code">OMEGA.QC</span>Quản lý chất lượng</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- RIGHT: Standalone + Mobile App -->
+                    <div class="mega-col-right">
+                      <div class="mega-col-head">
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                        <div><span class="mega-col-title">Sản phẩm độc lập</span></div>
+                      </div>
+                      <a href="../san-pham/software-omega-smb.html" class="mega-link-card">
+                        <div class="mega-link-card-code">GAMA.SMB</div>
+                        <div>
+                          <div class="mega-link-card-name">Kế toán chuyên nghiệp</div>
+                          <div class="mega-link-card-desc">Dành cho doanh nghiệp vừa &amp; nhỏ</div>
+                        </div>
+                      </a>
+                      <a href="../san-pham/software-omega-edu.html" class="mega-link-card">
+                        <div class="mega-link-card-code">OMEGA.EDU</div>
+                        <div>
+                          <div class="mega-link-card-name">Quản lý đào tạo</div>
+                          <div class="mega-link-card-desc">Phát triển nguồn nhân lực</div>
+                        </div>
+                      </a>
+                      <a href="../san-pham/software-omega-crm.html" class="mega-link-card">
+                        <div class="mega-link-card-code">OMEGA.CRM</div>
+                        <div>
+                          <div class="mega-link-card-name">Quản lý khách hàng</div>
+                          <div class="mega-link-card-desc">CRM cho đội ngũ kinh doanh</div>
+                        </div>
+                      </a>
+
+                      <div class="mega-divider"></div>
+
+                      <div class="mega-col-head">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                        <div>
+                          <span class="mega-col-title">Mobile App</span>
+                          <span class="mega-col-sub">iOS &amp; Android</span>
+                        </div>
+                      </div>
+                      <div class="mega-app-grid">
+                        <a href="../san-pham/app-omega-apv.html" class="mega-app-item"><div class="mega-app-code">OMEGA.APV</div><div class="mega-app-name">Duyệt chứng từ</div></a>
+                        <a href="../san-pham/app-omega-scr.html" class="mega-app-item"><div class="mega-app-code">OMEGA.SCR</div><div class="mega-app-name">Quét mã vạch kho</div></a>
+                        <a href="../san-pham/app-omega-stk.html" class="mega-app-item"><div class="mega-app-code">OMEGA.STK</div><div class="mega-app-name">Tra cứu tồn kho</div></a>
+                        <a href="../san-pham/app-omega-sor.html" class="mega-app-item"><div class="mega-app-code">OMEGA.SOR</div><div class="mega-app-name">Quản lý đặt hàng</div></a>
+                        <a href="../san-pham/app-omega-mst.html" class="mega-app-item"><div class="mega-app-code">OMEGA.MST</div><div class="mega-app-name">Thống kê SX</div></a>
+                        <a href="../san-pham/app-omega-hrm.html" class="mega-app-item"><div class="mega-app-code">OMEGA.HRM</div><div class="mega-app-name">Quản trị nhân lực</div></a>
+                      </div>
+                    </div>
+
+                  </div><!-- /mega-panel -->
+
+                                                                                          <!-- ===== Mobile-only flat list (SlickNav) ===== -->
+                  <ul class="mobile-only-menu">
+                    <li class="nav-item"><a class="nav-link" href="../san-pham.html"><i class="fa-solid fa-server"></i> Phần mềm OMEGA.ERP</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-erp.html">OMEGA.ERP – Quản trị doanh nghiệp</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-sm.html">OMEGA.SM – Quản trị hệ thống</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-sd.html">OMEGA.SD – Thông tin dùng chung</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-gl.html">OMEGA.GL – Kế toán doanh nghiệp</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-fa.html">OMEGA.FA – Kế toán tài sản cố định</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-wm.html">OMEGA.WM – Quản lý tồn kho</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-pc.html">OMEGA.PC – Giá thành sản phẩm</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-mc.html">OMEGA.MC – Kế toán quản trị</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-hr.html">OMEGA.HR – Quản lý nhân sự</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-pr.html">OMEGA.PR – Quản lý tiền lương</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-po.html">OMEGA.PO – Quản lý mua hàng</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-so.html">OMEGA.SO – Quản lý bán hàng</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-mm.html">OMEGA.MM – Quản lý sản xuất</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-qc.html">OMEGA.QC – Quản lý chất lượng</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/software-omega-cl.html">OMEGA.CL – BC tài chính hợp nhất</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../san-pham/software-omega-smb.html">GAMA.SMB – Kế toán chuyên nghiệp</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../san-pham/software-omega-edu.html">OMEGA.EDU – Quản lý đào tạo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../san-pham/software-omega-crm.html">OMEGA.CRM – Quản lý khách hàng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../san-pham.html#mobile-app"><i class="fa-solid fa-mobile-screen"></i> Mobile App</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/app-omega-apv.html">OMEGA.APV – Duyệt chứng từ</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/app-omega-scr.html">OMEGA.SCR – Quét mã vạch kho</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/app-omega-stk.html">OMEGA.STK – Tra cứu tồn kho</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/app-omega-sor.html">OMEGA.SOR – Quản lý đặt hàng</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/app-omega-mst.html">OMEGA.MST – Thống kê sản xuất</a></li>
+                    <li class="nav-item mobile-sub"><a class="nav-link" href="../san-pham/app-omega-hrm.html">OMEGA.HRM – Quản trị nhân lực</a></li>
+                  </ul>
+
+                </li>
+                <li class="nav-item"><a class="nav-link" href="../dich-vu.html">Dịch vụ</a></li>
+                <li class="nav-item"><a class="nav-link" href="../khach-hang.html">Khách hàng</a></li>
+                <li class="nav-item submenu"><a class="nav-link" href="../tin-tuc.html">Tin tức</a>
+                  <ul>
+                    <li class="nav-item"><a class="nav-link" href="../tin-tuc.html#chuyen-doi-so">Chuyển đổi số</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../tin-tuc.html#erp">ERP – Quản trị</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../tin-tuc.html#ke-toan">Kế toán – Tài chính</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../tin-tuc.html#su-kien">Sự kiện</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../tin-tuc.html#tuyen-dung">Tuyển dụng</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="../lien-he.html">Liên hệ</a></li>
+              </ul>
+            </div>
+            <div class="header-btn ms-3">
+              <a class="btn-default" href="../lien-he.html">Tư vấn miễn phí</a>
+            </div>
+          </div>
+
+          <!-- Mobile Toggle -->
+          <div class="navbar-toggle" id="mobileToggle">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </nav>
+      <!-- Mobile Menu -->
+      <div class="responsive-menu container-fluid px-4"></div>
+    </div>
+  </header>
+  <!-- ============ /HEADER ============ -->
+
+  <!-- ============ PAGE HEADER ============ -->
+  <section class="page-header">
+    <canvas class="page-canvas"></canvas>
+    <div class="page-header-overlay"></div>
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-3">
+          <li class="breadcrumb-item"><a href="../index.html">Trang chủ</a></li>
+          <li class="breadcrumb-item"><a href="../giai-phap.html">Giải pháp</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Thiết bị Y tế</li>
+        </ol>
+      </nav>
+      <h1 class="wow fadeInUp">Giải pháp ERP ngành Thiết bị Y tế</h1>
+    <p class="wow fadeInUp" data-wow-delay="0.15s">Hệ thống ERP chuyên biệt cho doanh nghiệp sản xuất và phân phối thiết bị y tế – quản lý số lô, serial, hạn dùng, truy xuất nguồn gốc và tuân thủ pháp lý đầy đủ.</p>
+    </div>
+  </section>
+
+  <!-- ============ /PAGE HEADER ============ -->
+
+  <!-- ============ OVERVIEW ============ -->
+  <section class="section-gap" id="tong-quan" style="background:#f8fbf8;">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <!-- Text Col -->
+        <div class="col-lg-7 wow fadeInLeft">
+          <span class="section-label"><i class="fa-solid fa-stethoscope"></i> Tổng quan ngành</span>
+          <h2 class="section-title-lg">Ngành thiết bị y tế Việt Nam – <span>Tăng trưởng và bài toán quản trị</span></h2>
+          <p class="overview-lead">Ngành thiết bị y tế tại Việt Nam đang tăng trưởng mạnh nhờ nhu cầu chăm sóc sức khỏe gia tăng, mở rộng hệ thống bệnh viện – phòng khám và làn sóng đầu tư vào công nghệ y sinh. Thị trường thiết bị y tế Việt Nam dự kiến đạt hơn 3 tỷ USD vào năm 2027, với tốc độ tăng trưởng hàng năm trên 15%.</p>
+          <p class="overview-lead" style="margin-bottom:0;">Tuy nhiên, phía sau đà tăng trưởng là những thách thức quản trị phức tạp: danh mục hàng hóa đa dạng với hàng nghìn mã SKU, vòng đời sản phẩm ngắn, yêu cầu truy xuất nguồn gốc nghiêm ngặt, quản lý số lô – serial – hạn dùng, kiểm soát tồn kho chính xác, và tuân thủ quy định pháp lý y tế – kế toán – thuế. Nhiều doanh nghiệp vẫn vận hành rời rạc bằng Excel, dẫn đến dữ liệu phân mảnh, sai sót cao và chi phí vận hành lớn.</p>
+          <div class="overview-stat-box">
+            <div class="stat-box-item">
+              <div class="stat-box-num">3B+</div>
+              <div class="stat-box-label">USD quy mô thị trường 2027</div>
+            </div>
+            <div class="stat-box-item">
+              <div class="stat-box-num">15%+</div>
+              <div class="stat-box-label">Tăng trưởng hàng năm</div>
+            </div>
+            <div class="stat-box-item">
+              <div class="stat-box-num">16+</div>
+              <div class="stat-box-label">Năm kinh nghiệm của Omega</div>
+            </div>
+          </div>
+        </div>
+        <!-- Visual Col -->
+        <div class="col-lg-5 wow fadeInRight" data-wow-delay="0.15s">
+          <div style="border-radius:20px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.15);">
+            <img src="../assets/omega-media/giai-phap/nganh-thiet-bi-y-te/erp-cho-nganh-thiet-bi-y-te.jpg"
+                 alt="Giải pháp ERP ngành thiết bị y tế"
+                 class="img-fluid w-100" style="display:block;border-radius:20px 20px 0 0;">
+          </div>
+          <div class="row g-3 mt-3">
+            <div class="col-6">
+              <div style="background:linear-gradient(135deg,#00A651,#7ed957);border-radius:16px;padding:20px;text-align:center;">
+                <div style="font-size:34px;font-weight:900;color:#ED1C24;line-height:1;">3B+</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.9);margin-top:6px;line-height:1.4;">USD quy mô thị trường 2027</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="background:linear-gradient(135deg,#00A651,#7ed957);border-radius:16px;padding:20px;text-align:center;">
+                <div style="font-size:34px;font-weight:900;color:#ED1C24;line-height:1;">15%+</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.9);margin-top:6px;line-height:1.4;">Tăng trưởng hàng năm</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="background:linear-gradient(135deg,#00A651,#7ed957);border-radius:16px;padding:20px;text-align:center;">
+                <div style="font-size:34px;font-weight:900;color:#fff;line-height:1;">100%</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.9);margin-top:6px;line-height:1.4;">Truy xuất nguồn gốc</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="background:linear-gradient(135deg,#00A651,#7ed957);border-radius:16px;padding:20px;text-align:center;">
+                <div style="font-size:34px;font-weight:900;color:#fff;line-height:1;">16+</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.9);margin-top:6px;line-height:1.4;">Năm kinh nghiệm</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ /OVERVIEW ============ -->
+
+  <!-- ============ CHALLENGES ============ -->
+  <section class="section-gap dark-section" id="thach-thuc">
+    <div class="container">
+      <div class="text-center mb-5 wow fadeInUp">
+        <span class="section-label" style="background:#fff;border-color:rgba(237,28,36,0.3);color:#ED1C24;"><i class="fa-solid fa-triangle-exclamation"></i> Bài toán ngành</span>
+        <h2 class="section-title-lg" style="color:#fff;">Vì sao doanh nghiệp thiết bị y tế cần <span>ERP chuyên ngành?</span></h2>
+        <p style="font-size:15.5px;color:rgba(255,255,255,0.65);max-width:640px;margin:0 auto;line-height:1.7;">Ngành thiết bị y tế có đặc thù rất khác so với thương mại thông thường – đòi hỏi hệ thống quản trị được thiết kế riêng, không phải phần mềm quản lý chung.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="challenge-card">
+            <div class="challenge-icon">
+              <i class="fa-solid fa-list-check"></i>
+            </div>
+            <h4>Danh mục sản phẩm phức tạp</h4>
+            <p>Hàng nghìn mã SKU, mỗi mã gắn với số lô, serial, hạn dùng, giấy phép lưu hành riêng biệt. Quản lý thủ công dẫn đến sai sót và rủi ro tuân thủ nghiêm trọng.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="challenge-card">
+            <div class="challenge-icon">
+              <i class="fa-solid fa-calendar-xmark"></i>
+            </div>
+            <h4>Kiểm soát hạn dùng chưa chặt chẽ</h4>
+            <p>Tồn kho dư thừa hoặc quá hạn gây tổn thất lớn về tài chính và pháp lý. Thiếu cảnh báo tự động khiến hàng cận hạn không được xuất ưu tiên theo FIFO.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="challenge-card">
+            <div class="challenge-icon">
+              <i class="fa-solid fa-route"></i>
+            </div>
+            <h4>Truy xuất nguồn gốc không đầy đủ</h4>
+            <p>Ngành y tế đòi hỏi truy xuất đầy đủ từ nhà cung cấp → kho → khách hàng → bảo hành. Thiếu lưu vết chứng từ, lô hàng sẽ không đáp ứng yêu cầu thanh tra, kiểm toán.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="challenge-card">
+            <div class="challenge-icon">
+              <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+            <h4>Quản lý kho đa vị trí kém hiệu quả</h4>
+            <p>Kho thiết bị y tế thường có nhiều kho, nhiều vị trí lưu trữ; hàng hóa giá trị cao, dễ thất thoát. Không có hệ thống tích hợp dẫn đến kiểm kê mất nhiều công sức và hay sai lệch.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="challenge-card">
+            <div class="challenge-icon">
+              <i class="fa-solid fa-link-slash"></i>
+            </div>
+            <h4>Dữ liệu bán hàng – kho – kế toán rời rạc</h4>
+            <p>Phần mềm kế toán, kho và bán hàng tách biệt dẫn đến nhập liệu trùng lặp, dữ liệu không nhất quán giữa phòng ban và khó tổng hợp báo cáo quản trị.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="challenge-card">
+            <div class="challenge-icon">
+              <i class="fa-solid fa-scale-unbalanced"></i>
+            </div>
+            <h4>Rủi ro tuân thủ pháp lý cao</h4>
+            <p>Ngành y tế chịu quản lý nghiêm ngặt của Bộ Y tế, Bộ Tài chính. Không sẵn sàng dữ liệu khi thanh tra, kiểm toán gây rủi ro pháp lý và tổn hại uy tín doanh nghiệp.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ /CHALLENGES ============ -->
+
+  <!-- ============ FEATURES ============ -->
+  <section class="section-gap" id="tinh-nang" style="background:#fff;">
+    <div class="container">
+      <div class="text-center mb-5 wow fadeInUp">
+        <span class="section-label"><i class="fa-solid fa-layer-group"></i> Tính năng chuyên biệt</span>
+        <h2 class="section-title-lg">Các phân hệ cốt lõi của <span>OMEGA.ERP ngành thiết bị y tế</span></h2>
+        <p style="font-size:15.5px;color:#666;max-width:640px;margin:0 auto;line-height:1.7;">Bộ phần mềm được thiết kế đặc thù cho doanh nghiệp sản xuất và phân phối thiết bị y tế tại Việt Nam, đáp ứng đầy đủ nghiệp vụ chuyên ngành.</p>
+      </div>
+
+      <div class="row g-4">
+
+        <!-- Feature 1 -->
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-barcode"></i>
+            </div>
+            <h4>Quản lý danh mục & Lot/Serial/Expiry</h4>
+            <p>Chuẩn hóa danh mục hàng nghìn mã thiết bị y tế, theo dõi chi tiết số lô, số serial và hạn sử dụng theo từng giao dịch nhập – xuất.</p>
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-circle-dot"></i> Phân nhóm theo loại thiết bị, hãng, tiêu chuẩn</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Gắn số lô (Lot), serial, hạn dùng từng đơn vị</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Theo dõi giấy phép lưu hành, chứng từ nhập khẩu</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Quản lý bảo hành theo số serial thiết bị</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-warehouse"></i>
+            </div>
+            <h4>Quản lý kho đa vị trí theo thời gian thực</h4>
+            <p>Kiểm soát tồn kho chính xác đến từng vị trí kệ hàng, cảnh báo hàng cận hạn và hỗ trợ kiểm kê nhanh bằng mã vạch/QR Code.</p>
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-circle-dot"></i> Quản lý đa kho – đa vị trí – đa đơn vị tính</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Tự động áp dụng nguyên tắc xuất kho FIFO</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Cảnh báo tồn kho tối thiểu, tối đa, hàng cận hạn</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Báo cáo tồn kho theo lô, hạn dùng, dự án, khách hàng</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <h4>Truy xuất nguồn gốc toàn chuỗi</h4>
+            <p>Lưu vết đầy đủ hành trình thiết bị từ nhà cung cấp đến tay khách hàng và quá trình bảo hành – đáp ứng yêu cầu thanh tra, kiểm toán bất kỳ lúc nào.</p>
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-circle-dot"></i> Truy xuất: Nhà cung cấp → Kho → Khách hàng → Bảo hành</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Lưu vết đầy đủ chứng từ, lô hàng, hợp đồng, hóa đơn</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Đáp ứng yêu cầu thanh tra, kiểm toán, hậu kiểm</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Báo cáo truy xuất nguồn gốc tức thì theo yêu cầu</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-handshake"></i>
+            </div>
+            <h4>Quản lý bán hàng & Hợp đồng</h4>
+            <p>Quy trình liền mạch từ báo giá đến xuất kho và thanh toán, theo dõi công nợ bệnh viện và đại lý theo từng hợp đồng riêng biệt.</p>
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-circle-dot"></i> Quy trình: Báo giá → Hợp đồng → Đơn hàng → Xuất kho → Hóa đơn → Công nợ</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Theo dõi công nợ bệnh viện, đại lý theo hợp đồng</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Hạch toán tự động giá vốn, doanh thu, thuế GTGT</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Phân tích doanh thu theo khách hàng, khu vực, sản phẩm</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+            <h4>Quản lý mua hàng & Nhập khẩu</h4>
+            <p>Kiểm soát toàn bộ quá trình thu mua thiết bị trong nước và nhập khẩu, quản lý hợp đồng ngoại thương và phân bổ chi phí nhập khẩu chính xác.</p>
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-circle-dot"></i> Lập yêu cầu, kế hoạch và đơn hàng mua</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Quản lý hợp đồng ngoại thương, chứng từ nhập khẩu</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Phân bổ chi phí nhập khẩu (thuế, phí logistics)</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Theo dõi tiến độ nhận hàng, kiểm tra QC đầu vào</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-shield-check"></i>
+            </div>
+            <h4>Tuân thủ pháp lý & Kiểm toán</h4>
+            <p>Hệ thống đảm bảo tuân thủ đầy đủ các quy định của Bộ Y tế, Bộ Tài chính và sẵn sàng cung cấp dữ liệu cho cơ quan chức năng bất cứ lúc nào.</p>
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-circle-dot"></i> Lưu trữ đầy đủ chứng từ và nhật ký giao dịch</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Tra cứu nhanh khi thanh tra, kiểm toán, hậu kiểm</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Tuân thủ kế toán, thuế và hóa đơn điện tử VN</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Báo cáo tài chính đầy đủ theo chuẩn VAS</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 7 -->
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-file-invoice-dollar"></i>
+            </div>
+            <h4>Kế toán doanh nghiệp tích hợp</h4>
+            <p>Không nhập liệu trùng lặp – dữ liệu từ mua hàng, bán hàng, kho tự động phản ánh vào sổ kế toán theo thời gian thực.</p>
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-circle-dot"></i> Kế toán vốn bằng tiền, công nợ phải thu/phải trả</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Chênh lệch tỷ giá, kế toán thuế nhập khẩu, GTGT</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Phân tích tuổi nợ, quản lý hạn mức tín dụng</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Báo cáo tài chính: BCKQKD, BCĐKT, LCTT</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 8 -->
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-users-gear"></i>
+            </div>
+            <h4>Quản lý nhân sự & Tiền lương</h4>
+            <p>Quản lý toàn bộ hồ sơ nhân sự, tính lương và các chế độ BHXH đầy đủ theo quy định pháp luật Việt Nam hiện hành.</p>
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-circle-dot"></i> Quản lý hồ sơ nhân viên, hợp đồng lao động</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Chấm công, tính lương, quản lý tạm ứng lương</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Quản lý BHXH, BHYT, thuế thu nhập cá nhân</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Lập phiếu lương, bảng lương điện tử</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Feature 9 -->
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fa-solid fa-chart-bar"></i>
+            </div>
+            <h4>Dashboard & Báo cáo quản trị</h4>
+            <p>Cung cấp bức tranh toàn cảnh hoạt động doanh nghiệp theo thời gian thực, hỗ trợ lãnh đạo ra quyết định kinh doanh nhanh và chính xác.</p>
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-circle-dot"></i> Dashboard real-time theo vai trò người dùng</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Báo cáo tồn kho, công nợ, doanh thu tức thì</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Phân tích đa chiều: theo khu vực, kênh, dự án</li>
+              <li><i class="fa-solid fa-circle-dot"></i> Xuất dữ liệu ra Excel giữ nguyên định dạng</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- ============ /FEATURES ============ -->
+
+  <!-- ============ SELECTION CRITERIA ============ -->
+  <section class="section-gap" id="tieu-chi" style="background:#f8fbf8;">
+    <div class="container">
+      <div class="text-center mb-5 wow fadeInUp">
+        <span class="section-label"><i class="fa-solid fa-clipboard-check"></i> Tiêu chí lựa chọn</span>
+        <h2 class="section-title-lg">Tiêu chí lựa chọn ERP phù hợp cho <span>doanh nghiệp thiết bị y tế</span></h2>
+        <p style="font-size:15.5px;color:#666;max-width:640px;margin:0 auto;line-height:1.7;">Khi lựa chọn ERP cho ngành thiết bị y tế, doanh nghiệp cần xem xét kỹ lưỡng 6 tiêu chí quan trọng sau để đảm bảo đầu tư đúng và hiệu quả lâu dài.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="criteria-card">
+            <div class="criteria-num">01</div>
+            <h4>Phù hợp đặc thù ngành (Tiêu chí quan trọng nhất)</h4>
+            <p>ERP phải đáp ứng đúng nghiệp vụ ngành: quản lý Lot/Serial/Expiry, FIFO, truy xuất nguồn gốc từ nhà cung cấp đến bảo hành, theo dõi giấy phép lưu hành và chứng từ nhập khẩu. Nếu ERP không làm tốt các nghiệp vụ này, doanh nghiệp sẽ phải xử lý thủ công bên ngoài, làm mất ý nghĩa của ERP.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="criteria-card">
+            <div class="criteria-num">02</div>
+            <h4>Quản lý tồn kho chính xác theo thời gian thực</h4>
+            <p>Hệ thống ERP phải quản lý đa kho – đa vị trí – đa đơn vị tính; cảnh báo tồn kho tối thiểu, tối đa, hàng cận hạn; hỗ trợ kiểm kê nhanh bằng mã vạch/QR Code; và cung cấp báo cáo tồn kho theo lô, hạn dùng, dự án, khách hàng chính xác.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="criteria-card">
+            <div class="criteria-num">03</div>
+            <h4>Tích hợp chặt chẽ bán hàng – kho – kế toán</h4>
+            <p>Dữ liệu phải xuyên suốt, không nhập liệu trùng lặp. Quy trình liền mạch: Báo giá → Hợp đồng → Đơn hàng → Xuất kho → Hóa đơn → Công nợ. Hạch toán tự động giá vốn, doanh thu, thuế; theo dõi công nợ bệnh viện, đại lý theo từng hợp đồng.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="criteria-card">
+            <div class="criteria-num">04</div>
+            <h4>Đáp ứng tuân thủ pháp lý & kiểm toán</h4>
+            <p>Ngành thiết bị y tế chịu quản lý nghiêm ngặt từ Bộ Y tế và Bộ Tài chính. ERP cần lưu trữ đầy đủ chứng từ và nhật ký giao dịch, cho phép tra cứu nhanh khi thanh tra, kiểm toán, tuân thủ kế toán – thuế – hóa đơn điện tử tại Việt Nam.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="criteria-card">
+            <div class="criteria-num">05</div>
+            <h4>Khả năng tùy biến và mở rộng theo quy mô</h4>
+            <p>ERP phải linh hoạt, không bị "đóng khung" theo mô hình cố định. Dễ dàng mở rộng khi tăng quy mô chi nhánh, kho hàng, danh mục sản phẩm. Đồng hành cùng sự phát triển lâu dài của doanh nghiệp mà không cần thay đổi hệ thống.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="criteria-card">
+            <div class="criteria-num">06</div>
+            <h4>Đội ngũ triển khai am hiểu ngành & đồng hành lâu dài</h4>
+            <p>Thực tế cho thấy, yếu tố con người chiếm tới 70% sự thành công của dự án ERP. Đội ngũ triển khai phải am hiểu nghiệp vụ thiết bị y tế, tư vấn thiết kế quy trình phù hợp và đồng hành sau go-live để tối ưu hệ thống theo sự phát triển của doanh nghiệp.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ /SELECTION CRITERIA ============ -->
+
+
+  <!-- ============ MEDIA GALLERY ============ -->
+  <section class="omg-section">
+    <div class="container">
+    <div class="omg-outer" data-media-folder="../assets/omega-media/giai-phap/nganh-thiet-bi-y-te">
+      <div class="omg-loader"><i class="fa-solid fa-circle-notch fa-spin"></i></div>
+    </div>
+    </div>
+  </section>
+  <!-- ============ /MEDIA GALLERY ============ -->
+
+  <!-- ============ MODULES ============ -->
+  <section class="section-gap dark-section" id="phan-he">
+    <div class="container">
+      <div class="row g-5 align-items-start">
+        <div class="col-lg-5 wow fadeInLeft">
+          <span class="section-label" style="background:rgba(0,166,81,0.08);border-color:rgba(0,166,81,0.2);color:#00A651;"><i class="fa-solid fa-puzzle-piece"></i> Bộ phân hệ ERP</span>
+          <h2 class="section-title-lg" style="color:#fff;">Các module OMEGA.ERP <span>áp dụng cho ngành thiết bị y tế</span></h2>
+          <p style="font-size:15px;color:rgba(255,255,255,0.75);line-height:1.75;margin-bottom:24px;">Omega cung cấp bộ phần mềm ERP tích hợp đầy đủ, được cấu hình riêng cho đặc thù doanh nghiệp thiết bị y tế. Doanh nghiệp có thể bắt đầu từ các phân hệ cốt lõi và mở rộng dần theo nhu cầu tăng trưởng.</p>
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:24px 28px;">
+            <div style="font-size:13px;font-weight:600;margin-bottom:8px;color:rgba(255,255,255,0.6);">OMEGA ERP – CAM KẾT CHẤT LƯỢNG</div>
+            <div style="font-size:15px;color:#fff;line-height:1.7;">"Thiết kế và tối ưu riêng cho ngành thiết bị y tế – giúp doanh nghiệp vận hành hiệu quả, tuân thủ quy định và phát triển bền vững trong dài hạn."</div>
+            <div style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.6);">– Omega Solutions & Technologies Co., Ltd.</div>
+          </div>
+        </div>
+        <div class="col-lg-7 wow fadeInRight" data-wow-delay="0.1s">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-tag"></i> OMEGA.SD – Bán hàng & Phân phối <span class="module-tag">Cốt lõi</span></div>
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-warehouse"></i> OMEGA.WM – Quản lý kho hàng <span class="module-tag">Cốt lõi</span></div>
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-cart-shopping"></i> OMEGA.PO – Quản lý mua hàng <span class="module-tag">Cốt lõi</span></div>
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-book"></i> OMEGA.GL – Kế toán tổng hợp <span class="module-tag">Cốt lõi</span></div>
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-badge-check"></i> OMEGA.QC – Quản lý chất lượng</div>
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-users"></i> OMEGA.HR – Nhân sự & Tiền lương</div>
+            </div>
+            <div class="col-md-6">
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-hand-holding-dollar"></i> OMEGA.PR – Kế toán Ngân hàng</div>
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-landmark"></i> OMEGA.FA – Tài sản cố định</div>
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-headset"></i> OMEGA.CRM – Quản lý khách hàng</div>
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-industry"></i> OMEGA.MC – Quản lý sản xuất</div>
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-mobile-screen-button"></i> App SCR – Kiểm kho Mobile</div>
+              <div class="module-pill" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;"><i class="fa-solid fa-mobile-screen-button"></i> App APV – Duyệt lệnh Mobile</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ /MODULES ============ -->
+
+  <!-- ============ BENEFITS ============ -->
+  <section class="section-gap" id="loi-ich" style="background:#fff;">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-5 wow fadeInLeft">
+          <span class="section-label"><i class="fa-solid fa-trophy"></i> Lợi ích cốt lõi</span>
+          <h2 class="section-title-lg">Lợi ích cốt lõi của ERP đối với doanh nghiệp <span>thiết bị y tế</span></h2>
+          <p style="font-size:15px;color:#555;line-height:1.75;margin-bottom:24px;">Phần mềm ERP đóng vai trò là nền tảng quản trị trung tâm, kết nối liền mạch các phòng ban trên cùng một hệ thống dữ liệu thống nhất, giúp tăng cường phối hợp nội bộ và loại bỏ tình trạng thông tin rời rạc.</p>
+          <div class="row g-3">
+            <div class="col-6">
+              <div style="background:#f8fbf8;border-radius:12px;padding:20px;text-align:center;border:1px solid #e6efe6;">
+                <div style="font-size:36px;font-weight:900;color:#ED1C24;">100%</div>
+                <div style="font-size:13px;color:#666;margin-top:4px;">Truy xuất nguồn gốc theo yêu cầu</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="background:#f8fbf8;border-radius:12px;padding:20px;text-align:center;border:1px solid #e6efe6;">
+                <div style="font-size:36px;font-weight:900;color:#ED1C24;">60%</div>
+                <div style="font-size:13px;color:#666;margin-top:4px;">Giảm thời gian xử lý đơn hàng</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="background:#f8fbf8;border-radius:12px;padding:20px;text-align:center;border:1px solid #e6efe6;">
+                <div style="font-size:36px;font-weight:900;color:#ED1C24;">35%</div>
+                <div style="font-size:13px;color:#666;margin-top:4px;">Giảm tồn kho quá hạn</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div style="background:#f8fbf8;border-radius:12px;padding:20px;text-align:center;border:1px solid #e6efe6;">
+                <div style="font-size:36px;font-weight:900;color:#ED1C24;">70%</div>
+                <div style="font-size:13px;color:#666;margin-top:4px;">Giảm thời gian báo cáo kế toán</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 wow fadeInRight" data-wow-delay="0.1s">
+          <div style="background:#f8fbf8;border-radius:20px;padding:36px 32px;border:1px solid #e6efe6;">
+            <div class="benefit-item" style="border-color:#e6efe6;">
+              <div class="benefit-num">1</div>
+              <div class="benefit-content">
+                <h4 style="color:#1a1a1a;">Quản lý vòng đời sản phẩm và chất lượng toàn diện</h4>
+                <p style="color:#666;">Theo dõi từ lúc nhập kho đến khi đến tay khách hàng và trong suốt quá trình bảo hành – đảm bảo chất lượng tại mọi điểm tiếp xúc.</p>
+              </div>
+            </div>
+            <div class="benefit-item" style="border-color:#e6efe6;">
+              <div class="benefit-num">2</div>
+              <div class="benefit-content">
+                <h4 style="color:#1a1a1a;">Theo dõi số serial và truy xuất nguồn gốc tức thì</h4>
+                <p style="color:#666;">Chỉ cần nhập số serial hoặc số lô, hệ thống tức thì hiển thị toàn bộ hành trình của thiết bị – đáp ứng ngay yêu cầu thanh tra hoặc khiếu nại khách hàng.</p>
+              </div>
+            </div>
+            <div class="benefit-item" style="border-color:#e6efe6;">
+              <div class="benefit-num">3</div>
+              <div class="benefit-content">
+                <h4 style="color:#1a1a1a;">Tầm nhìn đầy đủ về tồn kho và chuỗi cung ứng</h4>
+                <p style="color:#666;">Lãnh đạo biết chính xác từng mặt hàng đang ở kho nào, vị trí nào, số lượng bao nhiêu và hạn dùng khi nào – không còn tình trạng mù thông tin.</p>
+              </div>
+            </div>
+            <div class="benefit-item" style="border-color:#e6efe6;">
+              <div class="benefit-num">4</div>
+              <div class="benefit-content">
+                <h4 style="color:#1a1a1a;">Giảm chi phí, tối đa hóa doanh thu và lợi nhuận</h4>
+                <p style="color:#666;">Tối ưu lượng tồn kho, giảm hàng quá hạn, tự động hóa quy trình xử lý đơn hàng và kế toán – cắt giảm chi phí vận hành đáng kể.</p>
+              </div>
+            </div>
+            <div class="benefit-item" style="border-color:#e6efe6;">
+              <div class="benefit-num">5</div>
+              <div class="benefit-content">
+                <h4 style="color:#1a1a1a;">Quản lý tài chính minh bạch và sẵn sàng kiểm toán</h4>
+                <p style="color:#666;">Hệ thống kế toán tích hợp hoàn toàn, tuân thủ chuẩn VAS, sẵn sàng cung cấp dữ liệu đầy đủ cho cơ quan thuế, kiểm toán viên và cổ đông bất cứ lúc nào.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ /BENEFITS ============ -->
+
+  <!-- ============ CTA ============ -->
+  <section class="cta-section">
+    <div class="container position-relative" style="z-index:1;">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8 wow fadeInUp">
+          <p style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.75);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">OMEGA.ERP – GIẢI PHÁP THIẾT BỊ Y TẾ</p>
+          <h2 style="font-size:clamp(24px,4vw,42px);font-weight:900;color:#fff;margin-bottom:16px;line-height:1.2;">Sẵn sàng quản trị thiết bị y tế đúng chuẩn – minh bạch – tuân thủ?</h2>
+          <p style="font-size:16px;color:rgba(255,255,255,0.88);margin-bottom:36px;line-height:1.7;max-width:560px;margin-left:auto;margin-right:auto;">Với 16+ năm kinh nghiệm và đội ngũ am hiểu nghiệp vụ ngành y tế, Omega sẵn sàng tư vấn giải pháp ERP phù hợp nhất cho doanh nghiệp của bạn – hoàn toàn miễn phí.</p>
+          <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+            <a href="../lien-he.html" class="btn-white-omega">
+              <i class="fa-solid fa-paper-plane"></i> Tư vấn miễn phí
+            </a>
+            <a href="tel:+84835128448" class="btn-red-omega">
+              <i class="fa-solid fa-phone"></i> Gọi ngay: (84-8) 3512 8448
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ /CTA ============ -->
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="main-footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <!-- Brand -->
+          <div class="col-lg-4">
+            <div class="footer-brand">
+              <img src="../assets/images/omega-4B-rect-trans-full.png" alt="Omega ERP" onerror="this.src='../assets/images/omega-5A-rect-trans-name.png'">
+            </div>
+            <p class="footer-desc">Omega – Đồng hành cùng doanh nghiệp trên hành trình chuyển đổi số với các giải pháp ERP toàn diện, thực chất và hiệu quả.</p>
+            <div class="footer-social">
+              <a href="https://zalo.me/908303609" target="_blank" aria-label="Zalo Omega"><i class="fa-solid fa-comment-dots"></i></a>
+              <a href="https://www.facebook.com/PhanMemQuanTriDoanhNghiepOMEGAERP/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="https://www.youtube.com/@omegaerp9461" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+              <a href="https://linkedin.com/company/omegaerp" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Products -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Sản phẩm</h4>
+            <ul class="footer-links">
+              <li><a href="../san-pham/software-omega-erp.html">OMEGA.ERP</a></li>
+              <li><a href="../san-pham/software-omega-gl.html">OMEGA.GL – Kế toán</a></li>
+              <li><a href="../san-pham/software-omega-hr.html">OMEGA.HR – Nhân sự</a></li>
+              <li><a href="../san-pham/software-omega-mm.html">OMEGA.MM – Sản xuất</a></li>
+              <li><a href="../san-pham/software-omega-crm.html">OMEGA.CRM</a></li>
+              <li><a href="../san-pham/software-omega-smb.html">GAMA.SMB</a></li>
+            </ul>
+          </div>
+
+          <!-- Solutions -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Giải pháp</h4>
+            <ul class="footer-links">
+              <li><a href="../giai-phap/giai-phap-nganh-fb.html">Ngành F&amp;B</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-nhua.html">Ngành Nhựa</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-go-noi-that.html">Gỗ – Nội thất</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-fmcg.html">Ngành FMCG</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-thuy-san.html">Thủy – Hải sản</a></li>
+              <li><a href="../giai-phap/giai-phap-nganh-y-te.html">Thiết bị y tế</a></li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Dịch vụ</h4>
+            <ul class="footer-links">
+              <li><a href="../dich-vu.html#dich-vu-tong-quan">Tổng quan dịch vụ</a></li>
+              <li><a href="../dich-vu.html#tu-van">Tư vấn triển khai</a></li>
+              <li><a href="../dich-vu.html#dao-tao">Đào tạo &amp; Hỗ trợ</a></li>
+              <li><a href="../dich-vu.html#bao-tri">Bảo trì &amp; Nâng cấp</a></li>
+              <li><a href="../dich-vu.html#quy-trinh">Quy trình triển khai</a></li>
+              <li><a href="../dich-vu.html#faq">Hỏi đáp</a></li>
+            </ul>
+          </div>
+
+          <!-- Company -->
+          <div class="col-6 col-lg-2">
+            <h4 class="footer-heading">Công ty</h4>
+            <ul class="footer-links">
+              <li><a href="../ve-omega.html">Về Omega</a></li>
+              <li><a href="../khach-hang.html">Khách hàng</a></li>
+              <li><a href="../khach-hang.html#case-study">Case Study</a></li>
+              <li><a href="../tin-tuc.html">Tin tức</a></li>
+              <li><a href="../tin-tuc.html#tuyen-dung">Tuyển dụng</a></li>
+              <li><a href="../lien-he.html">Liên hệ</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div class="col-12">
+            <h4 class="footer-heading">Liên hệ</h4>
+            <div class="footer-contact-item"><h3 style="color: #00A651;">CÔNG TY TNHH CÔNG NGHỆ & GIẢI PHÁP OMEGA</h3></div>
+            <div class="footer-contact-item"><h5 style="color: rgba(255,255,255,0.6); font-style: italic;">Omega Solutions & Technologies Co., Ltd.</h5></div>
+            <div class="footer-contact-item">
+              <i class="fa-solid fa-city"></i>
+              <span style="color:rgba(255,255,255,0.6);"><u>Trụ sở chính</u>: <a href="https://maps.app.goo.gl/gasARGjfY3sZy1vQ8" target="_blank" style="color: inherit;">Lầu 6 - Tòa nhà Hà Sơn, số 277A Nguyễn Văn Đậu, Phường Bình Lợi Trung, TP. HCM</a>. Liên hệ: <a href="https://zalo.me/0708994462" style="color:inherit;">0708 994 462 (Ms. Thục Nghi)</a></span>
+            </div>
+            <div class="footer-contact-item">
+              <i class="fa-solid fa-building me-2"></i>
+              <span style="color:rgba(255,255,255,0.6);"><u>Văn phòng Miền Bắc</u>: <a href="https://maps.app.goo.gl/Ehcb8NsZNC64B8w37" target="_blank" style="color: inherit;">Phòng 507 – B8, số 8A Hoàng Ngọc Phách, Phường Đống Đa, Hà Nội</a>. Liên hệ: <a href="https://zalo.me/0972735899" style="color:inherit;">0972 735 899 (Mr. Tuấn Anh)</a></span>
+            </div>
+            <div class="footer-contact-row">
+              <a href="tel:02835128448" class="fcr-item"><i class="fa-solid fa-phone"></i>028 3512 8448</a>
+              <span class="fcr-item"><i class="fa-solid fa-fax"></i>Fax: 028 3514 7280</span>
+              <a href="mailto:info@omega.com.vn" class="fcr-item"><i class="fa-solid fa-envelope"></i>info@omega.com.vn</a>
+              <a href="https://zalo.me/0908303609" class="fcr-item"><i class="fa-solid fa-mobile"></i>0908 303 609 (Mr. Nhân)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <p class="footer-copy footer-copy-legal">
+              <span class="footer-copy-lname">Công ty TNHH Công nghệ và Giải pháp Omega</span>
+              <span class="footer-copy-lyr">© 2009–<script>document.write(new Date().getFullYear())</script>. All rights reserved.</span>
+            </p>
+          <p class="footer-copy"><a href="../chinh-sach-bao-mat.html">Chính sách bảo mật</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- ============ /FOOTER ============ -->
+
+  <!-- Back to top -->
+  <a href="#" id="back-to-top" style="position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#01a652,#7ed957);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;z-index:999;opacity:0;transition:opacity 0.3s;box-shadow:0 4px 16px rgba(0,166,81,0.4);" aria-label="Lên đầu trang">
+    <i class="fa-solid fa-chevron-up"></i>
+  </a>
+  <style>#back-to-top.show{opacity:1;}</style>
+
+  <!-- JS -->
+  <script src="../assets/js/jquery-3.7.1.min.js"></script>
+  <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="../assets/js/swiper-bundle.min.js"></script>
+  <script src="../assets/js/wow.min.js"></script>
+  <script src="../assets/js/jquery.waypoints.min.js"></script>
+  <script src="../assets/js/jquery.counterup.min.js"></script>
+  <script src="../assets/js/jquery.magnific-popup.min.js"></script>
+  <script src="../assets/js/jquery.slicknav.js"></script>
+  <script src="../assets/js/omega.js"></script>
+
+  <script>
+  (function() {
+    document.querySelectorAll('.omg-outer[data-media-folder]').forEach(function(outer) {
+      var folder = outer.getAttribute('data-media-folder');
+      fetch(folder + '/manifest.json')
+        .then(function(r){ return r.ok ? r.json() : {files:[]}; })
+        .catch(function(){ return {files:[]}; })
+        .then(function(manifest) {
+          var files = (manifest.files || []).filter(Boolean);
+          if (!files.length) {
+            var sec = outer.closest('.omg-section');
+            if (sec) sec.style.display = 'none';
+            return;
+          }
+          var isVideo = function(f){ return /\.(mp4|webm|ogg|mov)$/i.test(f); };
+          var single = files.length === 1;
+          var slidesHtml = files.map(function(f) {
+            var src = folder + '/' + f;
+            var cap = f.replace(/\.[^.]+$/, '').replace(/[-_]/g,' ');
+            var media = isVideo(f)
+              ? '<video src="' + src + '" ' + (single ? 'controls' : 'loop muted playsinline preload="none"') + '></video>'
+              : '<img src="' + src + '" alt="' + cap + '" loading="lazy">';
+            return '<div class="swiper-slide">' + media + '<div class="omg-caption">' + cap + '</div></div>';
+          }).join('');
+          outer.innerHTML = [
+            '<div class="omg-swiper swiper">',
+              '<div class="swiper-wrapper">' + slidesHtml + '</div>',
+              single ? '' : '<div class="swiper-button-prev"></div>',
+              single ? '' : '<div class="swiper-button-next"></div>',
+              single ? '' : '<div class="swiper-pagination"></div>',
+            '</div>',
+            single ? '' : '<div class="omg-counter">1 / ' + files.length + '</div>'
+          ].join('');
+          if (single) return;
+          var sw = new Swiper(outer.querySelector('.omg-swiper'), {
+            loop: true,
+            autoHeight: true,
+            speed: 600,
+            pagination: { el: outer.querySelector('.swiper-pagination'), clickable: true },
+            navigation: { nextEl: outer.querySelector('.swiper-button-next'), prevEl: outer.querySelector('.swiper-button-prev') },
+            autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+            on: {
+              slideChange: function() {
+                var c = outer.querySelector('.omg-counter');
+                if (c) c.textContent = (this.realIndex + 1) + ' / ' + files.length;
+                outer.querySelectorAll('video').forEach(function(v){ v.pause(); });
+              },
+              slideChangeTransitionEnd: function() {
+                var vid = outer.querySelector('.swiper-slide-active video');
+                if (vid) { vid.play(); sw.autoplay.stop(); }
+              }
+            }
+          });
+          outer.querySelectorAll('video').forEach(function(v) {
+            v.addEventListener('play', function(){ sw.autoplay.stop(); });
+            v.addEventListener('pause', function(){ sw.autoplay.start(); });
+          });
+        });
+    });
+  })();
+  </script>
+</body>
+</html>

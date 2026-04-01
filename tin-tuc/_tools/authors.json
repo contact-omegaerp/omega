@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Nguyễn Văn Nhân",
+    "position": "Giám đốc Công ty",
+    "quick_intro": "Sáng lập, lãnh đạo chiến lược và định hướng phát triển tổng thể của công ty OMEGA.",
+    "image": "authors/Mr-Nhan_W512.webp"
+  },
+  {
+    "name": "Nguyễn Quốc Huy",
+    "position": "GĐ Phát triển phần mềm",
+    "quick_intro": "Phó Giám đốc Công ty, phụ trách toàn bộ các giải pháp công nghệ, xây dựng và nâng cao chất lượng các sản phẩm phần mềm cốt lõi.",
+    "image": "authors/Mr-Huy_W512.webp"
+  },
+  {
+    "name": "Lý Đức Hiệp",
+    "position": "TP. Tư Vấn – Triển Khai ERP",
+    "quick_intro": "Trưởng phòng Tư vấn & Triển khai ERP, hỗ trợ khách hàng triển khai giải pháp ERP hiệu quả và tối ưu.",
+    "image": "authors/Mr-Hiep_W512.webp"
+  },
+  {
+    "name": "OMEGA ERP",
+    "position": "Phòng ERP",
+    "quick_intro": "Đội ngũ chuyên trách phát triển, vận hành và hỗ trợ hệ thống ERP của OMEGA.",
+    "image": "authors/omega-3A-square-white-product_W512.webp"
+  },
+  {
+    "name": "OMEGA R&D",
+    "position": "Phòng Nghiên cứu & Phát triển",
+    "quick_intro": "Đội ngũ nghiên cứu và phát triển công nghệ, sản phẩm mới cho OMEGA.",
+    "image": "authors/omega-3A-square-white-product_W512.webp"
+  },
+  {
+    "name": "OMEGA Innovation Lab",
+    "position": "Ban Đổi mới & Sáng tạo",
+    "quick_intro": "Đơn vị thúc đẩy đổi mới, sáng tạo và các dự án công nghệ đột phá của công ty.",
+    "image": "authors/omega-3A-square-white-product_W512.webp"
+  },
+  {
+    "name": "OMEGA Product Team",
+    "position": "Phòng Sản xuất",
+    "quick_intro": "Đội ngũ quản lý và phát triển sản phẩm, đảm bảo chất lượng và tiến độ sản xuất.",
+    "image": "authors/omega-3A-square-white-product_W512.webp"
+  },
+  {
+    "name": "OMEGA Communications",
+    "position": "Ban Truyền thông",
+    "quick_intro": "Đội ngũ phụ trách truyền thông, marketing và xây dựng hình ảnh thương hiệu OMEGA.",
+    "image": "authors/omega-3A-square-white-product_W512.webp"
+  },
+  {
+    "name": "OMEGA HR",
+    "position": "Phòng Nhân sự",
+    "quick_intro": "Đội ngũ Nhân sự, chịu trách nhiệm tuyển dụng, phát triển và chăm sóc nguồn nhân lực.",
+    "image": "authors/omega-3A-square-white-product_W512.webp"
+  },
+  {
+    "name": "OMEGA Strategy Team",
+    "position": "Ban Chiến lược",
+    "quick_intro": "Đội ngũ xây dựng và triển khai chiến lược phát triển dài hạn của công ty.",
+    "image": "authors/omega-3A-square-white-product_W512.webp"
+  }
+]

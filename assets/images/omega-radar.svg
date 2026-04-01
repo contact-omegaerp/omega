@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<circle cx="512" cy="512" r="506.9306931" stroke="none" fill="#ffffff" />
+    <!-- Nhóm toàn bộ logo để dễ áp dụng hiệu ứng chung -->
+    <g id="logo">
+
+        <!-- Vòng tròn đỏ trung tâm -->
+        <circle cx="512" cy="512" r="136.8712871" fill="#ED1C24" stroke="none" />
+
+        <!-- Hình đóng AA'B'B: annular sector lớn -->
+        <path d="M 135.2770786 851.202842
+             L 327.4057685 678.2093926
+             A 248.3960396 248.3960396 0 1 1 696.5942315 678.2093926
+             L 888.7229214 851.202842
+             A 506.9306931 506.9306931 0 1 0 135.2770786 851.202842" fill="#00A651" stroke="none" />
+
+        <!-- Hình đóng EE'D'D: annular sector lớn -->
+        <path d="M 159.8563508 876.6554235
+             L 402.611701 658.0775244
+             A 182.4950495 182.4950495 0 0 0 621.388299 658.0775244
+             L 864.1436492 876.6554235
+             A 506.9306931 506.9306931 0 0 1 159.8563508 876.6554235" fill="#00A651" stroke="none" />
+    </g>
+
+    <animateTransform href="#logo" attributeName="transform" type="rotate" from="0 512 512" to="360 512 512"
+        dur="2s" repeatCount="indefinite" />
+</svg>

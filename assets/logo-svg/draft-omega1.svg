@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Đường tròn tâm O, các bán kính khác nhau -->
+  <circle cx="512" cy="512" r="465.4545455" stroke="#CCCCCC" fill="none" stroke-width="1"/>
+  <circle cx="512" cy="512" r="228.0727273" stroke="#CCCCCC" fill="none" stroke-width="1"/>
+  <circle cx="512" cy="512" r="167.5636364" stroke="#CCCCCC" fill="none" stroke-width="1"/>
+  <circle cx="512" cy="512" r="125.6727273" fill="#ED1C24" stroke-width="0"/>
+<!-- Cú pháp chuẩn
+M xA yA A rx ry rotation large-arc-flag sweep-flag xB yB
+
+Giải thích
+M xA yA: di chuyển đến điểm bắt đầu A
+A rx ry rotation large-arc-flag sweep-flag xB yB: vẽ cung tròn
+rx ry: bán kính ngang và dọc (ở đây bằng nhau = R)
+rotation: góc xoay trục elip (thường để 0 với đường tròn)
+large-arc-flag: 0 = cung nhỏ, 1 = cung lớn
+sweep-flag: 0 = theo chiều kim đồng hồ, 1 = ngược chiều kim đồng hồ
+xB yB: tọa độ điểm kết thúc B -->
+
+  <!-- Đoạn cung tròn từ AA' và BB' -->
+  <!-- <path d="M 166.0998631 823.4498822 A 465.4545455 465.4545455 0 1 1 857.9001369 823.4498822" 
+        stroke="#00A651" fill="none" stroke-width="1"/>
+  <path d="M 342.5089329 664.6104423 A 228.0727273 228.0727273 0 1 1 681.4910671 664.6104423" 
+        stroke="#00A651" fill="none" stroke-width="1"/> -->
+
+
+<!-- Hình đóng AA'B'B: annular sector lớn (major arc, phía dưới) -->
+  <path d="M 166.0998631 823.4498822 
+           L 342.5089329 664.6104423 
+           A 228.0727273 228.0727273 0 1 1 681.4910671 664.6104423 
+           L 857.9001369 823.4498822 
+           A 465.4545455 465.4545455 0 1 0 166.0998631 823.4498822" 
+        fill="#00A651" fill-opacity="1" stroke="none"/>
+
+
+
+  <!-- Đánh dấu tâm O -->
+  <circle cx="512" cy="512" r="6" fill="black"/>
+  <text x="512" y="500" font-size="40" text-anchor="middle" fill="black">O</text>
+
+  <!-- Đánh dấu điểm A -->
+  <circle cx="166.0998631" cy="823.4498822" r="6" fill="black"/>
+  <text x="166.0998631" y="813.4498822" font-size="40" text-anchor="middle" fill="black">A</text>
+
+    <!-- Đánh dấu điểm A' -->
+  <circle cx="857.9001369" cy="823.4498822" r="6" fill="black"/>
+  <text x="857.9001369" y="813.4498822" font-size="40" text-anchor="middle" fill="black">A'</text>
+
+    <!-- Đánh dấu điểm B -->
+  <circle cx="342.5089329" cy="664.6104423" r="6" fill="black"/>
+  <text x="342.5089329" y="654.6104423" font-size="40" text-anchor="middle" fill="black">B</text>
+
+    <!-- Đánh dấu điểm B' -->
+  <circle cx="681.4910671" cy="664.6104423" r="6" fill="black"/>
+  <text x="681.4910671" y="654.6104423" font-size="40" text-anchor="middle" fill="black">B'</text>
+
+    <!-- Đánh dấu điểm D -->
+  <circle cx="212.8115853" cy="868.5588681" r="6" fill="black"/>
+  <text x="212.8115853" y="858.5588681" font-size="40" text-anchor="middle" fill="black">D</text>
+
+    <!-- Đánh dấu điểm D' -->
+  <circle cx="811.1884147" cy="868.5588681" r="6" fill="black"/>
+  <text x="811.1884147" y="858.5588681" font-size="40" text-anchor="middle" fill="black">D'</text>
+
+    <!-- Đánh dấu điểm E -->
+  <circle cx="440.5030332" cy="663.5445676" r="6" fill="black"/>
+  <text x="440.5030332" y="653.5445676" font-size="40" text-anchor="middle" fill="black">E</text>
+
+    <!-- Đánh dấu điểm E' -->
+  <circle cx="583.4969668" cy="663.5445676" r="6" fill="black"/>
+  <text x="583.4969668" y="653.5445676" font-size="40" text-anchor="middle" fill="black">E'</text>
+    <!-- Đoạn cung tròn DD' (arc nhỏ, sweep-flag = 1) -->
+  <path d="M 212.8115853 868.5588681 A 465.4545455 465.4545455 0 0 0 811.1884147 868.5588681" 
+        stroke="#00A651" fill="none" stroke-width="1"/>
+  <!-- Đoạn cung tròn EE' (arc nhỏ, sweep-flag = 1) -->
+  <path d="M 440.5030332 663.5445676 A 167.5636364 167.5636364 0 0 0 583.4969668 663.5445676" 
+        stroke="#00A651" fill="none" stroke-width="1"/>
+
+<!-- Hình đóng EE'D'D: annular sector lớn (major arc, phía dưới) -->
+  <path d="M 212.8115853 868.5588681 
+           L 440.5030332 663.5445676 
+           A 167.5636364 167.5636364 0 0 0 583.4969668 663.5445676 
+           L 811.1884147 868.5588681 
+           A 465.4545455 465.4545455 0 0 1 212.8115853 868.5588681" 
+        fill="#00A651" fill-opacity="1" stroke="none"/>
+
+
+</svg>

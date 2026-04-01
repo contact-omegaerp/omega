@@ -1,0 +1,13 @@
+Sau khi giải nén ZIP vào tin-tuc/, cần làm thêm 2 bước trong tool:
+
+Panel 6 — Cập nhật chỉ mục (sidebar nav: "6. Index")
+
+Bước A — Bấm "💾 Tạo & Lưu JSON"
+
+Xuất lại _tools/news-data.json từ XLSX (174 bài, đã có fix link/entity)
+File này là nguồn dữ liệu cho tin-tuc.html render danh sách, category filter, featured cards
+Bước B — Bấm "⚡ Áp dụng thay đổi" (có thể preview trước bằng nút "Xem trước")
+
+Patch trực tiếp vào tin-tuc.html: inject endpoint tin-tuc/_tools/news-data.json vào hàm fetchAllArticles, thêm markers // [OMEGA-NEWS-STATIC-START]
+Sau bước này tin-tuc.html mới load đúng danh sách bài, filter category, submenu nav
+Lưu ý: Cả 2 bước cần tool đang trỏ đúng thư mục omega/ (đã chọn thư mục ở Panel 1 Setup). Nếu chưa chọn thì bước A sẽ download JSON về máy thay vì lưu thẳng vào file.
