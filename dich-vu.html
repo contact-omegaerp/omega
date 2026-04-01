@@ -353,6 +353,322 @@
     @media (max-width: 767px) {
       .service-card { padding: 28px 22px; }
     }
+
+    /* ============================================================
+       TEAM SECTIONS
+       ============================================================ */
+
+    /* Intro highlight box */
+    .team-intro-box {
+      background: linear-gradient(135deg, #f0faf5, #e8f5ee);
+      border: 1px solid #c0dfcd;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 44px;
+    }
+    .team-intro-box .ti-lead {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.78;
+      margin-bottom: 20px;
+    }
+    .team-area-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .team-area-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14.5px;
+      color: #333;
+      line-height: 1.7;
+    }
+    .team-area-num {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #01a652, #7ed957);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 3px;
+    }
+    .team-support-grid {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 28px;
+    }
+    .team-support-grid li {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.7;
+      padding-left: 18px;
+      position: relative;
+    }
+    .team-support-grid li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00A651;
+    }
+
+    /* Team card */
+    .team-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #e6efe6;
+      overflow: hidden;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(0,166,81,.14);
+      border-color: #afd8be;
+    }
+    .team-photo-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: linear-gradient(135deg, #e8f5ee, #f0f9f4);
+    }
+    .team-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform .4s ease;
+    }
+    .team-card:hover .team-photo-wrap img { transform: scale(1.04); }
+
+    /* Status dot — inline bên phải tên */
+    .team-status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0,0,0,.18);
+      position: relative;
+      flex-shrink: 0;
+      cursor: default;
+      vertical-align: middle;
+    }
+    .status-ready { background: #00c853; }
+    .status-busy  { background: #f9a825; }
+    .status-off   { background: #e53935; }
+    .status-ready::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: rgba(0,200,83,.35);
+      animation: ts-pulse 2s ease-in-out infinite;
+    }
+    @keyframes ts-pulse {
+      0%,100% { transform: scale(.8);  opacity: .9; }
+      50%      { transform: scale(1.5); opacity: 0;  }
+    }
+
+    /* Tooltip (CSS-only) */
+    .team-status::before {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 7px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15,15,15,.82);
+      color: #fff;
+      font-size: 11px;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-weight: 500;
+      white-space: nowrap;
+      padding: 3px 9px;
+      border-radius: 5px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .2s;
+      z-index: 20;
+    }
+    .team-status:hover::before { opacity: 1; }
+
+    /* Card body — canh giữa */
+    .team-card-body {
+      padding: 16px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      align-items: center;
+      text-align: center;
+    }
+    .team-member-name {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 3px;
+      line-height: 1.3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .team-member-role {
+      font-size: 12px;
+      color: #00A651;
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .team-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 12px;
+      flex: 1;
+      align-items: center;
+      width: 100%;
+    }
+    .team-contact-link {
+      font-size: 12px;
+      color: #555;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: color .2s;
+      line-height: 1.4;
+    }
+    .team-contact-link i { color: #00A651; font-size: 11px; flex-shrink: 0; }
+    .team-contact-link:hover { color: #00A651; text-decoration: none; }
+    .team-socials {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      justify-content: center;
+      padding-top: 10px;
+      border-top: 1px solid #f0f4f0;
+      width: 100%;
+    }
+    .team-social-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid #e0eae0;
+      transition: border-color .2s, background .2s, transform .2s;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .team-social-btn img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      display: block;
+    }
+    .team-social-btn:hover {
+      border-color: #00A651;
+      background: #f0faf5;
+      transform: translateY(-2px);
+    }
+    .team-social-btn.tsb-omega img { width: 15px; height: 15px; }
+
+    /* Team grid — flex centering cho mọi số lượng thành viên */
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* Card entrance animation */
+    @keyframes team-card-in {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+    .team-card-col {
+      animation: team-card-in .45s ease both;
+      width: calc(25% - 15px);
+      min-width: 170px;
+      max-width: 240px;
+    }
+
+    /* CEO contact section */
+    .section-ceo-contact {
+      background: var(--gradient-green);
+      padding: 64px 0;
+    }
+    .ceo-contact-inner {
+      text-align: center;
+      margin: 0 auto;
+    }
+    .ceo-contact-inner h3 {
+      color: #fff;
+      font-size: clamp(20px, 2.8vw, 28px);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .ceo-contact-inner p {
+      color: rgba(255,255,255,.88);
+      font-size: 15px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .ceo-iframe-frame {
+      border-radius: 16px;
+      overflow: hidden;
+      width: 80vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 20px 60px rgba(0,0,0,.22);
+      background: #fff;
+    }
+    .ceo-iframe-frame iframe {
+      width: 100%;
+      height: 300px; /* sẽ được JS resize theo content */
+      border: none;
+      display: block;
+    }
+
+    /* Team responsive */
+    @media (max-width: 991px) {
+      .team-card-col { width: calc(33.33% - 14px); }
+    }
+    @media (max-width: 767px) {
+      .team-support-grid { grid-template-columns: 1fr; }
+      .team-intro-box { padding: 20px 18px; }
+      .ceo-iframe-frame { width: 100vw; border-radius: 0; }
+    }
+    @media (max-width: 575px) {
+      .team-card-col { width: calc(50% - 10px); min-width: 140px; }
+      .team-card-body { padding: 13px 11px 11px; }
+      .team-member-name { font-size: 13.5px; }
+      .team-contact-link { font-size: 11.5px; }
+      .section-ceo-contact { padding: 40px 0; }
+    }
   </style>
 </head>
 <body>
@@ -764,6 +1080,80 @@
   </section>
   <!-- ============ /WHY OMEGA ============ -->
 
+  <!-- ============ ĐỘI NGŨ TƯ VẤN & TRIỂN KHAI ============ -->
+  <section class="section-gap" id="doi-ngu-tu-van">
+    <div class="container">
+      <div class="text-center mb-5 wow fadeInUp">
+        <span class="section-label"><i class="fa-solid fa-people-group"></i> Đội ngũ chuyên môn</span>
+        <h2 class="section-title-lg">Đội ngũ <span>Tư Vấn &amp; Triển Khai</span></h2>
+      </div>
+      <div class="team-intro-box wow fadeInUp" data-wow-delay="0.1s">
+        <p class="ti-lead">Omega sở hữu đội ngũ tư vấn triển khai chuyên nghiệp, giàu kinh nghiệm, tinh thông kiến thức tài chính – kế toán và quản trị doanh nghiệp. Công việc tư vấn triển khai phần mềm được chuẩn hoá thành quy trình với các bước thực hiện rõ ràng, đảm bảo hiệu quả và đúng tiến độ.</p>
+        <ul class="team-area-list">
+          <li>
+            <span class="team-area-num">1</span>
+            <span>Áp dụng thay đổi của các Thông tư, Quyết định mới của Bộ Tài chính và Tổng cục Thuế.</span>
+          </li>
+          <li>
+            <span class="team-area-num">2</span>
+            <span>Thực hiện các chuẩn mực kế toán phù hợp với đặc thù của từng doanh nghiệp.</span>
+          </li>
+          <li>
+            <span class="team-area-num">3</span>
+            <span>Tổ chức bộ máy kế toán, luân chuyển chứng từ, xây dựng hệ thống định danh mã và quy trình phù hợp với việc ứng dụng CNTT trong quản lý doanh nghiệp.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="team-grid" id="team-grid-tuvan">
+        <!-- Rendered by JS from assets/team/team.json -->
+      </div>
+    </div>
+  </section>
+  <!-- ============ /ĐỘI NGŨ TƯ VẤN & TRIỂN KHAI ============ -->
+
+  <!-- ============ ĐỘI NGŨ HỖ TRỢ ============ -->
+  <section class="section-gap" id="doi-ngu-ho-tro" style="background:#f8fbf8;">
+    <div class="container">
+      <div class="text-center mb-5 wow fadeInUp">
+        <span class="section-label"><i class="fa-solid fa-headset"></i> Hỗ trợ chuyên nghiệp</span>
+        <h2 class="section-title-lg">Đội ngũ <span>Hỗ Trợ</span></h2>
+      </div>
+      <div class="team-intro-box wow fadeInUp" data-wow-delay="0.1s">
+        <p class="ti-lead">Trong suốt thời gian bảo hành và bảo trì, Omega cam kết hỗ trợ toàn diện để hệ thống vận hành ổn định – khách hàng luôn được đồng hành kịp thời:</p>
+        <ul class="team-support-grid">
+          <li>Khắc phục sự cố phần mềm trong suốt thời gian bảo hành, bảo trì.</li>
+          <li>Kiểm tra và giải đáp thắc mắc của người dùng khi sử dụng phần mềm.</li>
+          <li>Cập nhật phiên bản mới theo quy định mới (Thuế, Bộ Tài chính, Liên Đoàn Lao Động).</li>
+          <li>Nhắc nhở và hỗ trợ sao lưu dữ liệu (Backup) định kỳ cuối tháng.</li>
+          <li>Cài đặt và cấp lại bản quyền phần mềm khi khách hàng gặp sự cố phần cứng.</li>
+          <li>Kiểm tra số liệu, hỗ trợ số liệu khi có yêu cầu.</li>
+          <li>Tư vấn nghiệp vụ phát sinh và cách hạch toán trên phần mềm.</li>
+          <li>Cử kỹ thuật viên tinh thông nghiệp vụ hỗ trợ và hướng dẫn sử dụng phần mềm.</li>
+          <li>Chỉnh sửa báo cáo và khắc phục lỗi phần mềm (nếu có).</li>
+          <li>Định kỳ cuối mỗi quý, Omega kiểm tra tình hình sử dụng và tiếp nhận yêu cầu từ khách hàng.</li>
+        </ul>
+      </div>
+      <div class="team-grid" id="team-grid-hotro">
+        <!-- Rendered by JS from assets/team/team.json -->
+      </div>
+    </div>
+  </section>
+  <!-- ============ /ĐỘI NGŨ HỖ TRỢ ============ -->
+
+  <!-- ============ LIÊN HỆ GIÁM ĐỐC ============ -->
+  <section class="section-ceo-contact" id="lien-he-giam-doc">
+    <div class="container">
+      <div class="ceo-contact-inner wow fadeInUp">
+        <h3>Muốn trao đổi những vấn đề lớn hơn?</h3>
+        <p>Kết nối trực tiếp với Giám đốc Omega để thảo luận về chiến lược chuyển đổi số, giải pháp tổng thể và các đề xuất hợp tác đặc biệt.</p>
+        <div class="ceo-iframe-frame">
+          <iframe id="ceo-bizcard-iframe" src="bizcards/ceo-nguyen-van-nhan.html" title="Giám đốc Nguyễn Văn Nhân – Omega ERP"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ /LIÊN HỆ GIÁM ĐỐC ============ -->
+
   <!-- ============ FAQ ============ -->
   <section class="section-gap faq-section" id="faq" style="background:#f8fbf8;">
     <div class="container">
@@ -1004,6 +1394,134 @@
         });
       });
     })();
+  </script>
+
+  <!-- Team loader -->
+  <script>
+  (function () {
+    'use strict';
+
+    var GAS_URL  = 'https://script.google.com/macros/s/AKfycbx32EYoelTT7Nj5nG0clVk20DLEVKmyiHr-ZGUhFnznRi_euct0-KdYOef3KEAvMxB03g/exec';
+    var JSON_URL = 'assets/team/team.json';
+    var STATUS_LABEL = { ready: 'Đang sẵn sàng', busy: 'Đang bận', off: 'Đang nghỉ' };
+    var STATUS_NORM  = {
+      'ready': 'ready', 'busy': 'busy', 'off': 'off',
+      'Đang sẵn sàng': 'ready', 'Đang bận': 'busy', 'Đang nghỉ': 'off'
+    };
+
+    function fmtPhone(p) {
+      if (!p) return '';
+      var n = p.replace(/\D/g, '');
+      if (n.length === 11 && n.slice(0, 2) === '84') n = '0' + n.slice(2);
+      if (n.length === 10) return n.slice(0, 4) + ' ' + n.slice(4, 7) + ' ' + n.slice(7);
+      return p;
+    }
+
+    function buildCard(m, idx) {
+      var sCls = 'status-' + (m.status || 'ready');
+      var sTip = STATUS_LABEL[m.status] || 'Đang sẵn sàng';
+      var socials = '';
+      if (m.zalo)     socials += '<a href="https://zalo.me/' + m.zalo + '" class="team-social-btn" title="Chat Zalo" target="_blank" rel="noopener"><img src="assets/images/zalo.png" alt="Zalo"></a>';
+      if (m.facebook) socials += '<a href="' + m.facebook + '" class="team-social-btn" title="Nhắn Messenger" target="_blank" rel="noopener"><img src="assets/images/messenger.png" alt="Messenger"></a>';
+      socials += '<a href="' + (m.omegaProfile || 'https://omega.com.vn') + '" class="team-social-btn tsb-omega" title="OMEGA Profile" target="_blank" rel="noopener"><img src="assets/logo-favicon/favicon.ico" alt="OMEGA Profile"></a>';
+      var contacts = '';
+      if (m.phone) contacts += '<a href="tel:' + m.phone + '" class="team-contact-link"><i class="fa-solid fa-phone-flip"></i> ' + fmtPhone(m.phone) + '</a>';
+      if (m.email) contacts += '<a href="mailto:' + m.email + '" class="team-contact-link"><i class="fa-solid fa-envelope"></i> ' + m.email + '</a>';
+      return '<div class="team-card-col" style="animation-delay:' + (idx * 0.07) + 's" data-member-id="' + (m.id || '') + '" data-member-name="' + m.name + '">' +
+        '<div class="team-card">' +
+          '<div class="team-photo-wrap">' +
+            '<img src="' + m.photo + '" alt="' + m.name + '" loading="lazy">' +
+          '</div>' +
+          '<div class="team-card-body">' +
+            '<div class="team-member-name">' + m.name + '<span class="team-status ' + sCls + '" data-tip="' + sTip + '"></span></div>' +
+            '<div class="team-member-role">' + m.role + '</div>' +
+            '<div class="team-contacts">' + contacts + '</div>' +
+            '<div class="team-socials">' + socials + '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }
+
+    function renderTeam(members) {
+      ['tuvan', 'hotro'].forEach(function (team) {
+        var grid = document.getElementById('team-grid-' + team);
+        if (!grid) return;
+        var filtered = members.filter(function (m) { return m.team === team; });
+        grid.innerHTML = filtered.map(buildCard).join('');
+      });
+    }
+
+    function updateStatus(members) {
+      members.forEach(function (m) {
+        var col = document.querySelector('[data-member-id="' + m.id + '"]');
+        if (!col) return;
+        var dot = col.querySelector('.team-status');
+        if (!dot) return;
+        var s = STATUS_NORM[m.status] || 'ready';
+        dot.className = 'team-status status-' + s;
+        dot.setAttribute('data-tip', STATUS_LABEL[s]);
+      });
+    }
+
+    function loadTeam() {
+      var localDone = false;
+      var gasMembers = null;
+
+      function tryApplyGas() {
+        if (localDone && gasMembers) updateStatus(gasMembers);
+      }
+
+      // Fetch local JSON
+      fetch(JSON_URL)
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          renderTeam(data.members || []);
+          localDone = true;
+          tryApplyGas();
+        })
+        .catch(function () { localDone = true; tryApplyGas(); });
+
+      // Fetch GAS song song — cache-busting để luôn lấy dữ liệu mới nhất
+      if (GAS_URL) {
+        fetch(GAS_URL + (GAS_URL.indexOf('?') >= 0 ? '&' : '?') + '_t=' + Date.now(), { cache: 'no-store' })
+          .then(function (r) { return r.json(); })
+          .then(function (live) {
+            gasMembers = live.members || [];
+            tryApplyGas();
+          })
+          .catch(function () {});
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadTeam);
+    } else {
+      loadTeam();
+    }
+
+    // ── CEO iframe auto-height ────────────────────────────────
+    (function () {
+      var fr = document.getElementById('ceo-bizcard-iframe');
+      if (!fr) return;
+      function resize() {
+        try {
+          var doc = fr.contentDocument || fr.contentWindow.document;
+          var h = doc.documentElement.scrollHeight || doc.body.scrollHeight;
+          if (h > 50) fr.style.height = h + 'px';
+        } catch (e) {}
+      }
+      fr.addEventListener('load', function () {
+        resize();
+        try {
+          new ResizeObserver(resize).observe(
+            (fr.contentDocument || fr.contentWindow.document).body
+          );
+        } catch (e) {
+          setInterval(resize, 400);
+        }
+      });
+    })();
+  })();
   </script>
 </body>
 </html>

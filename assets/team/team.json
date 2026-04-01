@@ -1,0 +1,109 @@
+{
+  "updated": "2026-04-02T00:00:00.000Z",
+  "members": [
+    {
+      "id": "omega01",
+      "team": "tuvan",
+      "name": "Lý Đức Hiệp",
+      "role": "Tư vấn ERP",
+      "photo": "assets/team/Mr.-Hiep_W512.webp",
+      "phone": "0917258459",
+      "email": "hiep.ly@omega.com.vn",
+      "zalo": "0917258459",
+      "facebook": "https://facebook.com/messages/t/112977021025347",
+      "omegaProfile": "https://omega.com.vn",
+      "status": "ready"
+    },
+    {
+      "id": "omega02",
+      "team": "tuvan",
+      "name": "Đỗ Tuấn Anh",
+      "role": "Tư vấn ERP",
+      "photo": "assets/team/dotuananh.png",
+      "phone": "0972735899",
+      "email": "anh.do@omega.com.vn",
+      "zalo": "0972735899",
+      "facebook": "https://facebook.com/messages/t/112977021025347",
+      "omegaProfile": "https://omega.com.vn",
+      "status": "ready"
+    },
+    {
+      "id": "omega03",
+      "team": "tuvan",
+      "name": "Nguyễn Quốc Thắng",
+      "role": "Tư vấn ERP",
+      "photo": "assets/team/nguyenquocthang.jpg",
+      "phone": "0989942980",
+      "email": "thang.nguyen@omega.com.vn",
+      "zalo": "0989942980",
+      "facebook": "https://facebook.com/messages/t/112977021025347",
+      "omegaProfile": "https://omega.com.vn",
+      "status": "ready"
+    },
+    {
+      "id": "omega04",
+      "team": "hotro",
+      "name": "Văn Thị Như Quỳnh",
+      "role": "Hỗ trợ nghiệp vụ",
+      "photo": "assets/team/vanthinhuquynh.jpg",
+      "phone": "0906746907",
+      "email": "quynh.van@omega.com.vn",
+      "zalo": "0906746907",
+      "facebook": "https://facebook.com/messages/t/112977021025347",
+      "omegaProfile": "https://omega.com.vn",
+      "status": "ready"
+    },
+    {
+      "id": "omega05",
+      "team": "hotro",
+      "name": "Nguyễn Thị Thúy",
+      "role": "Hỗ trợ nghiệp vụ",
+      "photo": "assets/team/nguyenthithuy.jpg",
+      "phone": "0984590046",
+      "email": "thuy.nguyen@omega.com.vn",
+      "zalo": "0984590046",
+      "facebook": "https://facebook.com/messages/t/112977021025347",
+      "omegaProfile": "https://omega.com.vn",
+      "status": "ready"
+    },
+    {
+      "id": "omega06",
+      "team": "hotro",
+      "name": "Hoàng Thị Huế",
+      "role": "Hỗ trợ nghiệp vụ",
+      "photo": "assets/team/hoangthique.jpg",
+      "phone": "0941063664",
+      "email": "hue.nguyen@omega.com.vn",
+      "zalo": "0941063664",
+      "facebook": "https://facebook.com/messages/t/112977021025347",
+      "omegaProfile": "https://omega.com.vn",
+      "status": "ready"
+    },
+    {
+      "id": "omega07",
+      "team": "hotro",
+      "name": "Nguyễn Minh Thuý Nga",
+      "role": "Hỗ trợ nghiệp vụ",
+      "photo": "assets/team/nguyenthithuynga.jpg",
+      "phone": "0984947147",
+      "email": "nga.nguyen@omega.com.vn",
+      "zalo": "0984947147",
+      "facebook": "https://facebook.com/messages/t/112977021025347",
+      "omegaProfile": "https://omega.com.vn",
+      "status": "ready"
+    },
+    {
+      "id": "omega08",
+      "team": "hotro",
+      "name": "Triệu Quỳnh Nga",
+      "role": "Hỗ trợ nghiệp vụ",
+      "photo": "assets/team/trieuquynhnga.jpg",
+      "phone": "0902406156",
+      "email": "nga.trieu@omega.com.vn",
+      "zalo": "0708994462",
+      "facebook": "https://facebook.com/messages/t/112977021025347",
+      "omegaProfile": "https://omega.com.vn",
+      "status": "ready"
+    }
+  ]
+}
