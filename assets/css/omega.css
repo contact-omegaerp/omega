@@ -1703,7 +1703,7 @@ body {
 .search-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(10, 22, 40, 0.92);
+  background: rgba(0, 60, 25, 0.93);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 99999;

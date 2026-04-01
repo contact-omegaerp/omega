@@ -1515,58 +1515,23 @@ function openAIChat() {
 // ============================================================
 (function () {
   // ----------------------------------------------------------
-  // Search index – covers all pages & key sections
+  // Search index – loaded from external JSON
   // ----------------------------------------------------------
-  var SEARCH_INDEX = [
-    // Trang chủ
-    { title: 'Trang chủ', desc: 'Giới thiệu tổng quan về Omega ERP', url: 'index.html', icon: 'fa-house', cat: 'Trang chủ', keywords: 'trang chủ omega erp giới thiệu' },
+  var SEARCH_INDEX = [];
 
-    // Về Omega
-    { title: 'Về Omega', desc: 'Thông tin công ty, lịch sử hình thành', url: 've-omega.html', icon: 'fa-building', cat: 'Về Omega', keywords: 'về omega công ty lịch sử hình thành' },
-    { title: 'Định vị & Năng lực', desc: 'Vị thế thương hiệu và năng lực cốt lõi', url: 've-omega.html#dinh-vi', icon: 'fa-bullseye', cat: 'Về Omega', keywords: 'định vị năng lực thương hiệu' },
-    { title: 'Tầm nhìn & Sứ mệnh', desc: 'Chiến lược phát triển dài hạn của Omega', url: 've-omega.html#tam-nhin', icon: 'fa-eye', cat: 'Về Omega', keywords: 'tầm nhìn sứ mệnh chiến lược phát triển' },
-    { title: 'Giá trị cốt lõi', desc: 'Những giá trị Omega cam kết mang lại', url: 've-omega.html#gia-tri', icon: 'fa-gem', cat: 'Về Omega', keywords: 'giá trị cốt lõi cam kết' },
-    { title: 'Đội ngũ nhân sự', desc: 'Đội ngũ chuyên gia giàu kinh nghiệm', url: 've-omega.html#doi-ngu', icon: 'fa-users', cat: 'Về Omega', keywords: 'đội ngũ nhân sự chuyên gia kinh nghiệm' },
+  // Resolve URL relative to this script file (works from any page depth)
+  var _scriptEl = document.currentScript || (function () {
+    var s = document.getElementsByTagName('script');
+    return s[s.length - 1];
+  }());
+  var _jsonUrl = (_scriptEl && _scriptEl.src)
+    ? _scriptEl.src.replace(/omega\.js(\?.*)?$/, 'search-index.json')
+    : 'assets/js/search-index.json';
 
-    // Giải pháp
-    { title: 'Giải pháp ERP', desc: 'Giải pháp quản trị theo từng ngành nghề', url: 'giai-phap.html', icon: 'fa-lightbulb', cat: 'Giải pháp', keywords: 'giải pháp erp ngành nghề' },
-    { title: 'Giải pháp ngành Nhựa', desc: 'ERP chuyên biệt cho doanh nghiệp sản xuất nhựa', url: 'giai-phap.html#nganh-nhua', icon: 'fa-industry', cat: 'Giải pháp', keywords: 'ngành nhựa sản xuất quản lý' },
-    { title: 'Giải pháp ngành Gỗ – Nội thất', desc: 'ERP cho ngành chế biến gỗ và nội thất', url: 'giai-phap.html#nganh-go', icon: 'fa-tree', cat: 'Giải pháp', keywords: 'ngành gỗ nội thất chế biến' },
-    { title: 'Giải pháp ngành F&B', desc: 'ERP cho nhà hàng, chuỗi thực phẩm & đồ uống', url: 'giai-phap.html#nganh-fb', icon: 'fa-utensils', cat: 'Giải pháp', keywords: 'ngành fb thực phẩm đồ uống nhà hàng' },
-    { title: 'Giải pháp ngành FMCG', desc: 'ERP cho hàng tiêu dùng nhanh & phân phối', url: 'giai-phap.html#nganh-fmcg', icon: 'fa-box-open', cat: 'Giải pháp', keywords: 'fmcg hàng tiêu dùng phân phối' },
-    { title: 'Giải pháp Thủy – Hải sản', desc: 'ERP cho chế biến và xuất khẩu thủy hải sản', url: 'giai-phap.html#nganh-thuy-san', icon: 'fa-fish', cat: 'Giải pháp', keywords: 'thủy sản hải sản chế biến xuất khẩu' },
-    { title: 'Giải pháp Thiết bị Y tế', desc: 'ERP cho phân phối và quản lý thiết bị y tế', url: 'giai-phap.html#nganh-y-te', icon: 'fa-stethoscope', cat: 'Giải pháp', keywords: 'thiết bị y tế bệnh viện phân phối' },
-
-    // Sản phẩm
-    { title: 'Sản phẩm Omega', desc: 'Bộ phần mềm ERP và ứng dụng di động', url: 'san-pham.html', icon: 'fa-cubes', cat: 'Sản phẩm', keywords: 'sản phẩm phần mềm erp module' },
-    { title: 'Phần mềm ERP', desc: 'Hệ thống quản trị tổng thể – kế toán, kho, bán hàng…', url: 'san-pham.html#phan-mem', icon: 'fa-desktop', cat: 'Sản phẩm', keywords: 'phần mềm erp kế toán kho bán hàng sản xuất' },
-    { title: 'Mobile App', desc: 'Ứng dụng di động quản lý mọi lúc mọi nơi', url: 'san-pham.html#mobile-app', icon: 'fa-mobile-screen', cat: 'Sản phẩm', keywords: 'mobile app ứng dụng di động' },
-    { title: 'Kế toán – Tài chính', desc: 'Module kế toán tổng hợp, công nợ, ngân hàng', url: 'san-pham.html#phan-mem', icon: 'fa-calculator', cat: 'Sản phẩm', keywords: 'kế toán tài chính công nợ ngân hàng' },
-    { title: 'Quản lý Kho', desc: 'Module quản lý kho hàng, nhập xuất tồn', url: 'san-pham.html#phan-mem', icon: 'fa-warehouse', cat: 'Sản phẩm', keywords: 'kho hàng nhập xuất tồn quản lý kho' },
-    { title: 'Quản lý Bán hàng (CRM)', desc: 'CRM, đơn hàng, báo giá, công nợ khách hàng', url: 'san-pham.html#phan-mem', icon: 'fa-handshake', cat: 'Sản phẩm', keywords: 'bán hàng crm đơn hàng báo giá khách hàng' },
-    { title: 'Quản lý Sản xuất', desc: 'MRP, lệnh sản xuất, định mức nguyên liệu', url: 'san-pham.html#phan-mem', icon: 'fa-gears', cat: 'Sản phẩm', keywords: 'sản xuất mrp lệnh sản xuất định mức' },
-    { title: 'Quản lý Nhân sự – HRM', desc: 'Tuyển dụng, lương thưởng, chấm công, đào tạo', url: 'san-pham.html#phan-mem', icon: 'fa-id-card', cat: 'Sản phẩm', keywords: 'nhân sự hrm tuyển dụng lương thưởng chấm công' },
-
-    // Dịch vụ
-    { title: 'Dịch vụ Omega', desc: 'Triển khai, đào tạo, tư vấn và hỗ trợ sau bán hàng', url: 'dich-vu.html', icon: 'fa-wrench', cat: 'Dịch vụ', keywords: 'dịch vụ triển khai đào tạo tư vấn hỗ trợ' },
-    { title: 'Tư vấn & Triển khai', desc: 'Quy trình triển khai ERP chuyên nghiệp', url: 'dich-vu.html', icon: 'fa-comments', cat: 'Dịch vụ', keywords: 'tư vấn triển khai erp chuyên nghiệp' },
-    { title: 'Đào tạo người dùng', desc: 'Khóa học vận hành phần mềm cho nhân viên', url: 'dich-vu.html', icon: 'fa-chalkboard-user', cat: 'Dịch vụ', keywords: 'đào tạo người dùng khóa học vận hành' },
-    { title: 'Hỗ trợ kỹ thuật', desc: 'Hotline, remote support và bảo trì hệ thống', url: 'dich-vu.html', icon: 'fa-headset', cat: 'Dịch vụ', keywords: 'hỗ trợ kỹ thuật hotline bảo trì' },
-
-    // Khách hàng
-    { title: 'Khách hàng tiêu biểu', desc: '1000+ doanh nghiệp đang sử dụng Omega ERP', url: 'khach-hang.html', icon: 'fa-star', cat: 'Khách hàng', keywords: 'khách hàng tiêu biểu doanh nghiệp đối tác' },
-
-    // Tin tức
-    { title: 'Tin tức & Blog', desc: 'Cập nhật kiến thức ERP, chuyển đổi số', url: 'tin-tuc.html', icon: 'fa-newspaper', cat: 'Tin tức', keywords: 'tin tức blog kiến thức erp chuyển đổi số' },
-    { title: 'Chuyển đổi số', desc: 'Xu hướng và kinh nghiệm chuyển đổi số doanh nghiệp', url: 'tin-tuc.html#chuyen-doi-so', icon: 'fa-rotate', cat: 'Tin tức', keywords: 'chuyển đổi số doanh nghiệp xu hướng' },
-    { title: 'ERP – Quản trị', desc: 'Bài viết chuyên sâu về hệ thống ERP', url: 'tin-tuc.html#erp', icon: 'fa-chart-line', cat: 'Tin tức', keywords: 'erp quản trị bài viết chuyên sâu' },
-    { title: 'Kế toán – Tài chính', desc: 'Kiến thức kế toán, thuế, tài chính doanh nghiệp', url: 'tin-tuc.html#ke-toan', icon: 'fa-file-invoice-dollar', cat: 'Tin tức', keywords: 'kế toán tài chính thuế kiến thức' },
-    { title: 'Sự kiện Omega', desc: 'Hội thảo, webinar và sự kiện công nghệ', url: 'tin-tuc.html#su-kien', icon: 'fa-calendar-days', cat: 'Tin tức', keywords: 'sự kiện hội thảo webinar công nghệ' },
-    { title: 'Tuyển dụng', desc: 'Cơ hội việc làm tại Omega', url: 'tin-tuc.html#tuyen-dung', icon: 'fa-briefcase', cat: 'Tin tức', keywords: 'tuyển dụng việc làm cơ hội' },
-
-    // Liên hệ
-    { title: 'Liên hệ & Tư vấn', desc: 'Đặt lịch tư vấn hoặc nhận báo giá miễn phí', url: 'lien-he.html', icon: 'fa-envelope', cat: 'Liên hệ', keywords: 'liên hệ tư vấn báo giá miễn phí' },
-  ];
+  fetch(_jsonUrl, { cache: 'default' })
+    .then(function (r) { return r.json(); })
+    .then(function (data) { SEARCH_INDEX = data; })
+    .catch(function () {});
 
   // ----------------------------------------------------------
   // Helpers
