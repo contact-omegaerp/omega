@@ -615,6 +615,170 @@
       max-width: 240px;
     }
 
+    /* ── Bảng phí hỗ trợ ─────────────────────────────────── */
+    .support-pricing-section { background: #f0f4f8; }
+    .sp-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+    .sp-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,.09);
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .sp-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.16);
+    }
+    .sp-card-head {
+      padding: 30px 20px 22px;
+      text-align: center;
+      position: relative;
+    }
+    .sp-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 26px;
+      color: #fff;
+    }
+    .sp-tier-name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      color: #fff;
+    }
+    .sp-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255,255,255,.25);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,.4);
+    }
+    .sp-card-body {
+      padding: 22px 20px 26px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .sp-rate {
+      font-size: clamp(30px, 3.5vw, 40px);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+    .sp-rate small {
+      font-size: 15px;
+      font-weight: 500;
+      color: #888;
+    }
+    .sp-rate-label {
+      font-size: 11.5px;
+      color: #999;
+      margin-bottom: 12px;
+    }
+    .sp-min-fee {
+      font-size: 13px;
+      font-weight: 600;
+      background: #f5f7fa;
+      border-radius: 8px;
+      padding: 7px 12px;
+      margin-bottom: 18px;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .sp-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 22px;
+      flex: 1;
+    }
+    .sp-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 13.5px;
+      color: #444;
+      padding: 7px 0;
+      border-bottom: 1px solid #f2f2f2;
+      line-height: 1.5;
+    }
+    .sp-features li:last-child { border-bottom: none; }
+    .sp-feat-dot {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #fff;
+      margin-top: 1px;
+    }
+    .sp-cta {
+      display: block;
+      text-align: center;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity .2s, transform .15s;
+      margin-top: auto;
+      color: #fff;
+    }
+    .sp-cta:hover { opacity: .88; transform: translateY(-1px); color: #fff; }
+    /* Diamond */
+    .sp-diamond .sp-card-head { background: linear-gradient(135deg, #1a6dff 0%, #00c6fb 100%); }
+    .sp-diamond .sp-rate      { color: #1a6dff; }
+    .sp-diamond .sp-feat-dot  { background: #1a6dff; }
+    .sp-diamond .sp-cta       { background: linear-gradient(135deg, #1a6dff, #00c6fb); }
+    /* Gold */
+    .sp-gold .sp-card-head    { background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%); }
+    .sp-gold .sp-rate         { color: #c47b00; }
+    .sp-gold .sp-feat-dot     { background: #d4890a; }
+    .sp-gold .sp-cta          { background: linear-gradient(135deg, #f7971e, #ffd200); }
+    /* Silver */
+    .sp-silver .sp-card-head  { background: linear-gradient(135deg, #4a5568 0%, #8e9eab 100%); }
+    .sp-silver .sp-rate       { color: #4a5568; }
+    .sp-silver .sp-feat-dot   { background: #607080; }
+    .sp-silver .sp-cta        { background: linear-gradient(135deg, #4a5568, #8e9eab); }
+    /* Bronze */
+    .sp-bronze .sp-card-head  { background: linear-gradient(135deg, #8b4513 0%, #cd853f 100%); }
+    .sp-bronze .sp-rate       { color: #8b4513; }
+    .sp-bronze .sp-feat-dot   { background: #a0522d; }
+    .sp-bronze .sp-cta        { background: linear-gradient(135deg, #8b4513, #cd853f); }
+    /* Responsive */
+    @media (max-width: 767px) {
+      .sp-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .sp-card-head { padding: 22px 14px 18px; }
+      .sp-icon { width: 50px; height: 50px; font-size: 21px; }
+      .sp-tier-name { font-size: 16px; }
+    }
+    @media (max-width: 420px) {
+      .sp-grid { grid-template-columns: 1fr; }
+    }
+
     /* CEO contact section */
     .section-ceo-contact {
       background: var(--gradient-green);
@@ -1140,11 +1304,125 @@
   </section>
   <!-- ============ /ĐỘI NGŨ HỖ TRỢ ============ -->
 
+  <!-- ============ BẢNG PHÍ HỖ TRỢ ============ -->
+  <section class="section-gap support-pricing-section" id="bang-phi-ho-tro">
+    <div class="container">
+      <div class="text-center mb-5 wow fadeInUp">
+        <span class="section-label"><i class="fa-solid fa-shield-halved"></i> Phí dịch vụ hỗ trợ</span>
+        <h2 class="section-title-lg">Gói hỗ trợ <span>sau triển khai</span></h2>
+        <p style="color:#555;font-size:15px;max-width:620px;margin:12px auto 0;line-height:1.7;">
+          Phí tính theo tỷ lệ % trên giá trị phần mềm hàng năm. Chọn hạng phù hợp với quy mô và cường độ vận hành của doanh nghiệp.
+        </p>
+      </div>
+      <div class="sp-grid wow fadeInUp" data-wow-delay="0.1s">
+
+        <!-- ── Kim Cương ── -->
+        <div class="sp-card sp-diamond">
+          <div class="sp-card-head">
+            <span class="sp-badge">Cao cấp</span>
+            <div class="sp-icon"><i class="fa-solid fa-gem"></i></div>
+            <div class="sp-tier-name">Kim Cương</div>
+          </div>
+          <div class="sp-card-body">
+            <div class="sp-rate">25%<small>/năm</small></div>
+            <div class="sp-rate-label">trên giá trị phần mềm</div>
+            <div class="sp-min-fee">
+              <i class="fa-solid fa-circle-check" style="color:#1a6dff"></i>
+              Phí tối thiểu: 100 triệu/năm
+            </div>
+            <ul class="sp-features">
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Nhân sự phụ trách độc quyền</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Hỗ trợ 24/7 – ưu tiên tuyệt đối</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Check-in tối thiểu 2 lần/tháng</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Đào tạo không giới hạn</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Tư vấn chiến lược & nâng cấp ưu tiên</li>
+            </ul>
+            <a href="lien-he.html" class="sp-cta">Liên hệ tư vấn</a>
+          </div>
+        </div>
+
+        <!-- ── Vàng ── -->
+        <div class="sp-card sp-gold">
+          <div class="sp-card-head">
+            <div class="sp-icon"><i class="fa-solid fa-crown"></i></div>
+            <div class="sp-tier-name">Vàng</div>
+          </div>
+          <div class="sp-card-body">
+            <div class="sp-rate">20%<small>/năm</small></div>
+            <div class="sp-rate-label">trên giá trị phần mềm</div>
+            <div class="sp-min-fee">
+              <i class="fa-solid fa-circle-check" style="color:#d4890a"></i>
+              Phí tối thiểu: 20 triệu/năm
+            </div>
+            <ul class="sp-features">
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Ưu tiên chọn nhân sự hỗ trợ</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Hỗ trợ 7 ngày/tuần</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Check-in tối thiểu 1 lần/tháng</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Đào tạo tối đa 12 ngày/năm</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Hỗ trợ ưu tiên qua Zalo & hotline</li>
+            </ul>
+            <a href="lien-he.html" class="sp-cta">Đăng ký gói</a>
+          </div>
+        </div>
+
+        <!-- ── Bạc ── -->
+        <div class="sp-card sp-silver">
+          <div class="sp-card-head">
+            <div class="sp-icon"><i class="fa-solid fa-medal"></i></div>
+            <div class="sp-tier-name">Bạc</div>
+          </div>
+          <div class="sp-card-body">
+            <div class="sp-rate">15%<small>/năm</small></div>
+            <div class="sp-rate-label">trên giá trị phần mềm</div>
+            <div class="sp-min-fee">
+              <i class="fa-solid fa-circle-check" style="color:#607080"></i>
+              Phí tối thiểu: 10 triệu/năm
+            </div>
+            <ul class="sp-features">
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Nhân sự phụ trách chỉ định</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Hỗ trợ Thứ 2 – Thứ 7</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Check-in tối thiểu 1 lần/tháng</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Đào tạo tối đa 6 ngày/năm</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Hỗ trợ qua Zalo & email</li>
+            </ul>
+            <a href="lien-he.html" class="sp-cta">Đăng ký gói</a>
+          </div>
+        </div>
+
+        <!-- ── Đồng ── -->
+        <div class="sp-card sp-bronze">
+          <div class="sp-card-head">
+            <div class="sp-icon"><i class="fa-solid fa-award"></i></div>
+            <div class="sp-tier-name">Đồng</div>
+          </div>
+          <div class="sp-card-body">
+            <div class="sp-rate">10%<small>/năm</small></div>
+            <div class="sp-rate-label">trên giá trị phần mềm</div>
+            <div class="sp-min-fee">
+              <i class="fa-solid fa-circle-check" style="color:#a0522d"></i>
+              Phí tối thiểu: 3 triệu/năm
+            </div>
+            <ul class="sp-features">
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Nhân sự phụ trách cố định</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Hỗ trợ Thứ 2 – Thứ 6 (giờ HC)</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Check-in tối thiểu 1 lần/quý</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Đào tạo tối đa 2 ngày/năm</li>
+              <li><span class="sp-feat-dot"><i class="fa-solid fa-check"></i></span>Hỗ trợ qua email & ticket</li>
+            </ul>
+            <a href="lien-he.html" class="sp-cta">Đăng ký gói</a>
+          </div>
+        </div>
+
+      </div><!-- /sp-grid -->
+    </div>
+  </section>
+  <!-- ============ /BẢNG PHÍ HỖ TRỢ ============ -->
+
   <!-- ============ LIÊN HỆ GIÁM ĐỐC ============ -->
   <section class="section-ceo-contact" id="lien-he-giam-doc">
     <div class="container">
       <div class="ceo-contact-inner wow fadeInUp">
-        <h3>Muốn trao đổi những vấn đề lớn hơn?</h3>
+        <h3>Đặt lịch trao đổi chiến lược với Giám đốc Omega?</h3>
         <p>Kết nối trực tiếp với Giám đốc Omega để thảo luận về chiến lược chuyển đổi số, giải pháp tổng thể và các đề xuất hợp tác đặc biệt.</p>
         <div class="ceo-iframe-frame">
           <iframe id="ceo-bizcard-iframe" src="bizcards/ceo-nguyen-van-nhan.html" title="Giám đốc Nguyễn Văn Nhân – Omega ERP"></iframe>

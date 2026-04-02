@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Thư mục nội bộ – không index
+Disallow: /bizcards/
+Disallow: /tin-tuc/_tools/
+Disallow: /auto-omega/
+Disallow: /intro-omega.html
+
+# Cho phép các AI crawler phổ biến (AEO – Answer Engine Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# Sitemap
+Sitemap: https://omega.com.vn/sitemap.xml

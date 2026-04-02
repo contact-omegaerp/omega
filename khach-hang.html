@@ -16,19 +16,19 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="vi_VN">
-  <meta property="og:site_name" content="OMEGA ERP">
+  <meta property="og:site_name" content="OMEGA">
   <meta property="og:title" content="Khách hàng tiêu biểu – 1000+ doanh nghiệp tin dùng Omega ERP">
   <meta property="og:description" content="Hơn 1000 doanh nghiệp trên 63 tỉnh thành đang tin dùng Omega ERP. Xem case study triển khai thực tế.">
   <meta property="og:url" content="https://omega.com.vn/khach-hang.html">
-  <meta property="og:image" content="https://omega.com.vn/images/omega-5A-rect-trans-name.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image" content="https://omega.com.vn/assets/logo-png/omega-3B-square-trans-product.png">
+  <meta property="og:image:width" content="3200">
+  <meta property="og:image:height" content="3200">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Khách hàng tiêu biểu – 1000+ doanh nghiệp tin dùng Omega ERP">
   <meta name="twitter:description" content="Hơn 1000 doanh nghiệp tin dùng Omega ERP. Xem case study thực tế.">
-  <meta name="twitter:image" content="https://omega.com.vn/images/omega-5A-rect-trans-name.png">
+  <meta name="twitter:image" content="https://omega.com.vn/assets/logo-png/omega-3B-square-trans-product.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
@@ -272,6 +272,18 @@
 
     /* ---- Rich Tooltip ---- */
     .logo-grid-item { position: relative; }
+    /*
+      Lấp khoảng trống 14px giữa logo-box và tooltip:
+      Pseudo-element vô hình mở rộng hitbox của .logo-grid-item lên phía trên,
+      giữ :hover active khi chuột di chuyển qua gap → tooltip không bị ẩn giữa chừng.
+    */
+    .logo-grid-item::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 0; right: 0;
+      height: 16px; /* ≥ khoảng cách trong bottom: calc(100% + 14px) */
+    }
     .client-tooltip {
       position: absolute;
       z-index: 999;
@@ -609,7 +621,7 @@
               <p class="ct-desc">Doanh nghiệp xuất nhập khẩu hàng đầu, triển khai OMEGA.ERP toàn diện từ mua hàng, kho vận đến kế toán và báo cáo quản trị.</p>
               <div class="ct-quote">"ERP không chỉ là phần mềm mà còn là giải pháp quản trị gắn liền với sự đồng hành lâu dài của Omega."</div>
               <p class="ct-person">— Ông Vân, Phó Tổng Giám Đốc</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/nam-thai-son/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/nam-thai-son.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -628,7 +640,7 @@
               <p class="ct-desc">Triển khai OMEGA.ERP đồng bộ toàn bộ hoạt động dược phẩm: mua hàng, kho, bán hàng, kế toán và báo cáo BI thời gian thực.</p>
               <div class="ct-quote">"Kiểm kê hàng tồn kho giảm từ 2 ngày xuống chỉ còn 1.5 giờ — nhanh hơn 10 lần."</div>
               <p class="ct-person">— Bà Thu, Giám Đốc</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/vipharco/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/vipharco.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -647,7 +659,7 @@
               <p class="ct-desc">Tập đoàn sản xuất &amp; kinh doanh đa ngành. Sau nhiều lần thử nghiệm ERP, OMEGA.ERP đã giúp chuẩn hóa và đồng bộ toàn bộ hệ thống vận hành.</p>
               <div class="ct-quote">"Sau 3 lần triển khai ERP thất bại, OMEGA.ERP đã vận hành đồng bộ từ sản xuất, kho vận đến kế toán."</div>
               <p class="ct-person">— Ông Cường, Tổng Giám Đốc</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/thanh-nam/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/thanh-nam.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -664,7 +676,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Phân phối thiết bị y tế chuyên nghiệp. OMEGA.ERP giúp quản lý kho hàng y tế, truy xuất lô số, hạn dùng và đồng bộ kế toán toàn hệ thống.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/truecare/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/truecare.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -681,7 +693,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Doanh nghiệp sản xuất &amp; chế biến cao su thiên nhiên hàng đầu. OMEGA.ERP quản lý toàn bộ quy trình từ khai thác, chế biến đến xuất khẩu.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/cao-su-dau-tieng/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/cao-su-dau-tieng.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -699,7 +711,7 @@
             <div class="ct-body">
               <p class="ct-desc">Công ty Xăng dầu Hàng không Việt Nam ứng dụng OMEGA.ERP để chuẩn hóa quy trình mua – bán – kho và tài chính kế toán toàn hệ thống.</p>
               <div class="ct-quote">"Giảm 35% thời gian đối soát — tăng độ chính xác kho lên 99%."</div>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/skypec.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -716,7 +728,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Sản xuất và phân phối dược phẩm, thực phẩm chức năng. OMEGA.ERP hỗ trợ quản lý lô số, hạn dùng và hệ thống phân phối đa kênh toàn quốc.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/lidovit.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -733,7 +745,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Doanh nghiệp thương mại ứng dụng OMEGA.ERP để tối ưu hóa quy trình bán hàng, quản lý công nợ và báo cáo tài chính theo thời gian thực.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/hoa-an.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -750,7 +762,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Dịch vụ thương mại &amp; bán lẻ tại cảng hàng không Tân Sơn Nhất. OMEGA.ERP quản lý hệ thống cửa hàng duty-free, kho vận và tài chính.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/sasco.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -767,7 +779,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Phân phối hàng hóa thương mại. OMEGA.ERP giúp quản lý hệ thống đại lý, theo dõi đơn hàng và tối ưu dòng tiền toàn chuỗi phân phối.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/lyprodan.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -784,7 +796,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Doanh nghiệp sản xuất công nghiệp triển khai OMEGA.ERP để quản lý lệnh sản xuất, nguyên vật liệu và kiểm soát chi phí sản xuất hiệu quả.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/trieu-phu-loc.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -801,7 +813,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Doanh nghiệp sản xuất và thương mại ứng dụng OMEGA.ERP để số hóa quy trình sản xuất, tối ưu tồn kho và nâng cao hiệu quả vận hành.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/tien-trien.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -818,7 +830,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Sản xuất hàng may mặc denim &amp; jeans. OMEGA.ERP giúp quản lý nguyên phụ liệu, quy trình sản xuất từng công đoạn và kiểm soát chất lượng thành phẩm.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/vitajean.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -835,7 +847,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Hệ thống trường học triển khai OMEGA.EDU &amp; OMEGA.ERP để quản lý học sinh, lịch học, nhân sự giáo viên và tài chính học phí đồng bộ.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/vstarschool.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -852,7 +864,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Tập đoàn sản xuất công nghiệp ứng dụng OMEGA.ERP để quản lý toàn diện chuỗi sản xuất, kho vận và hệ thống báo cáo quản trị thời gian thực.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/earth-corp.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -869,7 +881,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Tập đoàn phân phối điện tử &amp; thiết bị hàng đầu Hà Nội. OMEGA.ERP giúp quản lý kho hàng điện tử, hệ thống đại lý và tối ưu chuỗi cung ứng.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/hanel.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -886,7 +898,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Phân phối thiết bị và máy móc Mitsubishi tại Việt Nam. OMEGA.ERP hỗ trợ quản lý đại lý, đơn hàng, kho phụ tùng và dịch vụ bảo hành sau bán.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/mitsubishi.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -903,7 +915,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Tập đoàn đầu tư &amp; phát triển bất động sản Him Lam ứng dụng OMEGA.ERP để quản lý dự án, tài chính và hệ thống nhân sự quy mô lớn.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/him-lam.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -920,7 +932,7 @@
             </div>
             <div class="ct-body">
               <p class="ct-desc">Doanh nghiệp sản xuất công nghiệp triển khai OMEGA.ERP để đồng bộ hóa quy trình sản xuất, kiểm soát chi phí và tối ưu năng lực vận hành.</p>
-              <a class="ct-link" href="https://omega.com.vn/khach-hang-tieu-bieu/" target="_blank" rel="noopener">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="ct-link" href="khach-hang/stdt.html">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -977,7 +989,7 @@
               <i class="fa-solid fa-chart-line"></i>
               Giảm 35% thời gian đối soát – Tăng độ chính xác kho 99%
             </div>
-            <a href="#" class="btn-link-omega">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="khach-hang/skypec.html" class="btn-link-omega">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
 
@@ -991,7 +1003,7 @@
               <i class="fa-solid fa-shield-halved"></i>
               Truy xuất nguồn gốc 100% – Tối ưu tồn kho 28%
             </div>
-            <a href="#" class="btn-link-omega">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="khach-hang/vipharco.html" class="btn-link-omega">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
 
@@ -1005,7 +1017,7 @@
               <i class="fa-solid fa-leaf"></i>
               Tiết kiệm 40% nhân lực hành chính – Báo cáo real-time
             </div>
-            <a href="#" class="btn-link-omega">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="khach-hang/cao-su-dau-tieng.html" class="btn-link-omega">Xem chi tiết <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
       </div>

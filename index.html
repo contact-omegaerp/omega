@@ -5,6 +5,41 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- ============================================================
+       Tracking & Analytics
+       Kế thừa từ omega.com.vn (WordPress cũ) – rà soát 2026-04-02
+       ============================================================ -->
+
+  <!-- Google Analytics GA4 – G-0T4G53DCPV
+       Kế thừa: mã GA4 chính của tài khoản omega.com.vn, đang hoạt động -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0T4G53DCPV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0T4G53DCPV');
+  </script>
+
+  <!-- Không kế thừa – lưu tạm để tham khảo:
+  Google Tag GT-5NTC3GB: sinh ra bởi plugin Google Site Kit (WordPress),
+  trùng vai trò với GA4 ở trên, không cần thiết trên site tĩnh.
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-5NTC3GB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('config', 'GT-5NTC3GB');
+    </script>
+
+  Universal Analytics UA-145153712-1: đã bị Google ngừng thu thập từ 07/2023,
+  không còn tác dụng.
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145153712-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('config', 'UA-145153712-1');
+    </script>
+  -->
+
   <!-- Primary SEO -->
   <title>OMEGA ERP – Phần mềm quản trị doanh nghiệp toàn diện | Chuyển đổi số Việt Nam</title>
   <meta name="description" content="OMEGA ERP – giải pháp quản trị doanh nghiệp toàn diện hàng đầu Việt Nam. 16+ năm kinh nghiệm, 1.000+ doanh nghiệp tin dùng, 18 phân hệ ERP tích hợp sâu cho sản xuất, thương mại, F&B, Thủy sản, Y tế và nhiều ngành khác.">
@@ -13,6 +48,8 @@
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta name="googlebot" content="index, follow">
   <meta name="theme-color" content="#00A651">
+  <meta name="application-name" content="OMEGA ERP">
+  <meta name="referrer" content="origin-when-cross-origin">
   <meta name="geo.region" content="VN-SG">
   <meta name="geo.placename" content="Thành phố Hồ Chí Minh">
   <meta name="geo.position" content="10.776889;106.700806">
@@ -23,25 +60,25 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="vi_VN">
   <meta property="og:locale:alternate" content="en_US">
-  <meta property="og:site_name" content="OMEGA ERP">
+  <meta property="og:site_name" content="OMEGA">
   <meta property="og:title" content="OMEGA ERP – Phần mềm quản trị doanh nghiệp toàn diện">
   <meta property="og:description" content="16+ năm đồng hành cùng 1.000+ doanh nghiệp chuyển đổi số. Hệ sinh thái ERP tích hợp 18 phân hệ – kế toán, sản xuất, kho vận, nhân sự, CRM và ứng dụng mobile.">
   <meta property="og:url" content="https://omega.com.vn/">
-  <meta property="og:image" content="https://omega.com.vn/assets/images/omega-3B-square-trans-product.png">
-  <meta property="og:image:secure_url" content="https://omega.com.vn/assets/images/omega-3B-square-trans-product.png">
+  <meta property="og:image" content="https://omega.com.vn/assets/logo-png/omega-3B-square-trans-product.png">
+  <meta property="og:image:secure_url" content="https://omega.com.vn/assets/logo-png/omega-3B-square-trans-product.png">
   <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="800">
-  <meta property="og:image:height" content="800">
+  <meta property="og:image:width" content="3200">
+  <meta property="og:image:height" content="3200">
   <meta property="og:image:alt" content="OMEGA ERP – Hệ sinh thái phần mềm quản trị doanh nghiệp toàn diện">
   <meta property="fb:app_id" content="">
 
   <!-- Twitter / X Card -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@omegaerp">
   <meta name="twitter:creator" content="@omegaerp">
   <meta name="twitter:title" content="OMEGA ERP – Phần mềm quản trị doanh nghiệp toàn diện">
   <meta name="twitter:description" content="16+ năm đồng hành cùng 1.000+ doanh nghiệp. Hệ sinh thái ERP 18 phân hệ tích hợp – chuyển đổi số thực chất, không chỉ bán phần mềm.">
-  <meta name="twitter:image" content="https://omega.com.vn/assets/images/omega-3B-square-trans-product.png">
+  <meta name="twitter:image" content="https://omega.com.vn/assets/logo-png/omega-3B-square-trans-product.png">
   <meta name="twitter:image:alt" content="OMEGA ERP – Hệ sinh thái phần mềm quản trị doanh nghiệp">
 
   <!-- Zalo (sử dụng og: tags bên trên) -->
@@ -54,9 +91,13 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
   <link rel="manifest" href="assets/images/site.webmanifest">
 
-  <!-- Preconnect fonts -->
+  <!-- Preconnect & DNS prefetch – performance/SEO -->
+  <link rel="preconnect" href="https://www.googletagmanager.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="//www.googletagmanager.com">
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- CSS -->
@@ -68,50 +109,80 @@
   <link rel="stylesheet" href="assets/css/magnific-popup.css">
   <link rel="stylesheet" href="assets/css/omega.css">
 
-  <!-- Schema.org structured data -->
+  <!-- Schema.org structured data – cập nhật đầy đủ phone/email/địa chỉ/sameAs -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        "@type": ["Organization", "ProfessionalService"],
         "@id": "https://omega.com.vn/#organization",
         "name": "Công ty TNHH Công nghệ và Giải pháp Omega",
-        "alternateName": ["Omega ERP", "OMEGA"],
+        "legalName": "Công ty TNHH Công nghệ và Giải pháp Omega",
+        "alternateName": ["Omega ERP", "OMEGA", "OMEGA.ERP"],
         "url": "https://omega.com.vn",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://omega.com.vn/assets/images/omega-3B-square-trans-product.png",
-          "width": 800,
-          "height": 800
+          "url": "https://omega.com.vn/assets/logo-png/omega-3B-square-trans-product.png",
+          "width": 3200,
+          "height": 3200
         },
-        "image": "https://omega.com.vn/assets/images/omega-3B-square-trans-product.png",
+        "image": "https://omega.com.vn/assets/logo-png/omega-3B-square-trans-product.png",
         "description": "OMEGA ERP – Hệ sinh thái phần mềm quản trị doanh nghiệp toàn diện hàng đầu Việt Nam. 16+ năm kinh nghiệm, 1.000+ doanh nghiệp tin dùng, 18 phân hệ ERP tích hợp.",
         "foundingDate": "2008",
         "numberOfEmployees": { "@type": "QuantitativeValue", "value": 100 },
+        "telephone": "+842835128448",
+        "email": "info@omega.com.vn",
         "address": {
           "@type": "PostalAddress",
-          "addressCountry": "VN",
-          "addressLocality": "Thành phố Hồ Chí Minh",
-          "addressRegion": "Hồ Chí Minh"
+          "streetAddress": "Lầu 6, Tòa nhà Hà Sơn, 277A Nguyễn Văn Đậu, Phường Bình Lợi Trung",
+          "addressLocality": "Quận Bình Thạnh",
+          "addressRegion": "Thành phố Hồ Chí Minh",
+          "addressCountry": "VN"
         },
+        "location": [
+          {
+            "@type": "Place",
+            "name": "Trụ sở chính – TP. Hồ Chí Minh",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Lầu 6, Tòa nhà Hà Sơn, 277A Nguyễn Văn Đậu, Phường Bình Lợi Trung",
+              "addressLocality": "Quận Bình Thạnh",
+              "addressRegion": "Thành phố Hồ Chí Minh",
+              "addressCountry": "VN"
+            }
+          },
+          {
+            "@type": "Place",
+            "name": "Văn phòng Miền Bắc – Hà Nội",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Phòng 507 – B8, 8A Hoàng Ngọc Phách",
+              "addressLocality": "Phường Đống Đa",
+              "addressRegion": "Hà Nội",
+              "addressCountry": "VN"
+            }
+          }
+        ],
         "contactPoint": [
           {
             "@type": "ContactPoint",
+            "telephone": "+842835128448",
             "contactType": "customer service",
             "areaServed": "VN",
             "availableLanguage": "Vietnamese"
           },
           {
             "@type": "ContactPoint",
+            "telephone": "+842835128448",
             "contactType": "sales",
             "areaServed": "VN",
             "availableLanguage": "Vietnamese"
           }
         ],
         "sameAs": [
-          "https://www.facebook.com/omegaerp",
-          "https://www.linkedin.com/company/omegaerp"
+          "https://www.facebook.com/PhanMemQuanTriDoanhNghiepOMEGAERP/",
+          "https://www.youtube.com/channel/UCQ9s0tbIlbk29xhjXJwX8-A"
         ]
       },
       {
@@ -119,21 +190,44 @@
         "@id": "https://omega.com.vn/#website",
         "url": "https://omega.com.vn",
         "name": "OMEGA ERP",
-        "publisher": { "@id": "https://omega.com.vn/#organization" },
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://omega.com.vn/?s={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
+        "description": "Website chính thức của Công ty TNHH Công nghệ và Giải pháp Omega – nhà cung cấp phần mềm ERP hàng đầu Việt Nam.",
+        "inLanguage": "vi-VN",
+        "publisher": { "@id": "https://omega.com.vn/#organization" }
       },
       {
         "@type": "SoftwareApplication",
+        "@id": "https://omega.com.vn/#software",
         "name": "OMEGA ERP",
+        "alternateName": "OMEGA.ERP",
         "applicationCategory": "BusinessApplication",
+        "applicationSubCategory": "Enterprise Resource Planning",
         "operatingSystem": "Web, iOS, Android",
-        "offers": { "@type": "Offer", "availability": "https://schema.org/InStock", "priceCurrency": "VND" },
+        "inLanguage": "vi-VN",
+        "url": "https://omega.com.vn/san-pham/software-omega-erp.html",
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "priceCurrency": "VND",
+          "seller": { "@id": "https://omega.com.vn/#organization" }
+        },
         "provider": { "@id": "https://omega.com.vn/#organization" },
-        "description": "Hệ thống ERP toàn diện gồm 18 phân hệ: kế toán-tài chính, sản xuất MES, kho WMS, nhân sự HRM, CRM, và ứng dụng mobile cho doanh nghiệp Việt Nam."
+        "description": "Hệ thống ERP toàn diện gồm 18 phân hệ: kế toán-tài chính, sản xuất MES, kho WMS, nhân sự HRM, CRM và ứng dụng mobile cho doanh nghiệp Việt Nam.",
+        "featureList": [
+          "Kế toán doanh nghiệp (OMEGA.GL)",
+          "Quản lý sản xuất MES (OMEGA.MM)",
+          "Quản lý kho WMS (OMEGA.WM)",
+          "Quản lý nhân sự HRM (OMEGA.HR)",
+          "CRM quản lý khách hàng (OMEGA.CRM)",
+          "Quản lý mua hàng (OMEGA.PO)",
+          "Quản lý bán hàng (OMEGA.SO)",
+          "Giá thành sản phẩm (OMEGA.PC)",
+          "Tài sản cố định (OMEGA.FA)",
+          "Kiểm soát chất lượng (OMEGA.QC)",
+          "Kế toán quản trị (OMEGA.MC)",
+          "Quản lý tiền lương (OMEGA.PR)",
+          "Báo cáo tài chính hợp nhất (OMEGA.CL)",
+          "Ứng dụng mobile iOS & Android"
+        ]
       }
     ]
   }
@@ -409,7 +503,7 @@
               </a>
             </div>
             <!-- Stats -->
-            <!-- <div class="hero-stats">
+            <div class="hero-stats">
               <div class="hero-stat wow fadeInUp" data-wow-delay="0.1s">
                 <div class="hero-stat-number"><span class="count-up" data-target="16">16</span>+</div>
                 <div class="hero-stat-label">Năm kinh nghiệm</div>
@@ -422,7 +516,7 @@
                 <div class="hero-stat-number"><span class="count-up" data-target="20">20</span>+</div>
                 <div class="hero-stat-label">Ngành nghề</div>
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
 
@@ -480,7 +574,7 @@
             <span class="label"><i class="fa-solid fa-building"></i> Về chúng tôi</span>
             <h2>Đối tác chiến lược<br><span>chuyển đổi số</span> hàng đầu</h2>
             <p>Omega là đối tác chiến lược hàng đầu tại Việt Nam trong lĩnh vực chuyển đổi số, tiên phong nghiên cứu và triển khai các giải pháp phần mềm ERP cùng hệ sinh thái ứng dụng số hóa chuyên sâu về quản trị doanh nghiệp.</p>
-            <p style="margin-top:12px;">Với hơn 15 năm kinh nghiệm, Omega đã giúp trên <strong style="color:var(--red-accent)">1000+</strong> doanh nghiệp trong và ngoài nước chuẩn hóa quy trình, số hóa vận hành, tối ưu chi phí, quản trị dữ liệu tập trung và nâng cao năng lực điều hành dựa trên thông tin thời gian thực.</p>
+            <p style="margin-top:12px;">Với hơn 16 năm kinh nghiệm, Omega đã giúp trên <strong style="color:var(--red-accent)">1000+</strong> doanh nghiệp trong và ngoài nước chuẩn hóa quy trình, số hóa vận hành, tối ưu chi phí, quản trị dữ liệu tập trung và nâng cao năng lực điều hành dựa trên thông tin thời gian thực.</p>
           </div>
           <!-- Core features -->
           <div class="row g-3 mt-2">
@@ -658,49 +752,49 @@
         </h5>
         <div class="row g-3">
           <div class="col-6 col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="0.05s">
-            <a href="san-pham.html#erp" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/software-omega-erp.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.ERP</div>
               <div class="eco-name">Quản trị doanh nghiệp</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
-            <a href="san-pham.html#gl" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/software-omega-gl.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.GL</div>
               <div class="eco-name">Kế toán doanh nghiệp</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="0.15s">
-            <a href="san-pham.html#hr" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/software-omega-hr.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.HR</div>
               <div class="eco-name">Quản lý nhân sự</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-            <a href="san-pham.html#mm" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/software-omega-mm.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.MM</div>
               <div class="eco-name">Quản lý sản xuất</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="0.25s">
-            <a href="san-pham.html#wm" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/software-omega-wm.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.WM</div>
               <div class="eco-name">Quản lý tồn kho</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-            <a href="san-pham.html#crm" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/software-omega-crm.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.CRM</div>
               <div class="eco-name">Quản lý khách hàng</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="0.35s">
-            <a href="san-pham.html#so" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/software-omega-so.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.SO</div>
               <div class="eco-name">Quản lý bán hàng</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="0.4s">
-            <a href="san-pham.html#po" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/software-omega-po.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.PO</div>
               <div class="eco-name">Quản lý mua hàng</div>
             </a>
@@ -715,37 +809,37 @@
         </h5>
         <div class="row g-3">
           <div class="col-6 col-md-4 col-lg-2 wow fadeInUp" data-wow-delay="0.05s">
-            <a href="san-pham.html#apv" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/app-omega-apv.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.APV</div>
               <div class="eco-name">Duyệt chứng từ</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-2 wow fadeInUp" data-wow-delay="0.1s">
-            <a href="san-pham.html#scr" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/app-omega-scr.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.SCR</div>
               <div class="eco-name">Quét mã vạch kho</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-2 wow fadeInUp" data-wow-delay="0.15s">
-            <a href="san-pham.html#stk" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/app-omega-stk.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.STK</div>
               <div class="eco-name">Tra cứu tồn kho</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-2 wow fadeInUp" data-wow-delay="0.2s">
-            <a href="san-pham.html#sor" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/app-omega-sor.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.SOR</div>
               <div class="eco-name">Quản lý đặt hàng</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-2 wow fadeInUp" data-wow-delay="0.25s">
-            <a href="san-pham.html#mst" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/app-omega-mst.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.MST</div>
               <div class="eco-name">Thống kê sản xuất</div>
             </a>
           </div>
           <div class="col-6 col-md-4 col-lg-2 wow fadeInUp" data-wow-delay="0.3s">
-            <a href="san-pham.html#hrm" class="eco-module d-block text-decoration-none">
+            <a href="san-pham/app-omega-hrm.html" class="eco-module d-block text-decoration-none">
               <div class="eco-code">OMEGA.HRM</div>
               <div class="eco-name">Quản trị nhân lực</div>
             </a>
@@ -878,13 +972,25 @@
       <div class="client-swiper wow fadeInUp">
         <div class="swiper">
           <div class="swiper-wrapper">
-            <!-- Placeholder logos – replace with real client logos -->
-            <div class="swiper-slide"><div class="client-logo"><img src="assets/images/netzon/company-supports-logo-1.svg" alt="Khách hàng Omega"></div></div>
-            <div class="swiper-slide"><div class="client-logo"><img src="assets/images/netzon/company-supports-logo-2.svg" alt="Khách hàng Omega"></div></div>
-            <div class="swiper-slide"><div class="client-logo"><img src="assets/images/netzon/company-supports-logo-3.svg" alt="Khách hàng Omega"></div></div>
-            <div class="swiper-slide"><div class="client-logo"><img src="assets/images/netzon/company-supports-logo-4.svg" alt="Khách hàng Omega"></div></div>
-            <div class="swiper-slide"><div class="client-logo"><img src="assets/images/netzon/company-supports-logo-1.svg" alt="Khách hàng Omega"></div></div>
-            <div class="swiper-slide"><div class="client-logo"><img src="assets/images/netzon/company-supports-logo-2.svg" alt="Khách hàng Omega"></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/skypec.html"><img src="assets/omega-media/khach-hang/skypec.png" alt="SKYPEC" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/vipharco.html"><img src="assets/omega-media/khach-hang/vipharco.png" alt="Vipharco" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/cao-su-dau-tieng.html"><img src="assets/omega-media/khach-hang/cao-su-dau-tieng.png" alt="Cao su Dầu Tiếng" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/thanh-nam.html"><img src="assets/omega-media/khach-hang/thanh-nam.png" alt="Tập đoàn Thành Nam" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/sasco.html"><img src="assets/omega-media/khach-hang/sasco.png" alt="SASCO" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/hanel.html"><img src="assets/omega-media/khach-hang/hanel.png" alt="Hanel" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/mitsubishi.html"><img src="assets/omega-media/khach-hang/mitsubishi.png" alt="Mitsubishi" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/him-lam.html"><img src="assets/omega-media/khach-hang/him-lam.png" alt="Him Lam" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/nam-thai-son.html"><img src="assets/omega-media/khach-hang/nam-thai-son.png" alt="Nam Thái Sơn" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/lidovit.html"><img src="assets/omega-media/khach-hang/lidovit.png" alt="Lidovit" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/lyprodan.html"><img src="assets/omega-media/khach-hang/lyprodan.png" alt="Lyprodan" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/truecare.html"><img src="assets/omega-media/khach-hang/truecare.png" alt="Truecare" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/earth-corp.html"><img src="assets/omega-media/khach-hang/earth-corp.png" alt="Earth Corp" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/vitajean.html"><img src="assets/omega-media/khach-hang/vitajean.png" alt="Vitajean" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/hoa-an.html"><img src="assets/omega-media/khach-hang/hoa-an.jpg" alt="Hòa An" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/stdt.html"><img src="assets/omega-media/khach-hang/stdt.png" alt="STDT" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/vstarschool.html"><img src="assets/omega-media/khach-hang/vstarschool.png" alt="Vstar School" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/trieu-phu-loc.html"><img src="assets/omega-media/khach-hang/trieu-phu-loc.png" alt="Triệu Phú Lộc" loading="lazy"></a></div></div>
+            <div class="swiper-slide"><div class="client-logo"><a href="khach-hang/tien-trien.html"><img src="assets/omega-media/khach-hang/tien-trien.png" alt="Tiến Triển" loading="lazy"></a></div></div>
           </div>
         </div>
       </div>
@@ -895,6 +1001,130 @@
       </div>
     </div>
   </section>
+
+  <!-- ============ TESTIMONIALS / CASE STUDY ============ -->
+  <section class="section-gap dark-section" id="case-study" style="background:linear-gradient(135deg,#1a5c3c 0%,#154d31 100%);">
+    <div class="container">
+      <div class="section-title centered wow fadeInUp">
+        <span class="label" style="color:var(--green-light);background:rgba(126,217,87,0.12);border-color:rgba(126,217,87,0.25);">
+          <i class="fa-solid fa-quote-left"></i> Khách hàng nói gì
+        </span>
+        <h2 style="color:#fff;">Kết quả <span style="color:var(--green-light)">thực tế</span> từ doanh nghiệp</h2>
+        <p style="color:rgba(255,255,255,0.75);">Không phải lời hứa — đây là những con số doanh nghiệp đã đạt được sau khi triển khai OMEGA ERP.</p>
+      </div>
+      <div class="row g-4">
+
+        <!-- SKYPEC -->
+        <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="omega-card h-100" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:28px;">
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div style="background:#fff;border-radius:8px;padding:7px 12px;flex-shrink:0;">
+                <img src="assets/omega-media/khach-hang/skypec.png" alt="SKYPEC"
+                  style="height:32px;width:auto;max-width:110px;object-fit:contain;display:block;">
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--green-light);font-weight:600;text-transform:uppercase;letter-spacing:1px;">Năng lượng hàng không</div>
+              </div>
+            </div>
+            <div class="d-flex gap-3 mb-4">
+              <div style="text-align:center;padding:12px 16px;background:rgba(255,255,255,0.1);border-radius:10px;flex:1;">
+                <div style="font-size:22px;font-weight:800;color:var(--green-light);">35%</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px;">Giảm thời gian<br>đối soát chứng từ</div>
+              </div>
+              <div style="text-align:center;padding:12px 16px;background:rgba(255,255,255,0.1);border-radius:10px;flex:1;">
+                <div style="font-size:22px;font-weight:800;color:var(--green-light);">60+</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px;">Hãng hàng không<br>được quản lý</div>
+              </div>
+            </div>
+            <blockquote style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.7;font-style:italic;border-left:3px solid var(--green-light);padding-left:14px;margin:0 0 20px;">
+              "Ban giám đốc có thể xem báo cáo tổng hợp chỉ sau 1 cú click mà không cần chờ bộ phận kế toán tổng hợp như trước."
+            </blockquote>
+            <div style="font-size:13px;color:rgba(255,255,255,0.55);">— Ông Nguyễn Văn Thành, Giám đốc Tài chính</div>
+            <div class="mt-4">
+              <a href="khach-hang/skypec.html" class="btn-outline-omega" style="font-size:13px;padding:8px 18px;">
+                Xem case study <i class="fa-solid fa-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vipharco -->
+        <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+          <div class="omega-card h-100" style="background:rgba(255,255,255,0.08);border:1px solid rgba(126,217,87,0.35);border-radius:16px;padding:28px;">
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div style="background:#fff;border-radius:8px;padding:7px 12px;flex-shrink:0;">
+                <img src="assets/omega-media/khach-hang/vipharco.png" alt="Vipharco"
+                  style="height:32px;width:auto;max-width:110px;object-fit:contain;display:block;">
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--green-light);font-weight:600;text-transform:uppercase;letter-spacing:1px;">Dược phẩm</div>
+              </div>
+            </div>
+            <div class="d-flex gap-3 mb-4">
+              <div style="text-align:center;padding:12px 16px;background:rgba(255,255,255,0.1);border-radius:10px;flex:1;">
+                <div style="font-size:22px;font-weight:800;color:var(--green-light);">10×</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px;">Nhanh hơn<br>khi kiểm kê kho</div>
+              </div>
+              <div style="text-align:center;padding:12px 16px;background:rgba(255,255,255,0.1);border-radius:10px;flex:1;">
+                <div style="font-size:22px;font-weight:800;color:var(--green-light);">100%</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px;">Truy xuất nguồn gốc<br>lô dược phẩm</div>
+              </div>
+            </div>
+            <blockquote style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.7;font-style:italic;border-left:3px solid var(--green-light);padding-left:14px;margin:0 0 20px;">
+              "Kiểm kê hàng tồn kho giảm từ 2 ngày xuống chỉ còn 1,5 giờ. Đội ngũ tư vấn hiểu rất rõ đặc thù ngành dược."
+            </blockquote>
+            <div style="font-size:13px;color:rgba(255,255,255,0.55);">— Bà Trần Thị Hương, Trưởng phòng Kế hoạch</div>
+            <div class="mt-4">
+              <a href="khach-hang/vipharco.html" class="btn-outline-omega" style="font-size:13px;padding:8px 18px;">
+                Xem case study <i class="fa-solid fa-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cao su Dầu Tiếng -->
+        <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="omega-card h-100" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:28px;">
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div style="background:#fff;border-radius:8px;padding:7px 12px;flex-shrink:0;">
+                <img src="assets/omega-media/khach-hang/cao-su-dau-tieng.png" alt="Cao su Dầu Tiếng"
+                  style="height:32px;width:auto;max-width:110px;object-fit:contain;display:block;">
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--green-light);font-weight:600;text-transform:uppercase;letter-spacing:1px;">Nông nghiệp – Cao su</div>
+              </div>
+            </div>
+            <div class="d-flex gap-3 mb-4">
+              <div style="text-align:center;padding:12px 16px;background:rgba(255,255,255,0.1);border-radius:10px;flex:1;">
+                <div style="font-size:22px;font-weight:800;color:var(--green-light);">40%</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px;">Giảm nhân lực<br>hành chính</div>
+              </div>
+              <div style="text-align:center;padding:12px 16px;background:rgba(255,255,255,0.1);border-radius:10px;flex:1;">
+                <div style="font-size:22px;font-weight:800;color:var(--green-light);">1 ngày</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px;">Chốt lương<br>(trước: 1 tuần)</div>
+              </div>
+            </div>
+            <blockquote style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.7;font-style:italic;border-left:3px solid var(--green-light);padding-left:14px;margin:0 0 20px;">
+              "Omega giúp chúng tôi quản lý hàng nghìn lao động nông trường và hàng trăm điểm khai thác một cách chính xác."
+            </blockquote>
+            <div style="font-size:13px;color:rgba(255,255,255,0.55);">— Ông Lê Quốc Minh, Phó Tổng Giám đốc</div>
+            <div class="mt-4">
+              <a href="khach-hang/cao-su-dau-tieng.html" class="btn-outline-omega" style="font-size:13px;padding:8px 18px;">
+                Xem case study <i class="fa-solid fa-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="text-center mt-5 wow fadeInUp">
+        <a href="khach-hang.html#case-study" class="btn-white-omega">
+          <i class="fa-solid fa-arrow-right"></i> Xem tất cả case study
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- ============ /TESTIMONIALS ============ -->
 
   <!-- ============ NEWS ============ -->
   <section class="section-gap" style="background:var(--bg-light);" id="tin-tuc">
