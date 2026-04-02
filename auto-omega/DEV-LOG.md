@@ -164,26 +164,52 @@ omega-3B-square-trans-product.png  →  omega-3A-square-white-product.png
 ```
 File `omega-3A-square-white-product.png` = logo square, nền trắng, có chữ sản phẩm.
 
-### Script gen_sync_header.py (mới)
-Các trang đồng cấp với index thiếu 3 phần tử quan trọng:
-- `navbar-utils` (bao gồm: nút search, nút dịch, hamburger mobile)
-- `<!-- SEARCH OVERLAY -->` block
-- `lazinet-contact-floating` widget (xoay vòng liên hệ cuối trang)
+### Script gen_sync_header.py (mới — sau đó nâng cấp)
 
-**Giải pháp:** script `auto-omega/gen_sync_header.py`:
-- Đọc 3 block từ index.html (nguồn chuẩn) qua comment markers
-- Với mỗi trong 8 trang đích: thay HEADER, insert/thay SEARCH OVERLAY, insert/thay FLOATING CONTACT
-- Tự set `class="active"` đúng link nav theo từng trang (count=1 → chỉ top-level item)
+Phát hiện: các trang đồng cấp với index thiếu **5 thành phần** quan trọng:
+
+| # | Thành phần | Vấn đề |
+|---|-----------|--------|
+| 1 | `navbar-utils` (search + translate + hamburger) | Chỉ có hamburger cũ, không có search/translate |
+| 2 | `<!-- SEARCH OVERLAY -->` block | Hoàn toàn thiếu |
+| 3 | CSS `.navbar-utils` + `.translate-dropdown` + `html.gt-active` | Thiếu → các nút không render đúng |
+| 4 | Google Translate lazy-loader `<script>` | Thiếu → nút dịch bấm không ra gì |
+| 5 | `lazinet-contact-floating` widget | Hoàn toàn thiếu |
+
+**Vòng 1** (sync 3 block): đồng bộ HEADER + SEARCH OVERLAY + FLOATING CONTACT → nút search/translate có HTML nhưng chưa hoạt động.
+
+**Vòng 2** (sync đầy đủ): thêm 2 block còn thiếu vào index.html với comment markers, rồi cập nhật script:
+
+```
+<!-- ============ NAVBAR UTILS CSS ============ -->   (style block)
+<!-- ============ /NAVBAR UTILS CSS ============ -->
+
+<!-- ============ TRANSLATE SCRIPT ============ -->   (lazy-loader script)
+<!-- ============ /TRANSLATE SCRIPT ============ -->
+```
+
+Script `gen_sync_header.py` giờ đồng bộ **5 block** qua comment markers:
+
+```python
+canon = {
+    "header":    extract_block(source, HEADER_START, HEADER_END),
+    "search":    extract_block(source, SEARCH_START, SEARCH_END),
+    "css":       extract_block(source, CSS_START, CSS_END),       # ← mới
+    "translate": extract_block(source, TRANSLATE_START, TRANSLATE_END),  # ← mới
+    "float":     extract_floating(source),
+}
+```
 
 **Thêm vào run_all.py** — chạy đầu tiên trước gen_customer_pages.
 
 ```
-Kết quả: 8/8 trang — header, search-overlay (inserted), floating-contact (inserted)
+Kết quả cuối: 8/8 trang — header, search, css, translate, floating đều đồng bộ
 ```
 
 **Khi nào chạy lại:**
 - Sửa nav menu / mega-menu trong index.html
 - Thêm / bớt nút trong navbar-utils
+- Sửa Google Translate script hoặc CSS dropdown
 - Thay đổi widget floating contact
 → Chạy `python -X utf8 auto-omega/run_all.py`
 
@@ -197,10 +223,32 @@ python -X utf8 auto-omega/run_all.py
 ```
 
 Sẽ chạy theo thứ tự:
-1. `gen_sync_header.py` — đồng bộ header + search overlay + floating contact → 8 trang gốc
+1. `gen_sync_header.py` — đồng bộ 5 block (header, search, css, translate, floating) → 8 trang gốc
 2. `gen_customer_pages.py` — sinh 19 trang khach-hang/*.html
 3. `gen_sitemap.py` — sinh sitemap.xml
 4. `gen_search_index.py` — sinh assets/js/search-index.json
+
+---
+
+## Quy ước comment markers trong index.html
+
+Tất cả block được đồng bộ tự động đều được bao bởi cặp comment:
+
+```html
+<!-- ============ TÊN BLOCK ============ -->
+  ... nội dung ...
+<!-- ============ /TÊN BLOCK ============ -->
+```
+
+| Marker | Nội dung | Đồng bộ bởi |
+|--------|----------|-------------|
+| `HEADER` / `/HEADER` | Mega-menu, navbar-utils | gen_sync_header.py |
+| `SEARCH OVERLAY` / `/SEARCH OVERLAY` | Panel tìm kiếm | gen_sync_header.py |
+| `NAVBAR UTILS CSS` / `/NAVBAR UTILS CSS` | CSS search + translate + gt-active | gen_sync_header.py |
+| `TRANSLATE SCRIPT` / `/TRANSLATE SCRIPT` | Google Translate lazy-loader | gen_sync_header.py |
+| `FOOTER` / `/FOOTER` | Footer đầy đủ | gen_customer_pages.py |
+
+Floating contact không có marker cặp — nhận diện bằng `<!-- FLOATING CONTACT BUTTONS` đến `</div>` trước `</body>`.
 
 ---
 
