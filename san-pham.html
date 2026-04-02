@@ -624,24 +624,38 @@
                 <li class="nav-item"><a class="nav-link" href="khach-hang.html">Khách hàng</a></li>
                 <li class="nav-item submenu"><a class="nav-link" href="tin-tuc.html">Tin tức</a>
                   <ul>
-                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html#chuyen-doi-so">Chuyển đổi số</a></li>
-                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html#erp">ERP – Quản trị</a></li>
-                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html#ke-toan">Kế toán – Tài chính</a></li>
-                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html#su-kien">Sự kiện</a></li>
-                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html#tuyen-dung">Tuyển dụng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html?cat=chuyen-doi-so">Chuyển đổi số</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html?cat=erp-quan-tri">ERP – Quản trị</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html?cat=ke-toan-tai-chinh">Kế toán – Tài chính</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html?cat=su-kien">Sự kiện</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html?cat=tuyen-dung">Tuyển dụng</a></li>
                   </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="lien-he.html">Liên hệ</a></li>
               </ul>
             </div>
+
             <div class="header-btn ms-3">
               <a class="btn-default" href="lien-he.html">Tư vấn miễn phí</a>
             </div>
           </div>
 
-          <!-- Mobile Toggle -->
-          <div class="navbar-toggle" id="mobileToggle">
-            <span></span><span></span><span></span>
+          <!-- Luôn hiển thị: search + translate + hamburger -->
+          <div class="navbar-utils">
+            <button class="search-toggle" id="searchToggle" aria-label="Tìm kiếm">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <div class="translate-wrap" id="translateWrap">
+              <button class="translate-toggle" id="translateToggle" aria-label="Translate" title="Translate this page">
+                <i class="fa-solid fa-globe"></i>
+              </button>
+              <div class="translate-dropdown" id="translateDropdown">
+                <div id="google_translate_element"></div>
+              </div>
+            </div>
+            <div class="navbar-toggle" id="mobileToggle">
+              <span></span><span></span><span></span>
+            </div>
           </div>
         </div>
       </nav>
@@ -650,6 +664,27 @@
     </div>
   </header>
   <!-- ============ /HEADER ============ -->
+
+  <!-- ============ SEARCH OVERLAY ============ -->
+  <div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Tìm kiếm">
+    <div class="search-overlay-inner">
+      <button class="search-close" id="searchClose" aria-label="Đóng tìm kiếm">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="search-box">
+        <div class="search-input-wrap">
+          <i class="fa-solid fa-magnifying-glass search-icon-inner"></i>
+          <input type="text" id="searchInput" class="search-input"
+            placeholder="Tìm giải pháp, sản phẩm, dịch vụ..."
+            autocomplete="off" spellcheck="false">
+          <kbd class="search-shortcut">Esc</kbd>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <p class="search-hint">Gõ ít nhất 2 ký tự &nbsp;·&nbsp; <kbd>↑</kbd><kbd>↓</kbd> điều hướng &nbsp;·&nbsp; <kbd>Enter</kbd> mở trang &nbsp;·&nbsp; <kbd>Esc</kbd> đóng</p>
+    </div>
+  </div>
+  <!-- ============ /SEARCH OVERLAY ============ -->
 
   <!-- ============ PAGE HEADER ============ -->
   <section class="page-header">
@@ -1407,6 +1442,33 @@
   </a>
   <style>#back-to-top.show{opacity:1;}</style>
 
+<!-- ============ NAVBAR UTILS CSS ============ -->
+  <style>
+    #back-to-top.show{opacity:1;}
+    /* ---- Navbar utils (search + translate + hamburger) luôn hiển thị ---- */
+    .navbar-utils { display:flex; align-items:center; gap:2px; margin-left:auto; }
+    @media (min-width:992px) { .navbar-utils .navbar-toggle { display:none !important; } }
+    /* ---- Lazy Google Translate ---- */
+    .translate-wrap { position:relative; display:flex; align-items:center; }
+    .translate-toggle { background:none; border:none; cursor:pointer; padding:6px 8px; color:var(--green-primary); font-size:16px; line-height:1; transition:var(--transition); opacity:.6; }
+    .translate-toggle:hover { color:var(--red-accent); opacity:1; }
+    /* Desktop: dropdown mở sang trái nút globe */
+    .translate-dropdown { display:none; position:absolute; background:#fff; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.15); padding:10px 14px; z-index:9999; white-space:nowrap;
+      top:50%; right:calc(100% + 36px); transform:translateY(-50%); }
+    /* Mobile: dropdown mở xuống dưới */
+    @media (max-width:991px) {
+      .translate-dropdown { top:calc(100% + 8px); right:0; transform:none; }
+    }
+    .translate-dropdown.open { display:block; }
+    .translate-dropdown .goog-te-gadget { font-size:0; width:fit-content !important; margin-right:auto; }
+    .translate-dropdown .goog-te-gadget select { font-size:13px; border:1px solid #e0e0e0; border-radius:6px; padding:5px 8px; outline:none; cursor:pointer; width:100%; }
+    .translate-spinner { display:flex; align-items:center; gap:8px; font-size:13px; color:#666; padding:4px 0; }
+    /* Khi mở translate panel, trượt header xuống nhường chỗ */
+    header.main-header { transition: top 0.25s ease; }
+    html.gt-active header.main-header { top: 40px !important; }
+  </style>
+  <!-- ============ /NAVBAR UTILS CSS ============ -->
+
   <!-- JS -->
   <script src="assets/js/jquery-3.7.1.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
@@ -1587,5 +1649,86 @@
     })();
   </script>
 
+<!-- ============ TRANSLATE SCRIPT ============ -->
+  <!-- Google Translate – lazy: script only loads on first user click, zero cost on initial page load -->
+  <script>
+  (function() {
+    var loaded = false;
+    var btn = document.getElementById('translateToggle');
+    var dropdown = document.getElementById('translateDropdown');
+    if (!btn) return;
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = dropdown.classList.toggle('open');
+      // Push header down when dropdown opens, restore when closed
+      document.documentElement.classList.toggle('gt-active', isOpen);
+
+      if (!loaded && isOpen) {
+        dropdown.innerHTML = '<div class="translate-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Đang tải…</div>';
+        window.googleTranslateElementInit = function() {
+          dropdown.innerHTML = '<div id="google_translate_element"></div>';
+          new window.google.translate.TranslateElement({
+            pageLanguage: 'vi',
+            includedLanguages: 'en,zh-CN,hi,es,fr,ar,ru,pt,ja,ko,id,ms,th,my,km,lo,tl,de,it,fa,ur,pl,tr,uk,ro,nl,sv,cs,he,el,hu,da,fi',
+            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+          }, 'google_translate_element');
+        };
+        var s = document.createElement('script');
+        s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        s.onerror = function() {
+          dropdown.innerHTML = '<div class="translate-spinner" style="color:#c00"><i class="fa-solid fa-triangle-exclamation"></i> Không tải được</div>';
+        };
+        document.body.appendChild(s);
+        loaded = true;
+      }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!document.getElementById('translateWrap').contains(e.target)) {
+        dropdown.classList.remove('open');
+        document.documentElement.classList.remove('gt-active');
+      }
+    });
+  })();
+  </script>
+  <!-- ============ /TRANSLATE SCRIPT ============ -->
+  <!-- FLOATING CONTACT BUTTONS - Đặt ở cuối body là tốt nhất -->
+<div class="lazinet-contact-floating">
+    
+    <!-- NÚT CHÍNH (click để mở) -->
+    <div class="lazinet-contact-main-btn pulse">
+        <img src="assets/images/omega-radar-sonar.svg" alt="Liên hệ Omega">
+    </div>
+
+    <!-- 4 NÚT CON -->
+    <div class="lazinet-contact-buttons">
+        <!-- AI Bot / Customer Care -->
+        <div class="lazinet-contact-btn ai-bot" title="Chat với Chăm sóc Khách hàng">
+            <img src="assets/images/omega-radar-sonar.svg" alt="Customer Care">
+            <span class="lazinet-contact-label">CSKH OMEGA</span>
+        </div>
+        
+        <!-- Messenger -->
+        <div class="lazinet-contact-btn messenger" title="Chat với OMEGA Messenger">
+            <img src="assets/images/messenger.png" alt="Messenger">
+            <span class="lazinet-contact-label">Messenger</span>
+        </div>
+        
+        <!-- Zalo -->
+        <div class="lazinet-contact-btn zalo" title="Chat Zalo 0908 303 609">
+            <img src="assets/images/zalo.png" alt="Zalo">
+            <span class="lazinet-contact-label">Zalo Chat</span>
+        </div>
+        
+        <!-- Phone -->
+        <div class="lazinet-contact-btn phone" title="Gọi ngay 0908 303 609">
+            <img src="assets/images/call.png" alt="Phone">
+            <span class="lazinet-contact-label">Gọi điện</span>
+        </div>
+    </div>
+</div>
 </body>
 </html>
