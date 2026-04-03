@@ -41,6 +41,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
 SCRIPTS_DIR = Path(__file__).parent
 
 SCRIPTS = [
+    ("gen_analytics.py",      "Inject GA4 / analytics → tất cả trang HTML"),
     ("gen_sync_header.py",    "Đồng bộ header / search / floating contact → 8 trang gốc"),
     ("gen_customer_pages.py", "Sinh trang khách hàng (khach-hang/*.html)"),
     ("gen_sitemap.py",        "Sinh sitemap.xml"),
@@ -57,7 +58,9 @@ def run_script(script_file: str, label: str):
         mod  = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         # Gọi hàm main tương ứng
-        if script_file == "gen_sync_header.py":
+        if script_file == "gen_analytics.py":
+            mod.generate_analytics()
+        elif script_file == "gen_sync_header.py":
             mod.sync_all_headers()
         elif script_file == "gen_customer_pages.py":
             mod.generate_customer_pages()

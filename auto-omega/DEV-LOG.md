@@ -252,4 +252,38 @@ Floating contact không có marker cặp — nhận diện bằng `<!-- FLOATING
 
 ---
 
-*Cập nhật lần cuối: 2026-04-02*
+*Cập nhật lần cuối: 2026-04-03*
+
+---
+
+## Phiên 7 — Trang 404 tùy chỉnh + SEO redirect strategy
+
+### Bối cảnh
+Site cũ (WordPress) có URL khác hoàn toàn so với site mới (static HTML). URL cũ Google đã index sẽ trả về 404. Không thể dùng 301 redirect trên GitHub Pages thuần.
+
+### Giải pháp — Custom 404.html thông minh
+
+**Tạo `404.html` ở root dự án:**
+
+GitHub Pages tự động phục vụ `404.html` cho mọi URL không tồn tại — không cần cấu hình gì thêm.
+
+Thiết kế:
+- **Visual**: Orbital animation (CSS-only) với sphere xanh Omega, vòng quay dashed, dot pulse
+- **Số 404**: Gradient shimmer animation (`background-size: 200% auto` + keyframe `shimmer`)
+- **Search**: Button kích hoạt search overlay (`$('#searchOverlay').addClass('active')` — đúng API của omega.js)
+- **Quick links**: 6 nút pill dẫn về Trang chủ / Sản phẩm / Giải pháp / Khách hàng / Tin tức / Liên hệ
+- **Auto-redirect**: Đếm ngược 10 giây về `/`, hủy khi user click bất kỳ thứ gì
+
+**SEO đúng:**
+- `<meta name="robots" content="noindex, nofollow">` — Google không index trang lỗi
+- Không nhân bản content index.html (tránh duplicate content / soft 404)
+- Google crawl URL cũ → nhận HTTP 404 thật → tự de-index sau vài tuần
+
+**Tích hợp pipeline:**
+- Thêm `"404.html"` vào `TARGET_FILES` trong `gen_sync_header.py` (active_href = None)
+- Thêm `"404.html"` vào `EXCLUDE_FILES` trong `gen_sitemap.py`
+- `gen_analytics.py` tự scan và inject ANALYTICS block (idempotent)
+- `gen_sync_header.py` sync 5 block: header, search, css, translate, floating → 9/9 trang (8 gốc + 404)
+
+**Khi nào chạy lại:**
+- Sửa header/nav trong index.html → `run_all.py` sẽ sync vào 404.html tự động

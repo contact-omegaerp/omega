@@ -45,6 +45,7 @@ NEWS_JSON     = PROJECT_ROOT / "tin-tuc" / "_tools" / "news-data.json"
 # Trang bị loại trừ khỏi sitemap
 EXCLUDE_FILES = {
     "intro-omega.html",   # splash intro, không index
+    "404.html",           # error page, không đưa vào sitemap
 }
 EXCLUDE_DIRS = {
     "bizcards",           # trang bizcard nội bộ

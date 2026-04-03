@@ -19,37 +19,14 @@
     })(window, document, "clarity", "script", "w5st3jx7zo");
   </script>
   <!-- ============ /ANALYTICS ============ -->
+
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--
-    base href="../" → mọi path tương đối (CSS, JS, ảnh, nav link) resolve
-    về thư mục gốc dự án, không cần sửa header/footer trích từ khach-hang.html
-  -->
-  <base href="../">
 
-  <!-- SEO Meta -->
-  <title>Vstar School – Khách hàng tiêu biểu | OMEGA ERP</title>
-  <meta name="description" content="Vstar School triển khai OMEGA.EDU & OMEGA.ERP: quản lý học sinh – lịch học – học phí – giáo viên trên một nền tảng giáo dục tích hợp.">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <link rel="canonical" href="https://omega.com.vn/khach-hang/vstarschool.html">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="article">
-  <meta property="og:locale" content="vi_VN">
-  <meta property="og:site_name" content="OMEGA">
-  <meta property="og:title" content="Vstar School – Case Study OMEGA ERP | Giáo dục">
-  <meta property="og:description" content="Vstar School triển khai OMEGA.EDU & OMEGA.ERP: quản lý học sinh – lịch học – học phí – giáo viên trên một nền tảng giáo dục tích hợp.">
-  <meta property="og:url" content="https://omega.com.vn/khach-hang/vstarschool.html">
-  <meta property="og:image" content="https://omega.com.vn/assets/logo-png/omega-3B-square-trans-product.png">
-  <meta property="og:image:width" content="3200">
-  <meta property="og:image:height" content="3200">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Vstar School – Case Study OMEGA ERP">
-  <meta name="twitter:description" content="Vstar School triển khai OMEGA.EDU & OMEGA.ERP: quản lý học sinh – lịch học – học phí – giáo viên trên một nền tảng giáo dục tích hợp.">
-  <meta name="twitter:image" content="https://omega.com.vn/assets/logo-png/omega-3B-square-trans-product.png">
+  <title>404 – Trang không tìm thấy | Omega ERP</title>
+  <meta name="description" content="Trang bạn đang tìm không tồn tại hoặc đã được chuyển địa chỉ. Quay về trang chủ Omega ERP để khám phá giải pháp quản trị doanh nghiệp.">
+  <meta name="robots" content="noindex, nofollow">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
@@ -58,12 +35,12 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
   <link rel="manifest" href="assets/images/site.webmanifest">
 
-  <!-- Preconnect -->
+  <!-- Preconnect fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- CSS (path resolve qua base href) -->
+  <!-- CSS -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/all.min.css">
   <link rel="stylesheet" href="assets/css/animate.css">
@@ -72,150 +49,206 @@
   <link rel="stylesheet" href="assets/css/magnific-popup.css">
   <link rel="stylesheet" href="assets/css/omega.css">
 
-  <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Vstar School – Case study triển khai OMEGA ERP | Giáo dục",
-    "description": "Vstar School triển khai OMEGA.EDU & OMEGA.ERP: quản lý học sinh – lịch học – học phí – giáo viên trên một nền tảng giáo dục tích hợp.",
-    "url": "https://omega.com.vn/khach-hang/vstarschool.html",
-    "dateModified": "2026-04-02",
-    "publisher": {
-      "@type": "Organization",
-      "name": "OMEGA",
-      "url": "https://omega.com.vn",
-      "logo": {"@type": "ImageObject", "url": "https://omega.com.vn/assets/logo-png/omega-3B-square-trans-product.png"}
-    },
-    "about": {
-      "@type": "Organization",
-      "name": "Vstar School – Hệ thống giáo dục",
-      "description": "Vstar School triển khai OMEGA.EDU & OMEGA.ERP: quản lý học sinh – lịch học – học phí – giáo viên trên một nền tảng giáo dục tích hợp."
-    }
-  }
-  </script>
-
   <style>
-    /* ═══════════════════════════════════════════════════
-       Customer Profile Page – inline styles
-       (bổ sung trên nền omega.css)
-    ═══════════════════════════════════════════════════ */
-
-    /* ── Intro card (logo + tên + ngành) ── */
-    .cp-intro {
-      display: flex; align-items: center; gap: 28px;
-      background: #fff; border-radius: 16px;
-      padding: 28px 32px; margin-top: -40px; position: relative; z-index: 2;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.14);
-      border: 1px solid #e8f5ee;
-      max-width: 720px;
-    }
-    .cp-logo-wrap {
-      width: 110px; height: 72px; flex-shrink: 0;
-      background: #f5f5f5; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      padding: 8px; border: 1px solid #eee;
+    /* ─── 404 Layout ───────────────────────────────────────── */
+    .err-section {
+      min-height: 78vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      background: linear-gradient(160deg, #f4fdf8 0%, #edf7f2 60%, #f0f8f4 100%);
+      position: relative;
       overflow: hidden;
     }
-    .cp-logo-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .cp-logo-wrap .fa-building { font-size: 32px; color: #bbb; }
-    .cp-company-name { font-size: clamp(18px,2.5vw,24px); font-weight: 800; color: #0d1b2a; line-height: 1.25; margin-bottom: 8px; }
-    .cp-industry-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(0,166,81,0.1); color: #00A651;
-      font-size: 13px; font-weight: 700;
-      padding: 5px 14px; border-radius: 50px;
+    .err-section::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(1,166,82,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .err-section::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(126,217,87,0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
-    /* ── Section: Giới thiệu ── */
-    .cp-section { padding: 56px 0; }
-    .cp-section + .cp-section { padding-top: 0; }
-    .cp-section.bg-light { background: var(--bg-light, #f8fdf9); }
-    .cp-section.bg-dark { background: linear-gradient(135deg,#0d2a15,#1a4a22); }
+    /* ─── Orbital Visual ───────────────────────────────────── */
+    .err-visual {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 12px;
+    }
+    .err-ring {
+      position: absolute;
+      inset: 0;
+      border: 2px dashed rgba(1,166,82,0.22);
+      border-radius: 50%;
+      animation: ringSpinCW 14s linear infinite;
+    }
+    .err-ring:nth-child(2) {
+      inset: 28px;
+      border-width: 1.5px;
+      border-color: rgba(126,217,87,0.16);
+      animation: ringSpinCCW 9s linear infinite;
+    }
+    .err-ring:nth-child(3) {
+      inset: 54px;
+      border-width: 1px;
+      border-color: rgba(1,166,82,0.1);
+      animation: ringSpinCW 6s linear infinite;
+    }
+    .err-ring-dot {
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px; height: 10px;
+      background: #01a652;
+      border-radius: 50%;
+      box-shadow: 0 0 14px rgba(1,166,82,0.65);
+    }
+    .err-ring:nth-child(2) .err-ring-dot {
+      background: #7ed957;
+      box-shadow: 0 0 10px rgba(126,217,87,0.5);
+      width: 8px; height: 8px;
+    }
+    .err-core {
+      position: absolute;
+      inset: 56px;
+      background: linear-gradient(135deg, #01a652 0%, #7ed957 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 36px rgba(1,166,82,0.32), 0 2px 10px rgba(0,0,0,0.08);
+      animation: coreFloat 3.5s ease-in-out infinite;
+    }
+    .err-core i {
+      font-size: 38px;
+      color: #fff;
+    }
+    @keyframes ringSpinCW  { to { transform: rotate(360deg);  } }
+    @keyframes ringSpinCCW { to { transform: rotate(-360deg); } }
+    @keyframes coreFloat {
+      0%, 100% { transform: translateY(0);    }
+      50%      { transform: translateY(-8px); }
+    }
 
-    .cp-three-col {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px; margin-top: 32px;
+    /* ─── 404 Number ───────────────────────────────────────── */
+    .err-code {
+      font-size: clamp(96px, 18vw, 180px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -4px;
+      background: linear-gradient(135deg, #01a652 0%, #7ed957 50%, #01a652 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+      user-select: none;
+      margin: 0 0 12px;
     }
-    .cp-info-card {
-      background: #fff; border-radius: 14px;
-      border: 1px solid #e8f5ee;
-      padding: 28px 24px;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    @keyframes shimmer {
+      0%   { background-position: 0%   center; }
+      100% { background-position: 200% center; }
     }
-    .cp-info-card .ci-label {
-      font-size: 12px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: #00A651; margin-bottom: 10px;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .cp-info-card p { font-size: 15px; color: #444; line-height: 1.75; margin: 0; }
 
-    /* ── Kết quả (stat cards) ── */
-    .cp-results-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px; margin-top: 32px;
+    /* ─── Text ─────────────────────────────────────────────── */
+    .err-title {
+      font-size: clamp(22px, 3.5vw, 32px);
+      font-weight: 800;
+      color: #0d1b2a;
+      margin: 0 0 14px;
     }
-    .cp-result-item {
-      background: #fff; border-radius: 14px; padding: 28px 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07); border: 1px solid #f0f0f0;
-      display: flex; align-items: center; gap: 18px;
-      transition: transform 0.3s, box-shadow 0.3s;
+    .err-desc {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+      max-width: 500px;
+      margin: 0 auto 36px;
     }
-    .cp-result-item:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,166,81,0.13); }
-    .cp-result-icon {
-      width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
-      background: linear-gradient(135deg,#00A651,#7ed957);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 20px;
-    }
-    .cp-result-num { font-size: 22px; font-weight: 900; color: #0d1b2a; line-height: 1; }
-    .cp-result-label { font-size: 13px; color: #666; margin-top: 3px; line-height: 1.4; }
+    .err-desc strong { color: #0d5c38; }
 
-    /* ── Quote ── */
-    .cp-quote-wrap { padding: 64px 0; background: linear-gradient(135deg,#0d2a15,#1a4a22); }
-    .cp-quote-card { max-width: 800px; margin: 0 auto; text-align: center; }
-    .cp-q-icon { font-size: 52px; color: rgba(126,217,87,0.35); margin-bottom: 20px; display: block; }
-    .cp-q-text {
-      font-size: clamp(17px,2.2vw,22px); color: #fff;
-      font-style: italic; line-height: 1.8; margin-bottom: 28px;
+    /* ─── Search Button ─────────────────────────────────────── */
+    .btn-err-search {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 34px;
+      background: linear-gradient(135deg, #01a652, #7ed957);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 18px rgba(1,166,82,0.3);
     }
-    .cp-quote-author {
-      display: inline-flex; align-items: center; gap: 14px;
-      background: rgba(255,255,255,0.08); border-radius: 50px;
-      padding: 10px 20px 10px 10px;
+    .btn-err-search:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(1,166,82,0.4);
+      color: #fff;
     }
-    .cp-quote-avatar {
-      width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
-      background: linear-gradient(135deg,#00A651,#7ed957);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-weight: 700; font-size: 18px;
-    }
-    .cp-quote-name { font-weight: 700; color: #fff; text-align: left; font-size: 14px; }
-    .cp-quote-title { font-size: 12px; color: rgba(255,255,255,0.6); text-align: left; }
+    .btn-err-search i { font-size: 16px; }
 
-    /* ── Products ── */
-    .cp-products-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-    .cp-product-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: #fff; border: 1.5px solid #c8e8d8;
-      color: #0d1b2a; font-size: 14px; font-weight: 700;
-      padding: 9px 18px; border-radius: 50px;
-      box-shadow: 0 2px 8px rgba(0,166,81,0.07);
-      transition: border-color 0.2s, box-shadow 0.2s;
+    /* ─── Quick Links ───────────────────────────────────────── */
+    .err-quicklinks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 36px;
     }
-    .cp-product-tag:hover { border-color: #00A651; box-shadow: 0 4px 14px rgba(0,166,81,0.15); }
-    .cp-product-tag i { color: #00A651; font-size: 12px; }
+    .err-quicklinks a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px;
+      border: 1.5px solid #c8e6d4;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0d5c38;
+      text-decoration: none;
+      background: #fff;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .err-quicklinks a:hover {
+      background: var(--green-primary, #00a651);
+      border-color: var(--green-primary, #00a651);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(1,166,82,0.28);
+    }
+    .err-quicklinks a i { font-size: 12px; opacity: .75; }
 
-    /* ── Responsive ── */
-    @media (max-width: 767px) {
-      .cp-intro { flex-direction: column; align-items: flex-start; margin-top: -24px; padding: 20px; }
-      .cp-three-col { grid-template-columns: 1fr; }
-      .cp-results-grid { grid-template-columns: 1fr 1fr; }
+    /* ─── Redirect Notice ──────────────────────────────────── */
+    .err-redirect {
+      font-size: 13px;
+      color: #aaa;
+      margin: 0;
     }
-    @media (max-width: 480px) {
-      .cp-results-grid { grid-template-columns: 1fr; }
+    .err-redirect strong { color: #01a652; font-weight: 700; }
+
+    /* ─── Divider ──────────────────────────────────────────── */
+    .err-divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, #01a652, #7ed957);
+      border-radius: 3px;
+      margin: 20px auto 28px;
     }
   </style>
 </head>
@@ -389,27 +422,41 @@
 
                 </li>
                 <li class="nav-item"><a class="nav-link" href="dich-vu.html">Dịch vụ</a></li>
-                <li class="nav-item"><a class="nav-link active" href="khach-hang.html">Khách hàng</a></li>
+                <li class="nav-item"><a class="nav-link" href="khach-hang.html">Khách hàng</a></li>
                 <li class="nav-item submenu"><a class="nav-link" href="tin-tuc.html">Tin tức</a>
                   <ul>
-                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html#chuyen-doi-so">Chuyển đổi số</a></li>
-                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html#erp">ERP – Quản trị</a></li>
-                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html#ke-toan">Kế toán – Tài chính</a></li>
-                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html#su-kien">Sự kiện</a></li>
-                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html#tuyen-dung">Tuyển dụng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html?cat=chuyen-doi-so">Chuyển đổi số</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html?cat=erp-quan-tri">ERP – Quản trị</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html?cat=ke-toan-tai-chinh">Kế toán – Tài chính</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html?cat=su-kien">Sự kiện</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tin-tuc.html?cat=tuyen-dung">Tuyển dụng</a></li>
                   </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="lien-he.html">Liên hệ</a></li>
               </ul>
             </div>
+
             <div class="header-btn ms-3">
               <a class="btn-default" href="lien-he.html">Tư vấn miễn phí</a>
             </div>
           </div>
 
-          <!-- Mobile Toggle -->
-          <div class="navbar-toggle" id="mobileToggle">
-            <span></span><span></span><span></span>
+          <!-- Luôn hiển thị: search + translate + hamburger -->
+          <div class="navbar-utils">
+            <button class="search-toggle" id="searchToggle" aria-label="Tìm kiếm">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <div class="translate-wrap" id="translateWrap">
+              <button class="translate-toggle" id="translateToggle" aria-label="Translate" title="Translate this page">
+                <i class="fa-solid fa-globe"></i>
+              </button>
+              <div class="translate-dropdown" id="translateDropdown">
+                <div id="google_translate_element"></div>
+              </div>
+            </div>
+            <div class="navbar-toggle" id="mobileToggle">
+              <span></span><span></span><span></span>
+            </div>
           </div>
         </div>
       </nav>
@@ -419,144 +466,89 @@
   </header>
   <!-- ============ /HEADER ============ -->
 
-    <!-- ============ PAGE HEADER ============ -->
-  <section class="page-header">
-    <canvas class="page-canvas" data-canvas-type="star-network"></canvas>
-    <div class="page-header-overlay"></div>
-    <div class="container">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb mb-3">
-          <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-          <li class="breadcrumb-item"><a href="khach-hang.html">Khách hàng tiêu biểu</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Vstar School</li>
-        </ol>
-      </nav>
-      <h1 class="wow fadeInUp">Vstar School – Hệ thống giáo dục</h1>
-      <p class="wow fadeInUp" data-wow-delay="0.15s">Giáo dục – Triển khai thành công Omega ERP</p>
-    </div>
-  </section>
-  <!-- ============ /PAGE HEADER ============ -->
-
-  <!-- ============ INTRO CARD ============ -->
-  <section class="section-gap" style="padding-bottom:0;">
-    <div class="container">
-      <div class="cp-intro wow fadeInUp">
-        <div class="cp-logo-wrap">
-          <img src="assets/omega-media/khach-hang/vstarschool.png" alt="Vstar School"
-               onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fa-solid fa-building\'></i>'">
+  <!-- ============ SEARCH OVERLAY ============ -->
+  <div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Tìm kiếm">
+    <div class="search-overlay-inner">
+      <button class="search-close" id="searchClose" aria-label="Đóng tìm kiếm">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="search-box">
+        <div class="search-input-wrap">
+          <i class="fa-solid fa-magnifying-glass search-icon-inner"></i>
+          <input type="text" id="searchInput" class="search-input"
+            placeholder="Tìm giải pháp, sản phẩm, dịch vụ..."
+            autocomplete="off" spellcheck="false">
+          <kbd class="search-shortcut">Esc</kbd>
         </div>
-        <div>
-          <div class="cp-company-name">Vstar School – Hệ thống giáo dục</div>
-          <span class="cp-industry-tag"><i class="fa-solid fa-graduation-cap"></i> Giáo dục</span>
-        </div>
+        <div class="search-results" id="searchResults"></div>
       </div>
+      <p class="search-hint">Gõ ít nhất 2 ký tự &nbsp;·&nbsp; <kbd>↑</kbd><kbd>↓</kbd> điều hướng &nbsp;·&nbsp; <kbd>Enter</kbd> mở trang &nbsp;·&nbsp; <kbd>Esc</kbd> đóng</p>
     </div>
-  </section>
-  <!-- ============ /INTRO CARD ============ -->
+  </div>
+  <!-- ============ /SEARCH OVERLAY ============ -->
 
-  <!-- ============ GIỚI THIỆU / THÁCH THỨC / GIẢI PHÁP ============ -->
-  <section class="cp-section section-gap">
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  404 CONTENT                                                    -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="err-section">
     <div class="container">
-      <div class="section-title wow fadeInUp">
-        <span class="label"><i class="fa-solid fa-building"></i> Hồ sơ khách hàng</span>
-        <h2>Vstar School &amp; <span>Omega ERP</span></h2>
-      </div>
-      <div class="cp-three-col">
-        <div class="cp-info-card wow fadeInUp" data-wow-delay="0.05s">
-          <div class="ci-label"><i class="fa-solid fa-circle-info"></i> Giới thiệu</div>
-          <p>Vstar School là hệ thống trường học tư thục chất lượng cao với nhiều cơ sở đào tạo. Nhà trường triển khai mô hình giáo dục hiện đại, đòi hỏi hệ thống quản lý đồng bộ từ tuyển sinh, quản lý học sinh, lịch học, điểm số đến quản lý giáo viên, nhân sự và tài chính học phí trên toàn hệ thống.</p>
-        </div>
-        <div class="cp-info-card wow fadeInUp" data-wow-delay="0.15s">
-          <div class="ci-label"><i class="fa-solid fa-triangle-exclamation"></i> Thách thức</div>
-          <p>Quản lý thủ công học sinh – lịch học – học phí trên nhiều cơ sở dẫn đến thiếu nhất quán thông tin, khó tổng hợp báo cáo toàn trường, và lãng phí thời gian của bộ phận hành chính. Đặc biệt, việc đồng bộ thông tin học sinh và học phí giữa bộ phận giáo vụ và kế toán thường xuyên chậm trễ.</p>
-        </div>
-        <div class="cp-info-card wow fadeInUp" data-wow-delay="0.25s">
-          <div class="ci-label"><i class="fa-solid fa-lightbulb"></i> Giải pháp Omega</div>
-          <p>OMEGA.EDU kết hợp OMEGA.ERP tạo nền tảng quản lý giáo dục toàn diện: tuyển sinh – quản lý hồ sơ học sinh – lịch học – điểm số – học phí đồng bộ với kế toán. OMEGA.HR quản lý giáo viên và nhân sự, OMEGA.PR tính lương tự động theo cơ cấu phức tạp của giáo dục. Dashboard tổng hợp cho ban giám hiệu theo dõi tình hình toàn hệ thống trường học real-time.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ============ /GIỚI THIỆU ============ -->
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-7 col-md-9">
 
-  <!-- ============ KẾT QUẢ ============ -->
-  <section class="cp-section bg-light">
-    <div class="container">
-      <div class="section-title centered wow fadeInUp">
-        <span class="label"><i class="fa-solid fa-chart-line"></i> Kết quả đạt được</span>
-        <h2>Những thay đổi <span>thực chất</span></h2>
-        <p>Kết quả đo lường được sau khi triển khai Omega ERP tại Vstar School.</p>
-      </div>
-      <div class="cp-results-grid">
-              <div class="cp-result-item wow fadeInUp">
-                <div class="cp-result-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                <div class="cp-result-body">
-                  <div class="cp-result-num">Tự động</div>
-                  <div class="cp-result-label">Quản lý học sinh – lịch học – điểm số</div>
-                </div>
-              </div>
-              <div class="cp-result-item wow fadeInUp">
-                <div class="cp-result-icon"><i class="fa-solid fa-users-gear"></i></div>
-                <div class="cp-result-body">
-                  <div class="cp-result-num">Đồng bộ</div>
-                  <div class="cp-result-label">Nhân sự giáo viên & lương toàn trường</div>
-                </div>
-              </div>
-              <div class="cp-result-item wow fadeInUp">
-                <div class="cp-result-icon"><i class="fa-solid fa-money-bill-wave"></i></div>
-                <div class="cp-result-body">
-                  <div class="cp-result-num">Realtime</div>
-                  <div class="cp-result-label">Học phí tích hợp kế toán tức thì</div>
-                </div>
-              </div>
-      </div>
-    </div>
-  </section>
-  <!-- ============ /KẾT QUẢ ============ -->
-
-
-  <!-- ============ SẢN PHẨM SỬ DỤNG ============ -->
-  <section class="cp-section">
-    <div class="container">
-      <div class="section-title wow fadeInUp">
-        <span class="label"><i class="fa-solid fa-cubes"></i> Giải pháp đã triển khai</span>
-        <h2>Sản phẩm &amp; phân hệ <span>đang sử dụng</span></h2>
-        <p>Các mô-đun Omega ERP được cấu hình phù hợp với đặc thù ngành Giáo dục.</p>
-      </div>
-      <div class="cp-products-wrap wow fadeInUp" data-wow-delay="0.1s">
-        <span class="cp-product-tag"><i class="fa-solid fa-check"></i> OMEGA.ERP</span>
-              <span class="cp-product-tag"><i class="fa-solid fa-check"></i> OMEGA.EDU</span>
-              <span class="cp-product-tag"><i class="fa-solid fa-check"></i> OMEGA.HR</span>
-              <span class="cp-product-tag"><i class="fa-solid fa-check"></i> OMEGA.PR</span>
-              <span class="cp-product-tag"><i class="fa-solid fa-check"></i> OMEGA.GL</span>
-              <span class="cp-product-tag"><i class="fa-solid fa-check"></i> OMEGA.CRM</span>
-      </div>
-    </div>
-  </section>
-  <!-- ============ /SẢN PHẨM ============ -->
-
-  <!-- ============ CTA ============ -->
-  <section class="cta-section">
-    <div class="container position-relative" style="z-index:1;">
-      <div class="row align-items-center gy-4">
-        <div class="col-lg-7 wow fadeInLeft">
-          <div class="section-title mb-0">
-            <h2 style="color:#fff;font-size:clamp(22px,3.2vw,38px);">Doanh nghiệp bạn cũng muốn<br><strong>kết quả tương tự?</strong></h2>
-            <p style="color:rgba(255,255,255,0.85);">Liên hệ Omega để được tư vấn miễn phí và nhận đề xuất giải pháp ERP phù hợp với đặc thù ngành của bạn.</p>
+          <!-- Orbital visual -->
+          <div class="err-visual wow fadeInDown" data-wow-duration="0.8s">
+            <div class="err-ring"><span class="err-ring-dot"></span></div>
+            <div class="err-ring"><span class="err-ring-dot"></span></div>
+            <div class="err-ring"></div>
+            <div class="err-core">
+              <i class="fa-solid fa-map-location-dot"></i>
+            </div>
           </div>
-        </div>
-        <div class="col-lg-5 text-lg-end wow fadeInRight">
-          <a href="lien-he.html" class="btn-white-omega me-3">
-            <i class="fa-solid fa-paper-plane"></i> Tư vấn miễn phí
-          </a>
-          <a href="khach-hang.html" class="btn-red-omega">
-            <i class="fa-solid fa-arrow-left"></i> Xem khách hàng khác
-          </a>
+
+          <!-- 404 number -->
+          <div class="err-code wow fadeIn" data-wow-delay="0.2s" data-wow-duration="0.6s">404</div>
+
+          <!-- Headline -->
+          <h1 class="err-title wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.6s">
+            Trang không tìm thấy
+          </h1>
+
+          <div class="err-divider"></div>
+
+          <!-- Description -->
+          <p class="err-desc wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.6s">
+            Trang bạn đang tìm có thể đã được <strong>chuyển địa chỉ</strong> hoặc không còn tồn tại.
+            Thử tìm kiếm nội dung bạn cần, hoặc quay về các mục chính bên dưới.
+          </p>
+
+          <!-- Search trigger -->
+          <div class="wow fadeInUp" data-wow-delay="0.5s" data-wow-duration="0.6s">
+            <button class="btn-err-search" onclick="openErrSearch()">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              Tìm kiếm nội dung...
+            </button>
+          </div>
+
+          <!-- Quick links -->
+          <div class="err-quicklinks wow fadeInUp" data-wow-delay="0.55s" data-wow-duration="0.6s">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a>
+            <a href="san-pham.html"><i class="fa-solid fa-boxes-stacked"></i> Sản phẩm</a>
+            <a href="giai-phap.html"><i class="fa-solid fa-lightbulb"></i> Giải pháp</a>
+            <a href="khach-hang.html"><i class="fa-solid fa-building-user"></i> Khách hàng</a>
+            <a href="tin-tuc.html"><i class="fa-solid fa-newspaper"></i> Tin tức</a>
+            <a href="lien-he.html"><i class="fa-solid fa-phone"></i> Liên hệ</a>
+          </div>
+
+          <!-- Auto-redirect countdown -->
+          <p class="err-redirect wow fadeIn" data-wow-delay="0.7s">
+            Tự động về trang chủ sau <strong id="err-countdown">10</strong> giây
+          </p>
+
         </div>
       </div>
     </div>
   </section>
-  <!-- ============ /CTA ============ -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
 
   <!-- ============ FOOTER ============ -->
   <footer class="main-footer">
@@ -632,14 +624,16 @@
           <!-- Contact -->
           <div class="col-12">
             <h4 class="footer-heading">Liên hệ</h4>
-            <div class="footer-contact-item"><h3 style="color: #00A651;">CÔNG TY TNHH CÔNG NGHỆ & GIẢI PHÁP OMEGA</h3></div>
-            <div class="footer-contact-item"><h5 style="color: rgba(255,255,255,0.6); font-style: italic;">Omega Solutions & Technologies Co., Ltd.</h5></div>
+            <div class="footer-contact-item"><h3 style="color:#00A651;">CÔNG TY TNHH CÔNG NGHỆ & GIẢI PHÁP OMEGA</h3></div>
+            <div class="footer-contact-item"><h4 style="color:rgba(255,255,255,0.6); font-style:italic;">Omega Solutions & Technologies Co., Ltd.</h4></div>
             <div class="footer-contact-item">
               <i class="fa-solid fa-city"></i>
-              <span style="color:rgba(255,255,255,0.6);"><u>Trụ sở chính</u>: <a href="https://maps.app.goo.gl/gasARGjfY3sZy1vQ8" target="_blank" style="color: inherit;">Lầu 6 - Tòa nhà Hà Sơn, số 277A Nguyễn Văn Đậu, Phường Bình Lợi Trung, TP. HCM</a>. Liên hệ: <a href="https://zalo.me/0708994462">0708 994 462 (Ms. Thục Nghi)</a></span></div>
+              <span style="color:rgba(255,255,255,0.6);"><u>Trụ sở chính</u>: <a href="https://maps.app.goo.gl/gasARGjfY3sZy1vQ8" target="_blank" style="color:inherit;">Lầu 6 - Tòa nhà Hà Sơn, số 277A Nguyễn Văn Đậu, Phường Bình Lợi Trung, TP. HCM</a>. Liên hệ: <a href="https://zalo.me/0708994462">0708 994 462 (Ms. Thục Nghi)</a></span>
+            </div>
             <div class="footer-contact-item">
               <i class="fa-solid fa-building me-2"></i>
-              <span style="color:rgba(255,255,255,0.6);"><u>Văn phòng Miền Bắc</u>: <a href="https://maps.app.goo.gl/Ehcb8NsZNC64B8w37" target="_blank" style="color: inherit;">Phòng 507 – B8, số 8A Hoàng Ngọc Phách, Phường Đống Đa, Hà Nội</a>. Liên hệ: <a href="https://zalo.me/0972735899">0972 735 899 (Mr. Tuấn Anh)</a></span></div>
+              <span style="color:rgba(255,255,255,0.6);"><u>Văn phòng Miền Bắc</u>: <a href="https://maps.app.goo.gl/Ehcb8NsZNC64B8w37" target="_blank" style="color:inherit;">Phòng 507 – B8, số 8A Hoàng Ngọc Phách, Phường Đống Đa, Hà Nội</a>. Liên hệ: <a href="https://zalo.me/0972735899">0972 735 899 (Mr. Tuấn Anh)</a></span>
+            </div>
             <div class="footer-contact-row">
               <a href="tel:02835128448" class="fcr-item"><i class="fa-solid fa-phone"></i>028 3512 8448</a>
               <span class="fcr-item"><i class="fa-solid fa-fax"></i>Fax: 028 3514 7280</span>
@@ -654,9 +648,9 @@
       <div class="container">
         <div class="footer-bottom-inner">
           <p class="footer-copy footer-copy-legal">
-              <span class="footer-copy-lname">Công ty TNHH Công nghệ và Giải pháp Omega</span>
-              <span class="footer-copy-lyr">© 2009–<script>document.write(new Date().getFullYear())</script>. All rights reserved.</span>
-            </p>
+            <span class="footer-copy-lname">Công ty TNHH Công nghệ và Giải pháp Omega</span>
+            <span class="footer-copy-lyr">© 2009–<script>document.write(new Date().getFullYear())</script>. All rights reserved.</span>
+          </p>
           <p class="footer-copy"><a href="chinh-sach-bao-mat.html">Chính sách bảo mật</a></p>
         </div>
       </div>
@@ -665,15 +659,38 @@
   <!-- ============ /FOOTER ============ -->
 
   <!-- Back to top -->
-  <a href="javascript:void(0)" id="back-to-top"
-     onclick="window.scrollTo({top:0,behavior:'smooth'})"
-     style="position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--gradient-green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;z-index:999;opacity:0;transition:opacity 0.3s;box-shadow:0 4px 16px rgba(0,166,81,0.4);"
-     aria-label="Lên đầu trang">
+  <a href="#" id="back-to-top" style="position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--gradient-green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;z-index:999;opacity:0;transition:opacity 0.3s;box-shadow:0 4px 16px rgba(0,166,81,0.4);" aria-label="Lên đầu trang">
     <i class="fa-solid fa-chevron-up"></i>
   </a>
-  <style>#back-to-top.show{opacity:1;}</style>
 
-  <!-- JS (path resolve qua base href="../") -->
+<!-- ============ NAVBAR UTILS CSS ============ -->
+  <style>
+    #back-to-top.show{opacity:1;}
+    /* ---- Navbar utils (search + translate + hamburger) luôn hiển thị ---- */
+    .navbar-utils { display:flex; align-items:center; gap:2px; margin-left:auto; }
+    @media (min-width:992px) { .navbar-utils .navbar-toggle { display:none !important; } }
+    /* ---- Lazy Google Translate ---- */
+    .translate-wrap { position:relative; display:flex; align-items:center; }
+    .translate-toggle { background:none; border:none; cursor:pointer; padding:6px 8px; color:var(--green-primary); font-size:16px; line-height:1; transition:var(--transition); opacity:.6; }
+    .translate-toggle:hover { color:var(--red-accent); opacity:1; }
+    /* Desktop: dropdown mở sang trái nút globe */
+    .translate-dropdown { display:none; position:absolute; background:#fff; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.15); padding:10px 14px; z-index:9999; white-space:nowrap;
+      top:50%; right:calc(100% + 36px); transform:translateY(-50%); }
+    /* Mobile: dropdown mở xuống dưới */
+    @media (max-width:991px) {
+      .translate-dropdown { top:calc(100% + 8px); right:0; transform:none; }
+    }
+    .translate-dropdown.open { display:block; }
+    .translate-dropdown .goog-te-gadget { font-size:0; width:fit-content !important; margin-right:auto; }
+    .translate-dropdown .goog-te-gadget select { font-size:13px; border:1px solid #e0e0e0; border-radius:6px; padding:5px 8px; outline:none; cursor:pointer; width:100%; }
+    .translate-spinner { display:flex; align-items:center; gap:8px; font-size:13px; color:#666; padding:4px 0; }
+    /* Khi mở translate panel, trượt header xuống nhường chỗ */
+    header.main-header { transition: top 0.25s ease; }
+    html.gt-active header.main-header { top: 40px !important; }
+  </style>
+  <!-- ============ /NAVBAR UTILS CSS ============ -->
+
+  <!-- JS -->
   <script src="assets/js/jquery-3.7.1.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
@@ -683,5 +700,122 @@
   <script src="assets/js/jquery.magnific-popup.min.js"></script>
   <script src="assets/js/jquery.slicknav.js"></script>
   <script src="assets/js/omega.js"></script>
+
+  <!-- 404: Search trigger + countdown redirect -->
+  <script>
+  function openErrSearch() {
+    var overlay = document.getElementById('searchOverlay');
+    var input   = document.getElementById('searchInput');
+    if (!overlay) return;
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() { if (input) input.focus(); }, 60);
+  }
+
+  // Countdown + auto-redirect to home
+  (function() {
+    var n   = 10;
+    var el  = document.getElementById('err-countdown');
+    var tid = setInterval(function() {
+      n--;
+      if (el) el.textContent = n;
+      if (n <= 0) {
+        clearInterval(tid);
+        window.location.href = '/';
+      }
+    }, 1000);
+
+    // Cancel redirect if user interacts (click any link / search button)
+    document.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A' || e.target.closest('a') || e.target.closest('button')) {
+        clearInterval(tid);
+        var notice = document.querySelector('.err-redirect');
+        if (notice) notice.style.display = 'none';
+      }
+    }, { once: true });
+  })();
+  </script>
+
+<!-- ============ TRANSLATE SCRIPT ============ -->
+  <!-- Google Translate – lazy: script only loads on first user click, zero cost on initial page load -->
+  <script>
+  (function() {
+    var loaded = false;
+    var btn = document.getElementById('translateToggle');
+    var dropdown = document.getElementById('translateDropdown');
+    if (!btn) return;
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = dropdown.classList.toggle('open');
+      // Push header down when dropdown opens, restore when closed
+      document.documentElement.classList.toggle('gt-active', isOpen);
+
+      if (!loaded && isOpen) {
+        dropdown.innerHTML = '<div class="translate-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Đang tải…</div>';
+        window.googleTranslateElementInit = function() {
+          dropdown.innerHTML = '<div id="google_translate_element"></div>';
+          new window.google.translate.TranslateElement({
+            pageLanguage: 'vi',
+            includedLanguages: 'en,zh-CN,hi,es,fr,ar,ru,pt,ja,ko,id,ms,th,my,km,lo,tl,de,it,fa,ur,pl,tr,uk,ro,nl,sv,cs,he,el,hu,da,fi',
+            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+          }, 'google_translate_element');
+        };
+        var s = document.createElement('script');
+        s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        s.onerror = function() {
+          dropdown.innerHTML = '<div class="translate-spinner" style="color:#c00"><i class="fa-solid fa-triangle-exclamation"></i> Không tải được</div>';
+        };
+        document.body.appendChild(s);
+        loaded = true;
+      }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!document.getElementById('translateWrap').contains(e.target)) {
+        dropdown.classList.remove('open');
+        document.documentElement.classList.remove('gt-active');
+      }
+    });
+  })();
+  </script>
+  <!-- ============ /TRANSLATE SCRIPT ============ -->
+  <!-- FLOATING CONTACT BUTTONS - Đặt ở cuối body là tốt nhất -->
+<div class="lazinet-contact-floating">
+    
+    <!-- NÚT CHÍNH (click để mở) -->
+    <div class="lazinet-contact-main-btn pulse">
+        <img src="assets/images/omega-radar-sonar.svg" alt="Liên hệ Omega">
+    </div>
+
+    <!-- 4 NÚT CON -->
+    <div class="lazinet-contact-buttons">
+        <!-- AI Bot / Customer Care -->
+        <div class="lazinet-contact-btn ai-bot" title="Chat với Chăm sóc Khách hàng">
+            <img src="assets/images/omega-radar-sonar.svg" alt="Customer Care">
+            <span class="lazinet-contact-label">CSKH OMEGA</span>
+        </div>
+        
+        <!-- Messenger -->
+        <div class="lazinet-contact-btn messenger" title="Chat với OMEGA Messenger">
+            <img src="assets/images/messenger.png" alt="Messenger">
+            <span class="lazinet-contact-label">Messenger</span>
+        </div>
+        
+        <!-- Zalo -->
+        <div class="lazinet-contact-btn zalo" title="Chat Zalo 0908 303 609">
+            <img src="assets/images/zalo.png" alt="Zalo">
+            <span class="lazinet-contact-label">Zalo Chat</span>
+        </div>
+        
+        <!-- Phone -->
+        <div class="lazinet-contact-btn phone" title="Gọi ngay 0908 303 609">
+            <img src="assets/images/call.png" alt="Phone">
+            <span class="lazinet-contact-label">Gọi điện</span>
+        </div>
+    </div>
+</div>
 </body>
 </html>

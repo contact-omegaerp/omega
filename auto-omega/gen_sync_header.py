@@ -51,6 +51,7 @@ TARGET_FILES = [
     "tin-tuc.html",
     "lien-he.html",
     "chinh-sach-bao-mat.html",
+    "404.html",
 ]
 
 # Nav link được highlight active theo từng trang
@@ -63,6 +64,7 @@ ACTIVE_NAV = {
     "tin-tuc.html":            "tin-tuc.html",
     "lien-he.html":            "lien-he.html",
     "chinh-sach-bao-mat.html": None,
+    "404.html":                None,   # error page — không active nav nào
 }
 
 # ── Comment markers ───────────────────────────────────────────────────────────
