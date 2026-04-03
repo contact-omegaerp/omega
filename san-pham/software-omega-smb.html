@@ -19,6 +19,16 @@
     })(window, document, "clarity", "script", "w5st3jx7zo");
   </script>
   <!-- ============ /ANALYTICS ============ -->
+  <!-- ============ PRELOADER CSS ============ -->
+<style>
+  /* Inline preloader — ngăn FOUC: render ngay trước khi omega.css load xong */
+  .preloader{position:fixed;inset:0;z-index:99999;background:#0d5c38;display:flex;align-items:center;justify-content:center;transition:opacity .6s ease,visibility .6s ease;}
+  .preloader.hide{opacity:0;visibility:hidden;pointer-events:none;}
+  .preloader-inner{display:flex;flex-direction:column;align-items:center;gap:16px;}
+  .preloader-logo{width:120px;animation:pulse-logo 2s ease-in-out infinite;}
+  @keyframes pulse-logo{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.7;transform:scale(.95);}}
+</style>
+<!-- ============ /PRELOADER CSS ============ -->
   <meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GAMA.SMB – Phần Mềm Kế Toán Chuyên Nghiệp Cho SME | omega.com.vn</title>
   <meta name="description" content="GAMA.SMB – Phần mềm kế toán chuyên biệt cho doanh nghiệp vừa và nhỏ: hóa đơn điện tử, sổ sách đầy đủ, báo cáo thuế tự động, dễ dùng không cần IT.">

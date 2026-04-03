@@ -256,6 +256,51 @@ Floating contact không có marker cặp — nhận diện bằng `<!-- FLOATING
 
 ---
 
+## Phiên 8 — Chiến lược tăng trưởng & hệ thống mở rộng (2026-04-03)
+
+### Analytics tracking — Hoàn thành
+
+- **GA4** (G-0T4G53DCPV) + **Microsoft Clarity** (w5st3jx7zo) đã inject vào toàn bộ 238 trang HTML qua `gen_analytics.py`
+- GA4 đang nằm trong tài khoản Google của bên cũ → đang chờ được add vào property
+- **Google Search Console**: chưa tạo. Kết luận: nếu bên cũ chưa tạo thì tạo mới luôn, không mất gì. Nếu đã có → xin transfer ownership. Xác minh qua GA4 là cách đơn giản nhất (không cần thêm meta tag)
+- Sitemap mới khác hoàn toàn với WordPress cũ → submit sitemap mới lên GSC ngay khi có tài khoản
+
+### SEO — URL cũ & 404 strategy
+
+- Site cũ (WordPress) URL dạng `/khach-hang-tieu-bieu/skypec/` → site mới `/khach-hang/skypec.html`
+- GitHub Pages không hỗ trợ 301 redirect server-side
+- **Giải pháp**: Custom `404.html` thông minh thay vì redirect stub từng URL
+  - Google crawl URL cũ → HTTP 404 thật → tự de-index sau vài tuần (sạch, không hack)
+  - User không bị mất: thấy trang 404 đẹp, có search + quick links + auto-redirect 10s
+
+### 4 hệ thống mở rộng — Đánh giá & kế hoạch
+
+| # | Hệ thống | Quyết định |
+|---|----------|-----------|
+| 1 | Online Support Status | Làm — Google Sheets CSV làm backend, admin cập nhật thẳng vào sheet |
+| 2 | AI CV Scoring | Hoãn — đã có base tương tự, sẽ quay lại sau |
+| 3 | Email CRM (Brevo) | Chưa triển khai — đang nghiên cứu phương án |
+| 4 | Affiliate Portal | Sau cùng — validate nhu cầu trước |
+
+### Email CRM — Phương án Brevo (chưa triển khai)
+
+**Kiến trúc dự kiến:**
+- Form HTML Omega → Brevo API (qua Cloudflare Worker proxy để ẩn API key)
+- Hoặc: nhúng Brevo native form + CSS override theo brand
+- Lists: Lead mới / Khách hàng / Newsletter / CTV
+
+**Automation workflows dự kiến:**
+- Lead mới: xác nhận ngay → case study sau 1 ngày → follow-up sau 3 ngày → nurture hàng tháng
+- Khách hàng cũ: chúc mừng lễ tết tự động, nhắc gia hạn hợp đồng
+- Custom fields: COMPANY, INDUSTRY, SOURCE, STATUS
+
+**Còn cần xác định trước khi triển khai:**
+- Danh sách khách hàng hiện tại lưu ở đâu (Excel, phần mềm nội bộ?)
+- Form lien-he.html hiện có ai nhận email không?
+- Ưu tiên: chăm sóc khách cũ hay nurture lead mới trước?
+
+---
+
 ## Phiên 7 — Trang 404 tùy chỉnh + SEO redirect strategy
 
 ### Bối cảnh
