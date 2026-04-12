@@ -249,6 +249,10 @@ window.addEventListener('scroll',      function () { omegaHasScrolled = true; },
     var GREEK = ['α','β','γ','δ','ε','ζ','η','θ','ι','κ','λ','μ','ν','ξ','ο','π','ρ','σ','τ','υ','φ','χ','ψ','ω'];
     var LIGHTNING_DIST = 130, CONNECT_DIST = 90;
     var letters = [];
+    var omegaImg = new Image();
+    var omegaImgReady = false;
+    omegaImg.onload = function() { omegaImgReady = true; };
+    omegaImg.src = 'assets/logo-png/omega-1C-transparent.png';
 
     function resize() {
       W = canvas.width  = canvas.offsetWidth;
@@ -266,9 +270,8 @@ window.addEventListener('scroll',      function () { omegaHasScrolled = true; },
         letters.push({
           ch: 'Ω', x: Math.random()*W, y: Math.random()*H,
           vx: (Math.random()-0.5)*0.5, vy: (Math.random()-0.5)*0.5,
-          angle: Math.random()*Math.PI*2,
-          va: (Math.random()-0.5)*0.012,
-          size: 24, bold: true, isOmega: true
+          angle: 0, va: 0,
+          size: 20, bold: true, isOmega: true
         });
       }
       for (var i = 0; i < count; i++) {
@@ -332,10 +335,19 @@ window.addEventListener('scroll',      function () { omegaHasScrolled = true; },
         ctx.save();
         ctx.translate(l.x, l.y);
         ctx.rotate(l.angle);
-        ctx.font = (l.bold ? 'bold ' : '') + l.size + 'px serif';
-        ctx.fillStyle = l.isOmega ? 'rgba(255,26,34,1)' : 'rgba(255,255,255,0.35)';
-        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText(l.ch, 0, 0);
+        if (l.isOmega && omegaImgReady) {
+          var s = l.size * 1.4;
+          var r = s / 2;
+          /* nền tròn trắng */
+          ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI*2);
+          ctx.fillStyle = 'rgba(255,255,255,0.92)'; ctx.fill();
+          ctx.drawImage(omegaImg, -r, -r, s, s);
+        } else {
+          ctx.font = (l.bold ? 'bold ' : '') + l.size + 'px serif';
+          ctx.fillStyle = 'rgba(255,255,255,0.35)';
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          ctx.fillText(l.ch, 0, 0);
+        }
         ctx.restore();
         l.x += l.vx; l.y += l.vy; l.angle += l.va;
         if (l.x < -20) l.x = W+20; if (l.x > W+20) l.x = -20;
@@ -1259,7 +1271,7 @@ window.addEventListener('scroll',      function () { omegaHasScrolled = true; },
 // ==============================
 // CONTACT FORM — ANTI-SPAM + GAS
 // ==============================
-var OMEGA_GAS_URL = 'https://script.google.com/macros/s/AKfycbyutSlIibAzDa-dQ3OIoRbPArTir29YH-kiqWjjoGnFXL22l5qkdFUeDRXamTg2jAty/exec'; // << Dán URL GAS sau khi deploy
+var OMEGA_GAS_URL = 'https://script.google.com/macros/s/AKfycbyVoG_04DKosT18UG2lQizV8spUK7zVdWN3tHyg0uoKMD_6YvJ2BSVyEt-W3qo2PQvN/exec'; // << Dán URL GAS sau khi deploy
 var OMEGA_SUBMIT_COOLDOWN = 60000; // 60 giây giữa các lần gửi
 
 function initOmegaContactAntiSpam() {

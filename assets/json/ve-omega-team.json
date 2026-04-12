@@ -1,0 +1,41 @@
+[
+  {
+    "type": "image",
+    "src": "assets/omega-media/ve-omega/dinh-vi-thuong-hieu.webp",
+    "caption": "OMEGA kỷ niệm 16 năm thành lập",
+    "icon": "fa-cake-candles"
+  },
+    {
+    "type": "image",
+    "src": "tin-tuc/su-kien-giao-thuong-quang-tri-2025/Omega-tu-van-tan-tinh-cho-khach-hang-giai-phap-chuyen-doi-so-hieu-qua-trong-quan-tri-doanh-nghiep.webp",
+    "caption": "Chuyên gia OMEGA tư vấn khách hàng",
+    "icon": "fa-cake-candles"
+  },
+    {
+    "type": "image",
+    "src": "assets/others/tiec-so-ket-2024.jpg",
+    "caption": "Đội ngũ OMEGA sơ kết 2024",
+    "icon": "fa-chart-line"
+  },
+    {
+    "type": "image",
+    "src": "assets/others/xuan-2024.jpg",
+    "caption": "Đội ngũ OMEGA 2024",
+    "icon": "fa-heart"
+  },
+    {
+    "type": "image",
+    "src": "assets/others/xuan-2023.jpg",
+    "caption": "Đội ngũ OMEGA 2023",
+    "icon": "fa-heart"
+  },
+    {
+    "type": "image",
+    "src": "tin-tuc/dao-tao-ky-nang-mem-cho-khoi-dich-vu-khach-hang-omega/00-thumbnail.webp",
+    "caption": "Đào tạo kỹ năng mềm cho khối dịch vụ khách hàng OMEGA",
+    "icon": "fa-graduation-cap"
+  }
+]
+
+
+

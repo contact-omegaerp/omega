@@ -74,15 +74,106 @@ const VNF="'Be Vietnam Pro',sans-serif";
 const G='#00A651',R='#ED1C24',BG='#000810';
 const BLUE='#2196F3',TEAL='#00BCD4',ORG='#FF9800',PURP='#9C27B0';
 
-/* ── Icon helper: draw emoji icon centered at (x,y) ── */
-function drawIcon(icon,x,y,size,alpha){
-  ctx.save();
-  ctx.globalAlpha=(ctx.globalAlpha||1)*alpha;
-  ctx.font=`${size}px sans-serif`;
-  ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.fillText(icon,x,y);
+/* ── Monochrome icon system (replaces colourful emoji on canvas) ── */
+// Build a canvas-ready Image from inline SVG. #c = colour placeholder.
+function _ico(svgBody,col){
+  const img=new Image();
+  img.src='data:image/svg+xml,'+encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">'+
+    svgBody.replace(/#c/g,col)+'</svg>');
+  return img;
+}
+// Draw icon image centred at (cx,cy), size×size px, multiplied by current globalAlpha.
+function drawICO(img,cx,cy,sz,a){
+  if(!img||!img.complete||!img.naturalWidth)return;
+  ctx.save(); ctx.globalAlpha=(ctx.globalAlpha||1)*a;
+  ctx.drawImage(img,cx-sz/2,cy-sz/2,sz,sz);
   ctx.restore();
 }
+// ── SVG body templates (100×100 viewBox, stroke-linecap/join=round assumed) ──
+const _S={
+  bars:   '<rect x="8"  y="50" width="20" height="40" rx="2" fill="#c"/>'
+         +'<rect x="40" y="25" width="20" height="65" rx="2" fill="#c"/>'
+         +'<rect x="72" y="38" width="20" height="52" rx="2" fill="#c"/>'
+         +'<rect x="5"  y="92" width="90" height="6"  rx="2" fill="#c"/>',
+
+  factory:'<path fill="#c" d="M8 88V52L26 35V52L44 35V52H90V88ZM56 52V26H80V52Z"/>',
+
+  hex:    '<polygon points="50,8 86,28 86,72 50,92 14,72 14,28"'
+         +' stroke="#c" stroke-width="5" fill="none"/>'
+         +'<line x1="50" y1="8"  x2="50" y2="92" stroke="#c" stroke-width="3"/>'
+         +'<line x1="14" y1="28" x2="86" y2="72" stroke="#c" stroke-width="3"/>'
+         +'<line x1="86" y1="28" x2="14" y2="72" stroke="#c" stroke-width="3"/>',
+
+  rotate: '<path d="M78 50 A30 30 0 1 1 50 20" stroke="#c" stroke-width="8"'
+         +' fill="none" stroke-linecap="round"/>'
+         +'<polygon points="50,8 38,24 62,24" fill="#c"/>',
+
+  award:  '<polygon points="50,8 58,33 84,33 63,49 71,74 50,58 29,74 37,49 16,33 42,33" fill="#c"/>'
+         +'<rect x="44" y="74" width="12" height="16" rx="2" fill="#c"/>'
+         +'<rect x="34" y="88" width="32" height="6"  rx="2" fill="#c"/>',
+
+  flask:  '<path d="M38 8H62V38L84 76Q90 92 76 92H24Q10 92 16 76Z"'
+         +' stroke="#c" stroke-width="5" fill="none" stroke-linejoin="round"/>'
+         +'<line x1="30" y1="8"  x2="70" y2="8"  stroke="#c" stroke-width="5"/>'
+         +'<line x1="16" y1="72" x2="84" y2="72" stroke="#c" stroke-width="4"/>'
+         +'<circle cx="35" cy="80" r="4" fill="#c"/>'
+         +'<circle cx="55" cy="78" r="3" fill="#c"/>',
+
+  tree:   '<path d="M50 5L22 32H37L18 55H37L28 75H72L63 55H82L63 32H78Z" fill="#c"/>'
+         +'<rect x="43" y="75" width="14" height="18" rx="2" fill="#c"/>',
+
+  fork:   '<line x1="25" y1="8"  x2="25" y2="92" stroke="#c" stroke-width="5" stroke-linecap="round"/>'
+         +'<line x1="18" y1="8"  x2="18" y2="32" stroke="#c" stroke-width="5" stroke-linecap="round"/>'
+         +'<line x1="32" y1="8"  x2="32" y2="32" stroke="#c" stroke-width="5" stroke-linecap="round"/>'
+         +'<path d="M18 32Q25 44 32 32" stroke="#c" stroke-width="4" fill="none"/>'
+         +'<path d="M65 8Q82 8 82 32Q82 46 68 50L68 92" stroke="#c" stroke-width="5" fill="none" stroke-linecap="round"/>',
+
+  cart:   '<path d="M5 18H20L38 68H76L88 38H26" stroke="#c" stroke-width="5"'
+         +' fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
+         +'<circle cx="42" cy="80" r="8" stroke="#c" stroke-width="5" fill="none"/>'
+         +'<circle cx="68" cy="80" r="8" stroke="#c" stroke-width="5" fill="none"/>',
+
+  fish:   '<path d="M18 50Q45 15 75 50Q45 85 18 50Z" stroke="#c" stroke-width="5" fill="none"/>'
+         +'<path d="M75 50L92 33L85 50L92 67Z" fill="#c"/>'
+         +'<circle cx="42" cy="44" r="5" fill="#c"/>',
+
+  pill:   '<path d="M25 35A25 25 0 0 1 75 35V65A25 25 0 0 1 25 65Z"'
+         +' stroke="#c" stroke-width="5" fill="none"/>'
+         +'<line x1="50" y1="35" x2="50" y2="65" stroke="#c" stroke-width="5"/>',
+
+  gear:   '<circle cx="50" cy="50" r="18" stroke="#c" stroke-width="5" fill="none"/>'
+         +'<path d="M43 8H57V18Q63 19 68 23L76 15L86 25L78 33Q82 38 82 43H92V57H82'
+         +'Q81 62 77 67L85 75L75 85L67 77Q62 81 57 82V92H43V82Q38 81 33 77L25 85'
+         +'L15 75L23 67Q18 62 18 57H8V43H18Q19 38 23 33L15 25L25 15L33 23Q37 19 43 18Z"'
+         +' stroke="#c" stroke-width="4" fill="none"/>',
+
+  grad:   '<polygon points="10,42 50,24 90,42 50,60" fill="#c"/>'
+         +'<path d="M32 50L32 70Q50 84 68 70L68 50" stroke="#c" stroke-width="5" fill="none"/>'
+         +'<line x1="90" y1="42" x2="90" y2="62" stroke="#c" stroke-width="5" stroke-linecap="round"/>',
+
+  shield: '<path d="M50 8L85 22L85 50Q85 74 50 92Q15 74 15 50L15 22Z"'
+         +' stroke="#c" stroke-width="5" fill="none"/>'
+         +'<polyline points="32,50 44,64 68,36" stroke="#c" stroke-width="6"'
+         +' fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+};
+// Preload all icons (section headers in brand-green; card icons in their accent colour)
+const ICONS={
+  bars:    _ico(_S.bars,   G),
+  factory: _ico(_S.factory,G),
+  hex:     _ico(_S.hex,    G),
+  rotate:  _ico(_S.rotate, G),
+  award:   _ico(_S.award,  G),
+  flask:   _ico(_S.flask,  '#FFFFFF'),
+  tree:    _ico(_S.tree,   '#FFFFFF'),
+  fork:    _ico(_S.fork,   '#FFFFFF'),
+  cart:    _ico(_S.cart,   '#FFFFFF'),
+  fish:    _ico(_S.fish,   '#FFFFFF'),
+  pill:    _ico(_S.pill,   '#FFFFFF'),
+  gear:    _ico(_S.gear,   G),
+  grad:    _ico(_S.grad,   TEAL),
+  shield:  _ico(_S.shield, R),
+};
 
 /* ── Timeline (ms) ── */
 const TL={
@@ -214,7 +305,7 @@ const STATS=[
   {v:'16+',   lbl:'Năm kinh nghiệm',      col:G},
   {v:'1.000+',lbl:'Doanh nghiệp tin dùng',col:R},
   {v:'20+',   lbl:'Ngành nghề phục vụ',   col:TEAL},
-  {v:'18',    lbl:'Phân hệ phần mềm ERP', col:ORG},
+  {v:'25+',   lbl:'Giải pháp công nghệ',  col:ORG},
 ];
 function drawS2(now){
   const sa=sceneA(now,TL.s2s,TL.s2e,700,700); if(sa<=0)return;
@@ -225,7 +316,8 @@ function drawS2(now){
   ctx.textAlign='center'; ctx.letterSpacing='0px';
   ctx.letterSpacing='7px'; ctx.font='700 24px \'Be Vietnam Pro\',sans-serif';
   var _tw2=ctx.measureText('SỨC MẠNH OMEGA').width;
-  ctx.letterSpacing='0px'; ctx.font='26px sans-serif'; ctx.fillText('💪',W/2-_tw2/2-22,H/2-290);
+  ctx.letterSpacing='0px'; ctx.textBaseline='middle';
+  drawICO(ICONS.bars,W/2-_tw2/2-20,H/2-290,22,1);
   ctx.letterSpacing='7px'; ctx.font='700 24px \'Be Vietnam Pro\',sans-serif';
   ctx.fillText('SỨC MẠNH OMEGA',W/2,H/2-290);
   ctx.letterSpacing='0px'; ctx.globalAlpha=sa;
@@ -253,12 +345,12 @@ function drawS2(now){
 
 /* ── S3: Industries ── */
 const INDS=[
-  {name:'Nhựa & Hoá chất',         sub:'Sản xuất · Tồn kho · Giá thành',  col:TEAL, icon:'⚗️'},
-  {name:'Gỗ & Nội thất',            sub:'Định mức · Sản xuất · CL',        col:ORG,  icon:'🪵'},
-  {name:'F&B – Thực phẩm',          sub:'Sản xuất · Truy xuất · CRM',      col:G,    icon:'🍽️'},
-  {name:'FMCG – Hàng tiêu dùng',    sub:'Phân phối · Kênh bán · DMS',      col:BLUE, icon:'🛒'},
-  {name:'Thủy – Hải sản',            sub:'Nguyên liệu · Chế biến · XK',    col:TEAL, icon:'🐟'},
-  {name:'Thiết bị Y tế & Dược phẩm',sub:'Lô-date · Kiểm soát · Nhập khẩu',col:R,    icon:'💊'},
+  {name:'Nhựa & Hoá chất',         sub:'Sản xuất · Tồn kho · Giá thành',  col:TEAL, icon:'flask'},
+  {name:'Gỗ & Nội thất',            sub:'Định mức · Sản xuất · CL',        col:ORG,  icon:'tree'},
+  {name:'F&B – Thực phẩm',          sub:'Sản xuất · Truy xuất · CRM',      col:G,    icon:'fork'},
+  {name:'FMCG – Hàng tiêu dùng',    sub:'Phân phối · Kênh bán · DMS',      col:BLUE, icon:'cart'},
+  {name:'Thủy – Hải sản',            sub:'Nguyên liệu · Chế biến · XK',    col:TEAL, icon:'fish'},
+  {name:'Thiết bị Y tế & Dược phẩm',sub:'Lô-date · Kiểm soát · Nhập khẩu',col:R,    icon:'pill'},
 ];
 function drawS3(now){
   const sa=sceneA(now,TL.s3s,TL.s3e,700,700); if(sa<=0)return;
@@ -269,7 +361,8 @@ function drawS3(now){
   ctx.textAlign='center'; ctx.letterSpacing='0px';
   ctx.letterSpacing='7px'; ctx.font='700 24px \'Be Vietnam Pro\',sans-serif';
   var _tw3=ctx.measureText('GIẢI PHÁP THEO NGÀNH NGHỀ').width;
-  ctx.letterSpacing='0px'; ctx.font='26px sans-serif'; ctx.fillText('🏭',W/2-_tw3/2-22,H/2-304);
+  ctx.letterSpacing='0px'; ctx.textBaseline='middle';
+  drawICO(ICONS.factory,W/2-_tw3/2-20,H/2-304,22,1);
   ctx.letterSpacing='7px'; ctx.font='700 24px \'Be Vietnam Pro\',sans-serif';
   ctx.fillText('GIẢI PHÁP THEO NGÀNH NGHỀ',W/2,H/2-304);
   ctx.letterSpacing='0px';
@@ -293,14 +386,13 @@ function drawS3(now){
     ctx.fillStyle=rgba(ind.col,.18); ctx.fill();
     ctx.strokeStyle=rgba(ind.col,.80); ctx.lineWidth=1.5; ctx.stroke();
     rr(rx,py,5,ch,3); ctx.fillStyle=ind.col; ctx.shadowBlur=0; ctx.fill();
-    ctx.font='20px sans-serif'; ctx.fillStyle='#FFFFFF';
     ctx.textAlign='left'; ctx.textBaseline='middle';
-    ctx.fillText(ind.icon,rx+16,py+42);
+    drawICO(ICONS[ind.icon],rx+24,py+42,20,1);
     const nameSz=fitFont('bold',19,VNF,ind.name,cw-62);
     ctx.font=`bold ${nameSz}px ${VNF}`;
     ctx.shadowColor=ind.col; ctx.shadowBlur=8;
     ctx.fillText(ind.name,rx+50,py+42);
-    ctx.shadowBlur=0; ctx.font='14px \'Be Vietnam Pro\',sans-serif'; ctx.fillStyle=rgba(ind.col,.95);
+    ctx.shadowBlur=0; ctx.font='16px \'Be Vietnam Pro\',sans-serif'; ctx.fillStyle=rgba(ind.col,.95);
     ctx.fillText(ind.sub,rx+50,py+82);
     ctx.restore();
   });
@@ -315,7 +407,7 @@ const PGROUPS=[
    mods:['OMEGA.WM','OMEGA.PO','OMEGA.SO']},
   {lbl:'Nhân sự & Sản xuất', angle:Math.PI/2, dist:210,yd:145,col:ORG,
    mods:['OMEGA.HR','OMEGA.PR','OMEGA.MM','OMEGA.QC']},
-  {lbl:'Sản phẩm độc lập',   angle:Math.PI,   dist:270,yd:0,  col:PURP,
+  {lbl:'Sản phẩm độc lập',   angle:Math.PI,   dist:270,yd:0,  col:R,
    mods:['GAMA.SMB','OMEGA.EDU','OMEGA.CRM']},
 ];
 const MOBILE=['OMEGA.APV','OMEGA.SCR','OMEGA.STK','OMEGA.SOR','OMEGA.MST','OMEGA.HRM'];
@@ -330,10 +422,11 @@ function drawS4(now){
     ctx.font='700 24px \'Be Vietnam Pro\',sans-serif'; ctx.fillStyle=rgba(G,.95);
     ctx.textAlign='center'; ctx.letterSpacing='0px';
     ctx.letterSpacing='7px'; ctx.font='700 24px \'Be Vietnam Pro\',sans-serif';
-    var _tw4=ctx.measureText('HỆ SINH THÁI SẢN PHẨM').width;
-    ctx.letterSpacing='0px'; ctx.font='26px sans-serif'; ctx.fillText('🌐',W/2-_tw4/2-22,92);
+    var _tw4=ctx.measureText('HỆ SINH THÁI GIẢI PHÁP CÔNG NGHỆ').width;
+    ctx.letterSpacing='0px'; ctx.textBaseline='middle';
+    drawICO(ICONS.hex,W/2-_tw4/2-20,92,22,1);
     ctx.letterSpacing='7px'; ctx.font='700 24px \'Be Vietnam Pro\',sans-serif';
-    ctx.fillText('HỆ SINH THÁI SẢN PHẨM',W/2,92);
+    ctx.fillText('HỆ SINH THÁI GIẢI PHÁP CÔNG NGHỆ',W/2,92);
     ctx.letterSpacing='0px'; ctx.restore();
   }
   const cx=W/2, cy=H/2-10;
@@ -404,17 +497,17 @@ function drawS4(now){
   if(mp>0){
     const ay=H-95;
     ctx.save(); ctx.globalAlpha=sa*mp;
-    ctx.font='700 16px \'Be Vietnam Pro\',sans-serif'; ctx.fillStyle=rgba(G,.6);
+    ctx.font='700 22px \'Be Vietnam Pro\',sans-serif'; ctx.fillStyle=rgba(G,.6);
     ctx.textAlign='center';
-    ctx.fillText('📱  Mobile App  –  iOS & Android',W/2,ay-42);
+    ctx.fillText('Mobile App  –  iOS & Android',W/2,ay-42);
     MOBILE.forEach((app,i)=>{
       const lp=eO(clamp((mp-i*.12)/.5,0,1)); if(lp<=0)return;
-      const ax=W/2+(i-2.5)*190, ay2=ay+8;
+      const ax=W/2+(i-2.5)*158, ay2=ay+8;
       ctx.save(); ctx.globalAlpha=sa*lp;
-      rr(ax-72,ay2-23,144,46,23);
+      rr(ax-64,ay2-23,128,46,23);
       ctx.fillStyle=rgba(G,.1); ctx.fill();
       ctx.strokeStyle=rgba(G,.4); ctx.lineWidth=1; ctx.stroke();
-      ctx.font='bold 13.5px monospace'; ctx.fillStyle='#7DDDBB';
+      ctx.font='bold 17px monospace'; ctx.fillStyle='#7DDDBB';
       ctx.textAlign='center'; ctx.textBaseline='middle';
       ctx.fillText(app,ax,ay2); ctx.restore();
     });
@@ -425,11 +518,11 @@ function drawS4(now){
 
 /* ── S5: Services ── */
 const SVCS=[
-  {n:'01',icon:'⚙️',t:'Tư vấn & Triển khai ERP',col:G,
+  {n:'01',icon:'gear',t:'Tư vấn & Triển khai ERP',col:G,
    pts:['Phân tích nghiệp vụ chuyên sâu','Thiết kế giải pháp ERP phù hợp','Triển khai phương pháp Agile','Kiểm thử UAT · Go-live']},
-  {n:'02',icon:'🎓',t:'Đào tạo & Chuyển giao',col:TEAL,
+  {n:'02',icon:'grad',t:'Đào tạo & Chuyển giao',col:TEAL,
    pts:['Đào tạo người dùng thực tiễn','Tài liệu hướng dẫn đầy đủ','Chuyển giao công nghệ hoàn toàn','Workshop & e-learning']},
-  {n:'03',icon:'🛡️',t:'Bảo trì & Hỗ trợ dài hạn',col:R,
+  {n:'03',icon:'shield',t:'Bảo trì & Hỗ trợ dài hạn',col:R,
    pts:['Hotline hỗ trợ kỹ thuật','Bảo trì & nâng cấp hệ thống','Giám sát hiệu năng liên tục','Đồng hành toàn bộ vòng đời']},
 ];
 function drawS5(now){
@@ -441,7 +534,8 @@ function drawS5(now){
   ctx.textAlign='center'; ctx.letterSpacing='0px';
   ctx.letterSpacing='7px'; ctx.font='700 24px \'Be Vietnam Pro\',sans-serif';
   var _tw5=ctx.measureText('DỊCH VỤ TOÀN VÒNG ĐỜI').width;
-  ctx.letterSpacing='0px'; ctx.font='26px sans-serif'; ctx.fillText('🔄',W/2-_tw5/2-22,H/2-298);
+  ctx.letterSpacing='0px'; ctx.textBaseline='middle';
+  drawICO(ICONS.rotate,W/2-_tw5/2-20,H/2-298,22,1);
   ctx.letterSpacing='7px'; ctx.font='700 24px \'Be Vietnam Pro\',sans-serif';
   ctx.fillText('DỊCH VỤ TOÀN VÒNG ĐỜI',W/2,H/2-298);
   ctx.letterSpacing='0px';
@@ -461,8 +555,8 @@ function drawS5(now){
     ctx.strokeStyle=rgba(s.col,.85); ctx.lineWidth=1.5; ctx.stroke();
     rr(px,ry-bh/2,bw,5,2); ctx.fillStyle=s.col; ctx.shadowBlur=0; ctx.fill();
     /* large icon */
-    ctx.font='44px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(s.icon,px+bw/2,ry-bh/2+50);
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    drawICO(ICONS[s.icon],px+bw/2,ry-bh/2+50,44,1);
     ctx.shadowColor=s.col; ctx.shadowBlur=12;
     ctx.font='bold 22px \'Be Vietnam Pro\',sans-serif'; ctx.fillStyle='#FFFFFF';
     ctx.textBaseline='middle'; ctx.fillText(s.t,px+bw/2,ry-38);
@@ -513,7 +607,8 @@ function drawS6(now){
     ctx.textAlign='center'; ctx.letterSpacing='0px';
     ctx.letterSpacing='8px'; ctx.font='700 22px \'Be Vietnam Pro\',sans-serif';
     var _tw6=ctx.measureText('THƯƠNG HIỆU OMEGA').width;
-    ctx.letterSpacing='0px'; ctx.font='24px sans-serif'; ctx.fillText('🏆',W/2-_tw6/2-22,88);
+    ctx.letterSpacing='0px'; ctx.textBaseline='middle';
+    drawICO(ICONS.award,W/2-_tw6/2-20,88,22,1);
     ctx.letterSpacing='8px'; ctx.font='700 22px \'Be Vietnam Pro\',sans-serif';
     ctx.fillText('THƯƠNG HIỆU OMEGA',W/2,88);
     ctx.letterSpacing='0px'; ctx.restore();
@@ -598,6 +693,22 @@ function drawS6(now){
     ctx.textAlign='center'; ctx.textBaseline='middle';
     ctx.shadowColor=rgba(G,.35); ctx.shadowBlur=8;
     ctx.fillText('✦  Đối tác chiến lược chuyển đổi số hàng đầu Việt Nam  ✦',W/2,ty);
+    ctx.shadowBlur=0;
+    const subL1='Không chỉ cung cấp công nghệ, Omega cam kết đồng hành dài hạn';
+    const subL2='cùng khách hàng trong từng bước tăng trưởng, biến thách thức quản trị';
+    const subL3='thành lợi thế cạnh tranh bền vững trong kỷ nguyên số.';
+    const sub2P=eO(clamp((tagP-.25)/.75,0,1));
+    if(sub2P>0){
+      ctx.save();
+      ctx.globalAlpha=sub2P*.72;
+      ctx.font="600 20px 'Be Vietnam Pro',sans-serif";
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillStyle='rgba(255,255,255,.85)';
+      ctx.fillText(subL1,W/2,ty+52);
+      ctx.fillText(subL2,W/2,ty+80);
+      ctx.fillText(subL3,W/2,ty+108);
+      ctx.restore();
+    }
     ctx.restore();
   }
 
@@ -605,7 +716,7 @@ function drawS6(now){
   const webP=eO(prog(now,TA.web,TA.web+1200));
   if(webP>0){
     const lh2=logoReady?(Math.min(840,logoImg.naturalWidth||840)*(logoImg.naturalHeight/logoImg.naturalWidth)):210;
-    const baseY=cy+lh2/2+48;
+    const baseY=cy+lh2/2+138;
     ctx.save(); ctx.globalAlpha=webP*sa;
     /* ── decorator: ─────  Ω  ───── */
     const dy=baseY+82, cx2=W/2, lineLen=110, omgR=10;
