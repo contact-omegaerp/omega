@@ -380,6 +380,12 @@
       line-height: 1.75;
       background: #f8fdf9;
     }
+    @media (max-width: 991px) {
+      #office-map { height: 50vh !important; }
+      .contact-form-wrap { padding: 20px 16px; border-radius: 14px; }
+      .contact-form-wrap .form-subtitle { margin-bottom: 18px; }
+      .form-group { margin-bottom: 12px; }
+    }
   </style>
 </head>
 <body>
@@ -837,7 +843,7 @@
       <div style="margin: 24px 0; text-align: center;">
         <select id="office-select" style="padding:12px 20px; font-size:16px; border-radius:8px; border:1px solid #ccc; min-width:220px; background:#fff; cursor:pointer;">
           <option value="hcm" selected>Trụ sở chính - TP. Hồ Chí Minh</option>
-          <option value="hanoi">Văn phòng kinh doanh - Hà Nội</option>
+          <option value="hanoi">Văn phòng miền Bắc - TP. Hà Nội</option>
         </select>
       </div>
 
@@ -845,7 +851,7 @@
       <iframe
         id="office-map"
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22168.942298989867!2d106.67946025586227!3d10.814957973967264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175291bba4f988f%3A0x5202acc685d09760!2zQ8O0bmcgdHkgcGjhuqduIG3hu4FtIE9tZWdhIC0gT01FR0EgQ28uLEx0ZA!5e0!3m2!1svi!2s!4v1772476867980!5m2!1svi!2s"
-        width="100%" height="600" style="border: 1px solid #a5d6a7;border-radius:16px;" allowfullscreen="" loading="lazy"
+        width="100%" style="height:600px;border: 1px solid #a5d6a7;border-radius:16px;" allowfullscreen="" loading="lazy"
         referrerpolicy="no-referrer-when-downgrade" title="Bản đồ văn phòng Omega">
       </iframe>
 
