@@ -541,22 +541,38 @@ window.addEventListener('scroll',      function () { omegaHasScrolled = true; },
     var W, H;
 
     var MODULES = [
-      { name: 'OMEGA.ERP', ring: 0 },
-      { name: 'OMEGA.GL',  ring: 0 },
-      { name: 'OMEGA.HR',  ring: 0 },
-      { name: 'OMEGA.MM',  ring: 1 },
-      { name: 'OMEGA.WM',  ring: 1 },
-      { name: 'OMEGA.PO',  ring: 1 },
-      { name: 'OMEGA.SO',  ring: 1 },
-      { name: 'OMEGA.CRM', ring: 1 },
-      { name: 'OMEGA.FA',  ring: 2 },
-      { name: 'OMEGA.PC',  ring: 2 },
-      { name: 'OMEGA.QC',  ring: 2 },
-      { name: 'OMEGA.APV', ring: 2 },
-      { name: 'OMEGA.SCR', ring: 2 },
-      { name: 'GAMA.SMB',  ring: 2 },
+      /* Ring 0 — ERP core (6) */
+      { name: 'Kế toán DN',   ring: 0 },
+      { name: 'Nhân sự',      ring: 0 },
+      { name: 'Sản xuất',     ring: 0 },
+      { name: 'Tồn kho',      ring: 0 },
+      { name: 'Mua hàng',     ring: 0 },
+      { name: 'Bán hàng',     ring: 0 },
+      /* Ring 1 — ERP mở rộng (9) */
+      { name: 'Tài sản CĐ',   ring: 1 },
+      { name: 'KT quản trị',  ring: 1 },
+      { name: 'BC hợp nhất',  ring: 1 },
+      { name: 'Tiền lương',   ring: 1 },
+      { name: 'Giá thành',    ring: 1 },
+      { name: 'Chất lượng',   ring: 1 },
+      { name: 'Bảo trì',      ring: 1 },
+      { name: 'Quản trị HT',  ring: 1 },
+      { name: 'Dùng chung',   ring: 1 },
+      /* Ring 2 — Chuyên sâu + Mobile (12) */
+      { name: 'Kế toán SME',  ring: 2 },
+      { name: 'Đào tạo',      ring: 2 },
+      { name: 'Khách hàng',   ring: 2 },
+      { name: 'BĐS thuê',     ring: 2 },
+      { name: 'Bán lẻ POS',   ring: 2 },
+      { name: 'Dashboard BI', ring: 2 },
+      { name: 'Duyệt CT',     ring: 2 },
+      { name: 'Quét mã vạch', ring: 2 },
+      { name: 'Tra cứu kho',  ring: 2 },
+      { name: 'Đặt hàng',     ring: 2 },
+      { name: 'Thống kê SX',  ring: 2 },
+      { name: 'Nhân lực HRM', ring: 2 },
     ];
-    var SPEED = [0.007, 0.0042, 0.0022];
+    var SPEED = [0.006, 0.0038, 0.0018];
 
     var nodes = [], beams = [], stars = [];
     var omegaPulse = 0, beamTimer = 0;
@@ -566,15 +582,7 @@ window.addEventListener('scroll',      function () { omegaHasScrolled = true; },
     logoImg.onload = function() { logoReady = true; };
     logoImg.src = 'assets/images/omega-1A-white-buffer.svg';
 
-    /* mouse tracking — center dời theo chuột */
-    var mouseX = null, mouseY = null;
     var smoothCx, smoothCy;
-    canvas.addEventListener('mousemove', function(e) {
-      var r = canvas.getBoundingClientRect();
-      mouseX = e.clientX - r.left;
-      mouseY = e.clientY - r.top;
-    });
-    canvas.addEventListener('mouseleave', function() { mouseX = null; mouseY = null; });
 
     function getRingDims() {
       var base = Math.min(W * 0.48, H * 0.90);
@@ -612,12 +620,7 @@ window.addEventListener('scroll',      function () { omegaHasScrolled = true; },
 
     function draw() {
       ctx.clearRect(0, 0, W, H);
-      /* smooth center: drift toward mouse, return to W/2,H/2 when no mouse */
-      var targetCx = mouseX !== null ? mouseX : W / 2;
-      var targetCy = mouseY !== null ? mouseY : H * 0.42;
-      smoothCx += (targetCx - smoothCx) * 0.06;
-      smoothCy += (targetCy - smoothCy) * 0.06;
-      var cx = smoothCx, cy = smoothCy;
+      var cx = W / 2, cy = H * 0.42;
       var dims = getRingDims();
 
       /* star field */
