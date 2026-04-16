@@ -752,7 +752,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .hero-stat-number {
   font-size: 32px; font-weight: 900;
-  color: var(--red-accent);
+  color: var(--green-light);
   line-height: 1;
   margin-bottom: 4px;
 }
@@ -907,7 +907,7 @@ h1, h2, h3, h4, h5, h6 {
 .stat-number {
   font-size: clamp(36px, 5vw, 56px);
   font-weight: 900;
-  color: var(--red-accent);
+  color: var(--green-light);
   line-height: 1;
   margin-bottom: 8px;
 }
