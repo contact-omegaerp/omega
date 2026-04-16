@@ -981,8 +981,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .eco-module {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(0,166,81,0.25);
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(0,166,81,0.35);
   border-radius: var(--radius-md);
   padding: 16px;
   text-align: center;
