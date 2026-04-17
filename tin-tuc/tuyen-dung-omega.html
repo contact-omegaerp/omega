@@ -73,10 +73,10 @@
   <section class="section-gap" style="padding-top:48px;">
     <div class="container">
       <div class="row g-3 mb-5">
-        <div class="col-6 col-md-3"><div class="stat-box wow fadeInUp"><div class="stat-num">30+</div><div class="stat-label">Vị trí đang mở</div></div></div>
-        <div class="col-6 col-md-3"><div class="stat-box wow fadeInUp" data-wow-delay=".08s"><div class="stat-num">16+</div><div class="stat-label">Năm kinh nghiệm</div></div></div>
-        <div class="col-6 col-md-3"><div class="stat-box wow fadeInUp" data-wow-delay=".16s"><div class="stat-num">1000+</div><div class="stat-label">Doanh nghiệp dùng ERP</div></div></div>
-        <div class="col-6 col-md-3"><div class="stat-box wow fadeInUp" data-wow-delay=".24s"><div class="stat-num">7</div><div class="stat-label">Phòng ban tuyển dụng</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-box wow fadeInUp"><div class="stat-num" id="stat-open">30+</div><div class="stat-label">Vị trí đang mở</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-box wow fadeInUp" data-wow-delay=".08s"><div class="stat-num" id="stat-years">16+</div><div class="stat-label">Năm kinh nghiệm</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-box wow fadeInUp" data-wow-delay=".16s"><div class="stat-num" id="stat-clients">1000+</div><div class="stat-label">Doanh nghiệp dùng ERP</div></div></div>
+        <div class="col-6 col-md-3"><div class="stat-box wow fadeInUp" data-wow-delay=".24s"><div class="stat-num" id="stat-depts">7</div><div class="stat-label">Phòng ban tuyển dụng</div></div></div>
       </div>
       <div class="section-title text-center mb-4 wow fadeInUp">
         <span class="section-label">Cơ hội nghề nghiệp</span>
@@ -809,6 +809,21 @@
 
       const jobMap = {};
       data.jobs.forEach(j => { jobMap[j.slug] = j; });
+
+      // ── Update hero stats from jobs data ──────────────────────────────────
+      const activeJobs = data.jobs.filter(j => ['ACTIVE','HOT'].includes(j.status));
+      const depts      = new Set(data.jobs.map(j => j.dept_slug || j.department).filter(Boolean));
+      const elOpen  = document.getElementById('stat-open');
+      const elDepts = document.getElementById('stat-depts');
+      if (elOpen)  elOpen.textContent  = activeJobs.length + '+';
+      if (elDepts) elDepts.textContent = depts.size || '7';
+      // Fetch years_experience + total_clients from ?action=stats (parallel, non-blocking)
+      fetch(GAS_URL + '?action=stats').then(r => r.json()).then(s => {
+        const elYears   = document.getElementById('stat-years');
+        const elClients = document.getElementById('stat-clients');
+        if (elYears   && s.years_experience) elYears.textContent   = s.years_experience + '+';
+        if (elClients && s.total_clients)    elClients.textContent = s.total_clients.toLocaleString('vi-VN') + '+';
+      }).catch(() => {});;
 
       function parseDeadline(s) {
         if (!s) return new Date(9999,0,1);

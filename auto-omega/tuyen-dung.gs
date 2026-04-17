@@ -179,12 +179,21 @@ function getJob(id) {
 }
 
 function getStats() {
-  const ss   = SpreadsheetApp.openById(SHEET_ID);
-  const jobs = readJobsSheet(ss);
+  const ss     = SpreadsheetApp.openById(SHEET_ID);
+  const config = getConfig(ss);
+  const jobs   = readJobsSheet(ss);
   const active = jobs.filter(function(j) {
     return ['ACTIVE','HOT'].includes(String(j['Status'] || '').toUpperCase());
   });
-  return { status: 'success', active_jobs: active.length, total_jobs: jobs.length };
+  const depts = new Set(jobs.map(function(j) { return String(j['Dept_Slug'] || j['Department'] || '').trim(); }).filter(Boolean));
+  return {
+    status:           'success',
+    active_jobs:      active.length,
+    total_jobs:       jobs.length,
+    dept_count:       depts.size,
+    years_experience: parseInt(config['Years_Experience'] || '16', 10),
+    total_clients:    parseInt(config['Total_Clients']    || '1000', 10)
+  };
 }
 
 function countApplicationsByJob(ss) {
