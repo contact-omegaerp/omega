@@ -35,8 +35,11 @@
     .job-section ul{padding-left:20px;}.job-section li{margin-bottom:6px;font-size:15px;line-height:1.7;}
     .apply-sidebar{position:sticky;top:100px;}.apply-card{background:#fff;border-radius:14px;box-shadow:0 4px 20px rgba(0,166,81,.12);padding:24px;border:1px solid #e0f0e8;}
     .salary-big{font-size:22px;font-weight:800;color:#00A651;margin:8px 0;}
-    .hero-hiring{width:100%;border-radius:16px;overflow:hidden;margin-bottom:32px;background:#0d5c38;}
+.hero-hiring{position:relative;width:100%;border-radius:16px;overflow:hidden;margin-bottom:32px;background:#0d5c38;}
     .hero-hiring img{width:100%;height:auto;display:block;}
+    .hero-job-title-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;text-align:center;color:#0a703f;font-size:30px;font-weight:900;line-height:1.35;pointer-events:none;padding:4px 8px;}
+    .hero-job-status{position:absolute;top:6%;right:3%;pointer-events:none;}
+    .hb-badge{display:inline-block;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:800;color:#fff;white-space:nowrap;line-height:1.3;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.3);}.hb-active,.hb-hot{background:#dc2626;animation:hb-pulse 1.4s ease-in-out infinite;}.hb-closed{background:rgba(70,70,70,.82);}@keyframes hb-pulse{0%,100%{box-shadow:0 0 0 2px rgba(255,220,0,.95);}50%{box-shadow:0 0 0 18px rgba(255,220,0,0);}}
     body{overflow-x:clip!important;}</style>
 </head>
 <body>
@@ -72,7 +75,11 @@
     <div class="container">
       <div class="row g-4 g-lg-5">
         <div class="col-lg-8">
-          <div class="hero-hiring"><img src="tuyen-dung/omega-we-are-hiring_W1024.webp" alt="OMEGA We Are Hiring" loading="eager" onerror="this.parentNode.style.minHeight='100px'"></div>
+          <div class="hero-hiring">
+          <img src="tuyen-dung/omega-we-are-hiring_W1024.webp" alt="OMEGA We Are Hiring" loading="eager" onerror="this.parentNode.style.minHeight='100px'">
+          <div class="hero-job-title-overlay" id="hero-job-title">Chuyên viên Digital Marketing</div>
+          <div class="hero-job-status" id="hero-job-status"></div>
+        </div>
           <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
             <span class="article-category-badge" style="background:rgba(0,166,81,.1);color:#00A651;">Tuyển dụng</span>
             <span class="badge rounded-pill bg-danger" id="job-status-badge">Tuyển gấp</span><span class='badge rounded-pill ms-1' style='background:#fff3cd;color:#856404;border:1px solid #ffc107;'>🔥 HOT</span>
@@ -84,34 +91,34 @@
             <div class="jm-item"><div class="jm-label"><i class="fa-solid fa-briefcase me-1" style="color:#00A651;"></i>Loại hình</div><div class="jm-value">Toàn thời gian</div></div>
             <div class="jm-item"><div class="jm-label"><i class="fa-solid fa-chart-line me-1" style="color:#00A651;"></i>Cấp bậc</div><div class="jm-value">Middle</div></div>
             <div class="jm-item"><div class="jm-label"><i class="fa-solid fa-location-dot me-1" style="color:#00A651;"></i>Địa điểm</div><div class="jm-value">TP.HCM</div></div>
-            <div class="jm-item"><div class="jm-label"><i class="fa-solid fa-money-bill-wave me-1" style="color:#00A651;"></i>Mức lương</div><div class="jm-value">15 – 22 triệu</div></div>
-            <div class="jm-item"><div class="jm-label"><i class="fa-solid fa-users me-1" style="color:#00A651;"></i>Số lượng</div><div class="jm-value">1 người</div></div>
-            <div class="jm-item"><div class="jm-label"><i class="fa-regular fa-calendar me-1" style="color:#00A651;"></i>Hạn nộp</div><div class="jm-value">30/06/2026</div></div>
+            <div class="jm-item"><div class="jm-label"><i class="fa-solid fa-money-bill-wave me-1" style="color:#00A651;"></i>Mức lương</div><div class="jm-value" id="jm-salary">Thỏa thuận</div></div>
+            <div class="jm-item"><div class="jm-label"><i class="fa-solid fa-users me-1" style="color:#00A651;"></i>Số lượng</div><div class="jm-value" id="jm-openings">1 người</div></div>
+            <div class="jm-item"><div class="jm-label"><i class="fa-regular fa-calendar me-1" style="color:#00A651;"></i>Hạn nộp</div><div class="jm-value" id="jm-deadline">15/03/2026</div></div>
             <div class="jm-item"><div class="jm-label"><i class="fa-solid fa-file-lines me-1" style="color:#00A651;"></i>Số hồ sơ đã nộp</div><div class="jm-value"><span id="apply-count">–</span></div></div>
           </div>
-          <div class="job-section"><h2><i class="fa-solid fa-list-check me-2"></i>Mô tả công việc</h2><ul><li>Lập kế hoạch và triển khai chiến dịch Google Ads, Meta Ads</li><li>Quản lý fanpage Facebook, LinkedIn, YouTube OMEGA</li><li>Phân tích dữ liệu GA4, tối ưu conversion rate</li><li>Phối hợp content team tạo nội dung marketing</li><li>Email marketing, nurturing lead theo phễu</li></ul></div>
-          <div class="job-section"><h2><i class="fa-solid fa-user-check me-2"></i>Yêu cầu ứng viên</h2><ul><li>2+ năm kinh nghiệm Digital Marketing B2B</li><li>Thành thạo Google Ads, Meta Ads, Google Analytics 4</li><li>Kinh nghiệm marketing phần mềm / SaaS là lợi thế lớn</li><li>Kỹ năng phân tích số liệu, tư duy data-driven</li><li>Tiếng Anh đọc hiểu marketing tốt</li></ul></div>
-          <div class="job-section"><h2><i class="fa-solid fa-gift me-2"></i>Quyền lợi</h2><ul><li>Ngân sách quảng cáo lớn để học hỏi và thử nghiệm</li><li>Môi trường sáng tạo, ít báo cáo thủ công</li><li>Review lương 2 lần/năm</li><li>Bảo hiểm sức khỏe, du lịch hàng năm</li></ul></div>
+          <div class="job-section"><h2><i class="fa-solid fa-list-check me-2"></i>Mô tả công việc</h2><ul id="jd-roles"><li>Lập kế hoạch và triển khai chiến dịch Google Ads, Meta Ads</li><li>Quản lý fanpage Facebook, LinkedIn, YouTube OMEGA</li><li>Phân tích dữ liệu GA4, tối ưu conversion rate</li><li>Phối hợp content team tạo nội dung marketing</li><li>Email marketing, nurturing lead theo phễu</li></ul></div>
+          <div class="job-section"><h2><i class="fa-solid fa-user-check me-2"></i>Yêu cầu ứng viên</h2><ul id="jd-requires"><li>2+ năm kinh nghiệm Digital Marketing B2B</li><li>Thành thạo Google Ads, Meta Ads, Google Analytics 4</li><li>Kinh nghiệm marketing phần mềm / SaaS là lợi thế lớn</li><li>Kỹ năng phân tích số liệu, tư duy data-driven</li><li>Tiếng Anh đọc hiểu marketing tốt</li></ul></div>
+          <div class="job-section"><h2><i class="fa-solid fa-gift me-2"></i>Quyền lợi</h2><ul id="jd-benefits"><li>Ngân sách quảng cáo lớn để học hỏi và thử nghiệm</li><li>Môi trường sáng tạo, ít báo cáo thủ công</li><li>Review lương 2 lần/năm</li><li>Bảo hiểm sức khỏe, du lịch hàng năm</li></ul></div>
           <div class="job-section"><h2><i class="fa-solid fa-building-user me-2"></i>Về Omega</h2><p style="font-size:15px;line-height:1.8;color:#444;">Công ty TNHH Công nghệ và Giải pháp Omega là nhà cung cấp phần mềm ERP hàng đầu Việt Nam với <strong>16+ năm kinh nghiệm</strong> và <strong>1000+ doanh nghiệp</strong> tin dùng. Chúng tôi cam kết đồng hành cùng nhân viên phát triển sự nghiệp bền vững.</p></div>
           <div style="margin-top:24px;padding-top:20px;border-top:1px solid #eee;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
             <a href="tuyen-dung-omega.html" style="color:#00A651;font-weight:600;font-size:14px;"><i class="fa-solid fa-arrow-left me-2"></i>Xem tất cả vị trí</a>
-            <button class="btn btn-success btn-sm px-4" onclick="openApply('J016','Chuyên viên Digital Marketing')"><i class="fa-solid fa-paper-plane me-2"></i>Ứng tuyển ngay</button>
+            <button id="bottom-apply-btn" class="btn btn-success btn-sm px-4" onclick="openApply('tuyen-dung-chuyen-vien-digital-marketing','Chuyên viên Digital Marketing')"><i class="fa-solid fa-paper-plane me-2"></i>Ứng tuyển ngay</button>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="apply-sidebar">
             <div class="apply-card mb-4">
               <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#888;margin-bottom:6px;">Mức lương</div>
-              <div class="salary-big">15 – 22 triệu</div>
+              <div class="salary-big" id="jm-salary-sidebar">Thỏa thuận</div>
               <div style="font-size:13px;color:#666;margin-bottom:20px;">Toàn thời gian &nbsp;|&nbsp; TP.HCM</div>
-              <button class="btn btn-success btn-lg w-100 mb-3" id="main-apply-btn"  onclick="openApply('J016','Chuyên viên Digital Marketing')"><i class="fa-solid fa-paper-plane me-2"></i>Ứng tuyển ngay</button>
+              <button class="btn btn-success btn-lg w-100 mb-3" id="main-apply-btn"  onclick="openApply('tuyen-dung-chuyen-vien-digital-marketing','Chuyên viên Digital Marketing')"><i class="fa-solid fa-paper-plane me-2"></i>Ứng tuyển ngay</button>
               <a href="../lien-he.html" class="btn btn-outline-success w-100 mb-3"><i class="fa-solid fa-phone me-2"></i>Liên hệ tư vấn</a>
               <hr>
               <div style="font-size:13px;color:#666;line-height:2;">
-                <div><i class="fa-solid fa-calendar-check me-2" style="color:#00A651;width:18px;"></i>Hạn nộp: <strong>30/06/2026</strong></div>
-                <div><i class="fa-solid fa-users me-2" style="color:#00A651;width:18px;"></i>Số lượng: <strong>1 người</strong></div>
+                <div><i class="fa-solid fa-calendar-check me-2" style="color:#00A651;width:18px;"></i>Hạn nộp: <strong id="jm-deadline-sidebar">15/03/2026</strong></div>
+                <div><i class="fa-solid fa-users me-2" style="color:#00A651;width:18px;"></i>Số lượng: <strong id="jm-openings-sidebar">1 người</strong></div>
                 <div><i class="fa-solid fa-chart-bar me-2" style="color:#00A651;width:18px;"></i>Cấp bậc: <strong>Middle</strong></div>
-                <div><i class="fa-solid fa-envelope me-2" style="color:#00A651;width:18px;"></i><strong>hr@omega.com.vn</strong></div>
+                <div><i class="fa-solid fa-envelope me-2" style="color:#00A651;width:18px;"></i><strong id="jm-email">info@omega.com.vn</strong></div>
               </div>
             </div>
             <div class="apply-card">
@@ -125,7 +132,7 @@
     </div>
   </section>
 
-  <section class="cta-section"><div class="container position-relative" style="z-index:1;"><div class="row align-items-center gy-4"><div class="col-lg-7"><div class="section-title mb-0"><h2 style="color:#fff;font-size:clamp(20px,3vw,34px);">Cùng nhau <strong>xây dựng</strong><br>tương lai với OMEGA?</h2><p style="color:rgba(255,255,255,0.85);">Gửi hồ sơ ngay và trở thành một phần của đội ngũ 16+ năm xây dựng ERP Việt.</p></div></div><div class="col-lg-5 text-lg-end"><button class="btn-white-omega me-3" onclick="openApply('J016','Chuyên viên Digital Marketing')"><i class="fa-solid fa-paper-plane"></i> Ứng tuyển ngay</button><a href="tuyen-dung-omega.html" class="btn-red-omega"><i class="fa-solid fa-briefcase"></i> Việc làm khác</a></div></div></div></section>
+  <section class="cta-section"><div class="container position-relative" style="z-index:1;"><div class="row align-items-center gy-4"><div class="col-lg-7"><div class="section-title mb-0"><h2 style="color:#fff;font-size:clamp(20px,3vw,34px);">Cùng nhau <strong>xây dựng</strong><br>tương lai với OMEGA?</h2><p style="color:rgba(255,255,255,0.85);">Gửi hồ sơ ngay và trở thành một phần của đội ngũ 16+ năm xây dựng ERP Việt.</p></div></div><div class="col-lg-5 text-lg-end"><button class="btn-white-omega me-3" onclick="openApply('tuyen-dung-chuyen-vien-digital-marketing','Chuyên viên Digital Marketing')"><i class="fa-solid fa-paper-plane"></i> Ứng tuyển ngay</button><a href="tuyen-dung-omega.html" class="btn-red-omega"><i class="fa-solid fa-briefcase"></i> Việc làm khác</a></div></div></div></section>
 
   <footer class="main-footer">
     <div class="footer-top"><div class="container"><div class="row gy-4">
@@ -142,7 +149,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header" style="background:#0d5c38;color:#fff;">
-          <h5 class="modal-title"><i class="fa-solid fa-paper-plane me-2"></i>Ứng tuyển: <span id="modal-job-title"></span></h5>
+          <h5 class="modal-title" style="color:#fff;"><i class="fa-solid fa-paper-plane me-2"></i>Ứng tuyển: <span id="modal-job-title"></span></h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
@@ -155,10 +162,10 @@
               <div class="col-md-6"><label class="form-label fw-semibold">Họ và tên <span class="text-danger">*</span></label><input type="text" name="full_name" class="form-control" placeholder="Nguyễn Văn A" required maxlength="100"></div>
               <div class="col-md-6"><label class="form-label fw-semibold">Email <span class="text-danger">*</span></label><input type="email" name="email" class="form-control" placeholder="email@example.com" required maxlength="150"></div>
               <div class="col-md-6"><label class="form-label fw-semibold">Số điện thoại <span class="text-danger">*</span></label><input type="tel" name="phone" class="form-control" placeholder="0909 xxx xxx" required maxlength="20"></div>
-              <div class="col-md-6"><label class="form-label fw-semibold">Link CV (Google Drive / LinkedIn)</label><input type="url" name="cv_link" class="form-control" placeholder="https://drive.google.com/..."></div>
-              <div class="col-12"><label class="form-label fw-semibold">Hoặc dán nội dung CV / Giới thiệu bản thân</label><textarea name="cv_text" class="form-control" rows="5" placeholder="Tóm tắt kinh nghiệm, kỹ năng, thành tích của bạn..."></textarea></div>
+              <div class="col-md-6"><label class="form-label fw-semibold">File CV <span class="text-danger">*</span></label><input type="file" id="cv-file-input" class="form-control" accept=".pdf,.doc,.docx"><div class="form-text text-muted">PDF hoặc Word, tối đa 5MB</div></div>
+              <div class="col-12"><label class="form-label fw-semibold">Thư xin việc / Giới thiệu bản thân</label><textarea name="message" class="form-control" rows="4" placeholder="Chia sẻ lý do bạn muốn ứng tuyển, điểm nổi bật của bản thân..."></textarea></div>
             </div>
-            <div class="mt-3 p-3 rounded" style="background:#f8fbf8;border:1px solid #d4edda;"><small class="text-muted"><i class="fa-solid fa-robot me-1" style="color:#00A651;"></i><strong>AI CV Scoring:</strong> Hệ thống tự đánh giá độ phù hợp CV và gửi phản hồi về email trong vòng 24 giờ.</small></div>
+            <div class="mt-3 p-3 rounded" style="background:#f8fbf8;border:1px solid #d4edda;"><small class="text-muted"><i class="fa-solid fa-robot me-1" style="color:#00A651;"></i><strong>AI CV Scoring:</strong> Hệ thống đọc CV và tự đánh giá mức độ phù hợp, gửi phản hồi qua email trong 24 giờ.</small></div>
           </form>
         </div>
         <div class="modal-footer">
@@ -176,7 +183,7 @@
   <script src="../assets/js/swiper-bundle.min.js"></script>
   <script src="../assets/js/omega.js"></script>
   <script>
-  const GAS_URL = ''; // TODO: paste Apps Script deployment URL after deploying tuyen-dung.gs
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbxZzQV4kAkI5Gx4GzZrx18B-t1gMSSJOQgJky28Wu_n69SrdLAg-4T3OkIm0u6npgxptg/exec'; // TODO: paste Apps Script deployment URL after deploying tuyen-dung.gs
   function openApply(jobId, jobTitle) {
     document.getElementById('af-job-id').value = jobId;
     document.getElementById('af-job-title').value = jobTitle;
@@ -196,51 +203,129 @@
     if (!data.full_name || !data.email || !data.phone) {
       msg.className = 'alert alert-warning mb-3'; msg.textContent = 'Vui lòng điền đủ họ tên, email và số điện thoại.'; return;
     }
-    if (!data.cv_link && !data.cv_text) {
-      msg.className = 'alert alert-warning mb-3'; msg.textContent = 'Vui lòng cung cấp link CV hoặc nội dung giới thiệu bản thân.'; return;
+    if (data.website_omega) { msg.className = 'alert alert-success mb-3'; msg.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i>Hồ sơ đã gửi thành công!'; return; }
+    const fileInput = document.getElementById('cv-file-input');
+    const file = fileInput && fileInput.files[0];
+    if (!file) {
+      msg.className = 'alert alert-warning mb-3'; msg.textContent = 'Vui lòng đính kèm file CV (PDF hoặc Word).'; return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      msg.className = 'alert alert-warning mb-3'; msg.textContent = 'File CV quá lớn. Vui lòng chọn file dưới 5MB.'; return;
     }
     if (!GAS_URL) {
-      msg.className = 'alert alert-info mb-3'; msg.innerHTML = 'Hệ thống đang cập nhật. Vui lòng gửi CV về <strong>hr@omega.com.vn</strong> hoặc liên hệ 0908 303 609.'; return;
+      msg.className = 'alert alert-info mb-3'; msg.innerHTML = 'Hệ thống đang cập nhật. Vui lòng gửi CV về <strong>info@omega.com.vn</strong>.'; return;
     }
-    btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin me-2"></i>Đang gửi...';
+    btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin me-2"></i>Đang tải CV...';
     try {
-      data.action = 'apply';
-      const res  = await fetch(GAS_URL, {method:'POST', body:JSON.stringify(data), headers:{'Content-Type':'application/json'}});
+      const base64 = await new Promise((res, rej) => {
+        const r = new FileReader();
+        r.onload = e => res(e.target.result.split(',')[1]);
+        r.onerror = rej;
+        r.readAsDataURL(file);
+      });
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin me-2"></i>Đang xử lý...';
+      const payload = {
+        action:         'apply',
+        job_id:         document.getElementById('af-job-id').value,
+        job_title:      document.getElementById('af-job-title').value,
+        full_name:      data.full_name,
+        email:          data.email,
+        phone:          data.phone,
+        message:        data.message || '',
+        cv_file_base64: base64,
+        cv_filename:    file.name,
+        cv_mimetype:    file.type || 'application/octet-stream'
+      };
+      const res  = await fetch(GAS_URL, {method:'POST', body:JSON.stringify(payload), headers:{'Content-Type':'text/plain'}});
       const json = await res.json();
       if (json.success) {
         msg.className = 'alert alert-success mb-3';
-        msg.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i>' + (json.message || 'Hồ sơ đã gửi thành công! Chúng tôi sẽ liên hệ bạn sớm.');
+        msg.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i>' + (json.message || 'Hồ sơ đã gửi thành công! Chúng tôi sẽ liên hệ sớm.');
         form.reset();
       } else {
         msg.className = 'alert alert-danger mb-3'; msg.textContent = json.message || 'Có lỗi xảy ra. Vui lòng thử lại.';
       }
     } catch(e) {
-      msg.className = 'alert alert-danger mb-3'; msg.textContent = 'Không kết nối được. Vui lòng gửi CV về hr@omega.com.vn.';
+      msg.className = 'alert alert-danger mb-3'; msg.textContent = 'Không kết nối được. Vui lòng gửi CV về info@omega.com.vn.';
     }
     btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-paper-plane me-2"></i>Gửi hồ sơ';
   }
+  // ―― fitHeroTitle ――
+  function fitHeroTitle() {
+    const el = document.getElementById('hero-job-title');
+    const hero = el && el.closest('.hero-hiring');
+    if (!el || !hero) return;
+    let size = 36, lh = 1.4;
+    el.style.fontSize = size + 'px';
+    // Scale down until text height fits in 3 lines (no nowrap — natural wrapping)
+    while (size > 12 && el.clientHeight > Math.round(size * lh * 3) + 4) {
+      size -= 0.5; el.style.fontSize = size + 'px';
+    }
+  }
+  window.addEventListener('resize', fitHeroTitle);
+
   async function loadJobStatus(jobId) {
     if (!GAS_URL) return;
     try {
       const res  = await fetch(GAS_URL + '?action=job&id=' + jobId);
       const data = await res.json();
       const job  = data.job || data;
+      const closed = ['CLOSED','PAUSED'].includes(job.status);
+      // ―― Status badge
       const badge = document.getElementById('job-status-badge');
       if (badge && job.status) {
-        const map = {ACTIVE:{cls:'bg-success',l:'Đang tuyển'},HOT:{cls:'bg-danger',l:'Tuyển gấp'},CLOSED:{cls:'bg-secondary',l:'Đã đóng'}};
+        const map = {ACTIVE:{cls:'bg-success',l:'Đang tuyển'},HOT:{cls:'bg-danger',l:'Tuyển gấp'},CLOSED:{cls:'bg-secondary',l:'Đã đóng'},PAUSED:{cls:'bg-warning text-dark',l:'Tạm dừng'}};
         const s = map[job.status] || map.ACTIVE;
         badge.className = 'badge rounded-pill ' + s.cls; badge.textContent = s.l;
       }
-      const applyBtn = document.getElementById('main-apply-btn');
-      if (applyBtn && job.status === 'CLOSED') {
-        applyBtn.disabled = true; applyBtn.innerHTML = '<i class="fa-solid fa-lock me-2"></i>Vị trí đã đóng';
-        applyBtn.className = 'btn btn-secondary btn-lg w-100';
-      }
+      // ―― Apply buttons
+      const disableLabel = job.status === 'PAUSED' ? '<i class="fa-solid fa-pause me-2"></i>Tạm dừng tuyển' : '<i class="fa-solid fa-lock me-2"></i>Vị trí đã đóng';
+      const mainBtn = document.getElementById('main-apply-btn');
+      if (mainBtn && closed) { mainBtn.disabled = true; mainBtn.innerHTML = disableLabel; mainBtn.className = 'btn btn-secondary btn-lg w-100 mb-3'; }
+      const bottomBtn = document.getElementById('bottom-apply-btn');
+      if (bottomBtn && closed) { bottomBtn.disabled = true; bottomBtn.innerHTML = disableLabel; bottomBtn.className = 'btn btn-secondary btn-sm px-4'; }
+      // ―― Apply count
       const cntEl = document.getElementById('apply-count');
       if (cntEl && job.apply_count != null) cntEl.textContent = job.apply_count;
+      // ―― Meta grid live data
+      const fmt = v => typeof v === 'number' ? v + ' người' : (v || '');
+      const salEl = document.getElementById('jm-salary'); if (salEl && job.salary) salEl.textContent = job.salary;
+      const dlEl  = document.getElementById('jm-deadline'); if (dlEl && job.deadline) dlEl.textContent = job.deadline;
+      const opEl  = document.getElementById('jm-openings'); if (opEl && job.openings != null) opEl.textContent = fmt(job.openings);
+      // ―― Sidebar live data
+      const salSide = document.getElementById('jm-salary-sidebar'); if (salSide && job.salary) salSide.textContent = job.salary;
+      // ―― email from GAS ――
+      const emailEl = document.getElementById('jm-email'); if (emailEl && job.email_reply_to) emailEl.textContent = job.email_reply_to;
+      const dlSide  = document.getElementById('jm-deadline-sidebar'); if (dlSide && job.deadline) dlSide.textContent = job.deadline;
+      const opSide  = document.getElementById('jm-openings-sidebar'); if (opSide && job.openings != null) opSide.textContent = fmt(job.openings);
+      // ―― JD sections (roles / requires / benefits) ――
+      function renderList(ulId, items) {
+        const ul = document.getElementById(ulId);
+        if (!ul || !items || !items.length) return;
+        ul.innerHTML = items.filter(Boolean).map(t => '<li>' + t + '</li>').join('');
+      }
+      if (job.roles)    renderList('jd-roles',    job.roles);
+      if (job.requires) renderList('jd-requires', job.requires);
+      if (job.benefits) renderList('jd-benefits', job.benefits);
+      // ―― Hero banner overlay: sync from GAS ――
+      const heroTitle = document.getElementById('hero-job-title');
+      if (heroTitle && job.title) heroTitle.textContent = job.title;
+      const heroStatus = document.getElementById('hero-job-status');
+      if (heroStatus) {
+        const hbMap = {ACTIVE:{cls:'hb-active',txt:'Đang tuyển'},HOT:{cls:'hb-hot',txt:'Tuyển gấp'},PAUSED:{cls:'hb-closed',txt:'Tạm dừng'},CLOSED:{cls:'hb-closed',txt:'Đã đóng'}};
+        const hb = hbMap[job.status] || hbMap.ACTIVE;
+        heroStatus.innerHTML = '<div class="hb-badge '+hb.cls+'">'+ hb.txt +'</div>';
+      }
+
+      // ―― Live: update apply buttons with correct job id/title ――
+      if (job.id && job.title) {
+        document.querySelectorAll('button[onclick^="openApply"]').forEach(function(btn) {
+          btn.setAttribute('onclick', "openApply('" + job.slug + "','" + job.title.replace(/'/g,"\'") + "')");
+        });
+      }
     } catch(e) {}
   }
   </script>
-  <script>document.addEventListener('DOMContentLoaded',function(){loadJobStatus('J016');});</script>
+  <script>document.addEventListener('DOMContentLoaded',function(){fitHeroTitle();loadJobStatus('tuyen-dung-chuyen-vien-digital-marketing');});</script>
 </body>
 </html>
