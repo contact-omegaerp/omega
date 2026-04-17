@@ -9,7 +9,7 @@
 // Bật thêm Drive API v2: Apps Script > Services > Drive API (v2)
 // =====================================================
 
-const SHEET_ID     = '';   // <-- Điền Sheet ID sau khi upload file Excel lên GSheets
+const SHEET_ID     = '1JIC24VyE6VhhBl5FGXg-JbmAqXLZTSe0dulVGQ8wBdo';
 const CV_FOLDER_ID = '1NNQXfNkUE4NrtOoi7Dg5Kmc27YKSAGB9';  // Thư mục Drive chứa CV ứng viên
 
 // Keys PRIVATE — KHÔNG trả về frontend
@@ -152,24 +152,26 @@ function getJob(id) {
   if (!job) return { status: 'error', message: 'Không tìm thấy vị trí: ' + id };
 
   const status = String(job['Status'] || 'ACTIVE').toUpperCase();
+  const config = getConfig(ss);
 
   return {
     status: 'success',
     job: {
-      id:          job['Job_ID'],
-      slug:        job['Slug'],
-      title:       job['Title'],
-      department:  job['Department'],
-      dept_slug:   job['Dept_Slug'],
-      type:        job['Type'],
-      level:       job['Level'],
-      location:    job['Location'],
-      salary:      job['Salary'],
-      openings:    job['Openings'],
-      deadline:    formatDate(job['Deadline']),
-      status:      status,
-      excerpt:     job['Excerpt']  || '',
-      apply_count: applyCount[job['Job_ID']] || 0,
+      id:             job['Job_ID'],
+      slug:           job['Slug'],
+      title:          job['Title'],
+      department:     job['Department'],
+      dept_slug:      job['Dept_Slug'],
+      type:           job['Type'],
+      level:          job['Level'],
+      location:       job['Location'],
+      salary:         job['Salary'],
+      openings:       job['Openings'],
+      deadline:       formatDate(job['Deadline']),
+      status:         status,
+      excerpt:        job['Excerpt']  || '',
+      apply_count:    applyCount[job['Job_ID']] || 0,
+      email_reply_to: String(config['Email_Reply_To'] || 'info@omega.com.vn'),
       // Nội dung JD — frontend refresh từ đây
       roles:    ['Role1','Role2','Role3','Role4','Role5'].map(function(k){ return job[k] || ''; }).filter(Boolean),
       requires: ['Require1','Require2','Require3','Require4','Require5'].map(function(k){ return job[k] || ''; }).filter(Boolean),
@@ -232,7 +234,12 @@ function handleApply(data) {
   const ss     = SpreadsheetApp.openById(SHEET_ID);
   const config = getConfig(ss);
   const jobs   = readJobsSheet(ss);
-  const job    = jobs.find(function(j) { return j['Job_ID'] === data.job_id; });
+  // Tìm job theo Job_ID hoặc Slug (frontend gửi slug kể từ khi đổi slug-based)
+  const job    = jobs.find(function(j) {
+    return j['Job_ID'] === data.job_id || j['Slug'] === data.job_id;
+  });
+  // Job_ID thực tế từ sheet (dùng để log, filename)
+  const actualJobId = (job && job['Job_ID']) ? job['Job_ID'] : data.job_id;
 
   if (job && ['CLOSED','PAUSED'].includes(String(job['Status'] || '').toUpperCase())) {
     return { success: false, message: 'Vị trí này đã hết hạn nộp hồ sơ.' };
@@ -244,7 +251,7 @@ function handleApply(data) {
   try {
     const folder   = DriveApp.getFolderById(CV_FOLDER_ID);
     const filename = Utilities.formatDate(new Date(), 'GMT+7', 'yyyyMMdd_HHmmss')
-                   + '_' + data.job_id
+                   + '_' + actualJobId
                    + '_' + (data.full_name || 'unknown').replace(/\s+/g, '_').substring(0, 30)
                    + '_' + (data.cv_filename || 'cv.pdf').replace(/^.*[/\\]/, '');
     const blob = Utilities.newBlob(
@@ -295,7 +302,7 @@ function handleApply(data) {
     appSheet.appendRow([
       generateAppId(),                      // App_ID
       new Date(),                           // Timestamp
-      data.job_id      || '',               // Job_ID
+      actualJobId,                          // Job_ID (thực tế từ sheet, không phải slug)
       data.job_title   || '',               // Job_Title
       data.full_name   || '',               // Full_Name
       data.email       || '',               // Email
@@ -565,7 +572,8 @@ function extractTextFromDriveFile(file) {
 
 const EMAIL_BANNER_URL = 'https://omega.com.vn/assets/banners/omega-banner01.webp';
 
-function emailWrapper(innerHtml) {
+function emailWrapper(innerHtml, replyTo) {
+  const contactEmail = replyTo || 'info@omega.com.vn';
   return `<!DOCTYPE html>
 <html><head><meta charset="UTF-8">
 <style>
@@ -592,7 +600,7 @@ function emailWrapper(innerHtml) {
   <div class="content">${innerHtml}</div>
   <div class="footer">
     <strong>Omega Solution &amp; Technology Co., Ltd.</strong><br>
-    📞 028 3512 8448 &nbsp;|&nbsp; ✉ <a href="mailto:hr@omega.com.vn">hr@omega.com.vn</a> &nbsp;|&nbsp;
+    📞 028 3512 8448 &nbsp;|&nbsp; ✉ <a href="mailto:${contactEmail}">${contactEmail}</a> &nbsp;|&nbsp;
     <a href="https://omega.com.vn">omega.com.vn</a>
   </div>
 </div>
@@ -601,7 +609,8 @@ function emailWrapper(innerHtml) {
 
 function sendConfirmationEmail(config, data) {
   const companyName = String(config['Company_Name_EN'] || 'Omega Solution & Technology Co., Ltd.');
-  const replyTo     = String(config['Email_Reply_To']  || 'hr@omega.com.vn');
+  const replyTo     = String(config['Email_Reply_To']  || 'info@omega.com.vn');
+  const senderName  = String(config['Company_Name_VI'] || 'Omega Nhân Sự');
 
   const htmlBody = emailWrapper(`
 <h2>Xác nhận nhận hồ sơ ứng tuyển</h2>
@@ -609,54 +618,56 @@ function sendConfirmationEmail(config, data) {
 <p>Cảm ơn bạn đã nộp hồ sơ ứng tuyển vị trí <strong>${data.job_title}</strong> tại ${companyName}.</p>
 <p>Chúng tôi đã nhận được hồ sơ và sẽ xem xét trong <strong>3–5 ngày làm việc</strong>. Nếu hồ sơ phù hợp, bộ phận Nhân sự sẽ liên hệ sắp xếp phỏng vấn.</p>
 <p>Tìm hiểu thêm về Omega tại: <a href="https://omega.com.vn">omega.com.vn</a></p>
-<p style="margin-top:20px;">Trân trọng,<br><strong>Bộ phận Nhân sự – ${companyName}</strong></p>`);
+<p style="margin-top:20px;">Trân trọng,<br><strong>Bộ phận Nhân sự – ${companyName}</strong></p>`, replyTo);
 
   MailApp.sendEmail({
     to:       data.email,
+    name:     senderName,
     replyTo:  replyTo,
     subject:  '[Omega] Xác nhận nhận hồ sơ – ' + data.job_title,
-    body:     `Kính chào ${data.full_name},\n\nCảm ơn bạn đã nộp hồ sơ ứng tuyển vị trí ${data.job_title} tại ${companyName}.\n\nChúng tôi đã nhận được hồ sơ và sẽ xem xét trong 3–5 ngày làm việc.\n\nTrân trọng,\n${companyName}`,
+    body:     'Kính chào ' + data.full_name + ',\n\nCảm ơn bạn đã nộp hồ sơ ứng tuyển vị trí ' + data.job_title + ' tại ' + companyName + '.\n\nChúng tôi đã nhận được hồ sơ và sẽ xem xét trong 3–5 ngày làm việc.\n\nTrân trọng,\n' + companyName,
     htmlBody: htmlBody
   });
 }
 
 function sendHRNotification(config, data, cvDriveUrl, aiScore, aiSummary, aiStrengths, aiGaps, aiRecommendation) {
-  const hrEmails = String(config['HR_Emails'] || '').trim();
+  const hrEmails   = String(config['HR_Emails']      || '').trim();
   if (!hrEmails) return;
+  const replyTo    = String(config['Email_Reply_To'] || 'info@omega.com.vn');
+  const senderName = String(config['Company_Name_VI'] || 'Omega Nhân Sự');
 
-  const scoreLabel = aiScore !== null ? String(aiScore) + '/100' : 'N/A';
-  const recMap  = { INTERVIEW: 'interview', CONSIDER: 'consider', REJECT: 'reject' };
-  const recText = { INTERVIEW: '✅ Nên phỏng vấn', CONSIDER: '🟡 Cần xem xét thêm', REJECT: '❌ Không phù hợp' };
-  const recClass  = recMap[aiRecommendation]  || '';
-  const recDisplay = recText[aiRecommendation] || aiRecommendation || 'N/A';
+  const scoreLabel  = aiScore !== null ? String(aiScore) + '/100' : 'N/A';
+  const recMap      = { INTERVIEW: 'interview', CONSIDER: 'consider', REJECT: 'reject' };
+  const recText     = { INTERVIEW: '✅ Nên phỏng vấn', CONSIDER: '🟡 Cần xem xét thêm', REJECT: '❌ Không phù hợp' };
+  const recClass    = recMap[aiRecommendation]  || '';
+  const recDisplay  = recText[aiRecommendation] || aiRecommendation || 'N/A';
 
   const scoreHtml = aiScore !== null
-    ? `<div class="score-box">
-        <div>Điểm AI tổng hợp: <span class="score-val">${aiScore}</span><span style="font-size:16px;color:#555">/100</span>
-        &nbsp;<span class="tag ${recClass}">${recDisplay}</span></div>
-        <div style="margin-top:8px;font-size:13px;color:#444;">📝 ${aiSummary || 'N/A'}</div>
-      </div>`
-    : `<p style="color:#888;">⚠️ Không chấm điểm được: ${aiSummary || 'N/A'}</p>`;
+    ? '<div class="score-box"><div>Điểm AI tổng hợp: <span class="score-val">' + aiScore + '</span><span style="font-size:16px;color:#555">/100</span>&nbsp;<span class="tag ' + recClass + '">' + recDisplay + '</span></div><div style="margin-top:8px;font-size:13px;color:#444;">📝 ' + (aiSummary || 'N/A') + '</div></div>'
+    : '<p style="color:#888;">⚠️ Không chấm điểm được: ' + (aiSummary || 'N/A') + '</p>';
 
-  const htmlBody = emailWrapper(`
-<h2>Có hồ sơ ứng tuyển mới</h2>
-<table class="info">
-  <tr><td>Vị trí</td><td><strong>${data.job_title}</strong> (${data.job_id})</td></tr>
-  <tr><td>Ứng viên</td><td>${data.full_name}</td></tr>
-  <tr><td>Email</td><td><a href="mailto:${data.email}">${data.email}</a></td></tr>
-  <tr><td>SĐT</td><td>${data.phone}</td></tr>
-  <tr><td>File CV</td><td>${cvDriveUrl ? '<a href="' + cvDriveUrl + '" target="_blank">Xem file CV trên Drive</a>' : '(không có)'}</td></tr>
-</table>
-${scoreHtml}
-${aiStrengths ? '<p><strong>✅ Điểm mạnh:</strong> ' + aiStrengths.replace(/\|/g,'<br>• ') + '</p>' : ''}
-${aiGaps      ? '<p><strong>⚠️ Còn thiếu:</strong> '  + aiGaps.replace(/\|/g,'<br>• ')      + '</p>' : ''}
-<p style="margin-top:20px;"><a href="https://docs.google.com/spreadsheets/d/${SHEET_ID}" style="background:#1a6fc4;color:#fff;padding:10px 20px;border-radius:5px;text-decoration:none;font-size:13px;">📊 Xem danh sách hồ sơ</a></p>`);
+  const htmlBody = emailWrapper(
+    '<h2>Có hồ sơ ứng tuyển mới</h2>' +
+    '<table class="info">' +
+    '<tr><td>Vị trí</td><td><strong>' + data.job_title + '</strong> (' + data.job_id + ')</td></tr>' +
+    '<tr><td>Ứng viên</td><td>' + data.full_name + '</td></tr>' +
+    '<tr><td>Email</td><td><a href="mailto:' + data.email + '">' + data.email + '</a></td></tr>' +
+    '<tr><td>SĐT</td><td>' + data.phone + '</td></tr>' +
+    '<tr><td>File CV</td><td>' + (cvDriveUrl ? '<a href="' + cvDriveUrl + '" target="_blank">Xem file CV trên Drive</a>' : '(không có)') + '</td></tr>' +
+    '</table>' + scoreHtml +
+    (aiStrengths ? '<p><strong>✅ Điểm mạnh:</strong> ' + aiStrengths.replace(/\|/g, '<br>• ') + '</p>' : '') +
+    (aiGaps      ? '<p><strong>⚠️ Còn thiếu:</strong> '  + aiGaps.replace(/\|/g, '<br>• ') + '</p>' : '') +
+    '<p style="margin-top:20px;"><a href="https://docs.google.com/spreadsheets/d/' + SHEET_ID + '" style="background:#1a6fc4;color:#fff;padding:10px 20px;border-radius:5px;text-decoration:none;font-size:13px;">📊 Xem danh sách hồ sơ</a></p>',
+    replyTo
+  );
 
-  const plainBody = `CÓ HỒ SƠ ỨNG TUYỂN MỚI\n\nVị trí : ${data.job_title} (${data.job_id})\nỨng viên: ${data.full_name}\nEmail  : ${data.email}\nSĐT    : ${data.phone}\nFile CV : ${cvDriveUrl || '(không có)'}\n\nAI SCORE : ${scoreLabel}\nKẾT QUẢ  : ${recDisplay}\nTÓM TẮT  : ${aiSummary || 'N/A'}\nĐIỂM MẠNH: ${aiStrengths || 'N/A'}\nCÒN THIẾU: ${aiGaps || 'N/A'}\n\nXem chi tiết: https://docs.google.com/spreadsheets/d/${SHEET_ID}`;
+  const plainBody = 'CÓ HỒ SƠ ỨNG TUYỂN MỚI\n\nVị trí : ' + data.job_title + ' (' + data.job_id + ')\nỨng viên: ' + data.full_name + '\nEmail  : ' + data.email + '\nSĐT    : ' + data.phone + '\nFile CV : ' + (cvDriveUrl || '(không có)') + '\n\nAI SCORE : ' + scoreLabel + '\nKẾT QUẢ  : ' + recDisplay + '\nTÓM TẮT  : ' + (aiSummary || 'N/A') + '\nĐIỂM MẠNH: ' + (aiStrengths || 'N/A') + '\nCÒN THIẾU: ' + (aiGaps || 'N/A') + '\n\nXem chi tiết: https://docs.google.com/spreadsheets/d/' + SHEET_ID;
 
-  hrEmails.split(/[,;]+/).map(function(e) { return e.trim(); }).filter(Boolean).forEach(function(email) {
+  hrEmails.split(/[,;]+/).map(function(e) { return e.trim(); }).filter(Boolean).forEach(function(hrEmail) {
     MailApp.sendEmail({
-      to:       email,
+      to:       hrEmail,
+      name:     senderName,
+      replyTo:  data.email,       // HR reply thẳng về ứng viên
       subject:  '[Omega TD] Hồ sơ mới – ' + data.job_title + ' – ' + data.full_name,
       body:     plainBody,
       htmlBody: htmlBody
