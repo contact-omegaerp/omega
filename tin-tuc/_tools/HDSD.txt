@@ -11,3 +11,18 @@ Bước B — Bấm "⚡ Áp dụng thay đổi" (có thể preview trước b�
 Patch trực tiếp vào tin-tuc.html: inject endpoint tin-tuc/_tools/news-data.json vào hàm fetchAllArticles, thêm markers // [OMEGA-NEWS-STATIC-START]
 Sau bước này tin-tuc.html mới load đúng danh sách bài, filter category, submenu nav
 Lưu ý: Cả 2 bước cần tool đang trỏ đúng thư mục omega/ (đã chọn thư mục ở Panel 1 Setup). Nếu chưa chọn thì bước A sẽ download JSON về máy thay vì lưu thẳng vào file.
+
+Để tối ưu, tôi đề nghị chúng ta phân tích các vị trí có thể tuyển dụng, rồi tạo ra các html cố định lưu vào thư mục tin-tuc\, gồm 31 file cho khoảng 30 vị trí khả dĩ cho một công ty phần mềm như OMEGA.
+- file tuyen-dung-omega.html là file tổng các vị trí OMEGA tuyển dụng (master listing), file này cũng là file nằm vào mục nổi bật. File này cấu trúc thế nào bạn chủ động thiết kế
+- file tuyen-dung-xxx.html với xxx là slug của 30 vị trí khả dĩ
+
+Cấu trúc của master và bản tin con này sẽ được cập nhật đồng bộ với Google Sheet và app script trên đó
+Cấu trúc của html bản tin tuyển dụng từng vị trí này có thể cải biến lại từ cấu trúc chung của các html hiện hữu trong \tin-tuc\, có thể thêm nút apply (sẽ tương tác với Google Sheet), thêm nút trạng thái đang tuyển dụng để gây chú ý là Đang tuyển HOT, Đã hết hạn, ... gì đó chủ động
+Update các html này vào tin-tuc\_tools\news-data.json
+Lưu ý khi apply, data và cv tương ứng sẽ được đọc, được bóc tách, được đánh giá, được gửi đi gồm:
+- Gửi lời xác nhận đến ứng viên vừa nộp
+- Gửi điểm đánh giá hồ sơ nộp so với JD, tính thang điểm 10 và gửi đến danh sách email được cấu hình trong sheet. Việc chấm điểm này bằng AI, cấu hình AI nào, API key nào cũng được cấu hình trong sheet và lưu ý những thông tin cấu hình là bảo mật, không được render về html nào
+
+Luồng tổng thể như sau:
+- Người dùng truy cập đến tuyen-dung-omega.html xem tất cả các vị trí tuyển dụng
+Tuy nhiên khi render, mỗi html tuyển dụng cho từng vị trí này được cập nhật theo bảng dữ liệu
